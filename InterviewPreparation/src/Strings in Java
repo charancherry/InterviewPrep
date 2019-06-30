@@ -1,0 +1,65 @@
+
+Key Points on Strings in Java:
+
+-> String is not a primitive data type, but an object.
+-> String object is immutable in Java. So once created, we can’t change it.
+
+Benefits of String Immutability:
+
+-> Thread safety while working with strings in a multi-threaded environment.
+
+-> Strings can created in two ways.
+	
+	1. By using double quotes: 
+
+		The string object is created in the String Pool, when created this way.
+		Ex: String str1 = "Cherry";
+
+	2. By using new operator.
+
+		This is just like creating any other object to a class in java. 
+
+		Ex: String str2 = new String("Fruit");
+
+		A new string with value "Fruit" is created in the string pool. Then the String constructor is called by passing the string created in the above step. A new string is created in the heap space and its reference is assigned to str2. The string created in the first step is orphan and available for garbage collection. We ended up creating two strings when we wanted to create a single string in the heap area.
+
+Java String Pool:
+
+Java String Pool is the special area in the heap memory to store string objects.
+
+How Does Java String Pool Works?
+
+When we create a string literal, it’s stored in the string pool.
+If there is already a string with the same value in the string pool, then new string object is not created. The reference to the existing string object is returned.
+Java String Pool is a cache of string objects. It’s possible because string is immutable.
+If we create a string object using new operator, it’s created in the heap area. If we want to move it to the string pool, we can use intern() method.
+
+
+package net.javastring.strings;
+ 
+public class JavaStringPool {
+ 
+    public static void main(String[] args) {
+        String s1 = "Hello";  ----->  There is no string with the value “Hello” in the string pool. So a string “Hello” is created in the pool and its reference is assigned to s1.
+        String s2 = "Hello";  ----->  There is already a string with the value “Hello” in the string pool. The existing string reference is assigned to s2.
+        String s3 = new String("Hi"); ---> string s3 is created in the heap area because we are using the new operator.
+        String s4 = "Hi";     ------> new string with the value “Hi” is created in the pool and its reference is assigned to s4.
+ 
+        System.out.println("s1 == s2? " + (s1 == s2)); ------> returns true because both the variables are referring to the same string object.
+        System.out.println("s3 == s4? " + (s3 == s4)); ------> returns false because they point to the different string objects.
+ 
+        s3 = s3.intern();  ----> checks if there is any string in the pool with the value “Hi”? Since we already have a string with this value in the pool, its reference is returned and assigned to s3.
+        System.out.println("s3 == s4? " + (s3 == s4)); -------> returns true because both the variables are referring to the same string objects.
+ 
+    }
+ 
+}
+
+Benefits of Java String Pool:
+
+-> Java String Pool allows caching of string objects. This saves a lot of memory for JVM that can be used by other objects.
+-> Java String Pool helps in better performance of the application because of reusability. It saves time to create a new string if there is already a string present in the pool with the same value.
+
+
+
+
