@@ -34,4 +34,26 @@ public class JavaUtil {
 		}
 		return arr;
 	}
+	
+	public static int getMinEle(int[] arr) {
+		int min=Integer.MAX_VALUE;
+		int len=arr.length;
+		for(int i=0;i<len;i++) {
+			if(arr[i]<min) {
+				min=arr[i];
+			}
+		}
+		return min;
+	}
+	
+	public static int getMaxEle(int[] arr) {
+		int max=Integer.MIN_VALUE;
+		int len=arr.length;
+		for(int i=0;i<len;i++) {
+			if(arr[i]>max) {
+				max=arr[i];
+			}
+		}
+		return max;
+	}
 }
