@@ -22,6 +22,12 @@ public class JavaUtil {
 		arr[ind2]=temp;
 	}
 	
+	public static void charSwap(char[]arr,int ind1,int ind2) {
+		char temp=arr[ind1];
+		arr[ind1]=arr[ind2];
+		arr[ind2]=temp;
+	}
+	
 	public static int[] createArray(){
 		int len;
 		Scanner in=new Scanner(System.in);
@@ -55,5 +61,19 @@ public class JavaUtil {
 			}
 		}
 		return max;
+	}
+	
+	public static boolean isPerfectNumber(int n) {
+		boolean isPerfect=false;
+		int sum=0;
+		for(int i=n/2;i>0;i--) {
+			if(n%i==0) {
+				sum=sum+i;
+			}
+		}
+		if(sum==n) {
+			isPerfect=true;
+		}
+		return isPerfect;
 	}
 }

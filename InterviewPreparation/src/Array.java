@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import Utilities.JavaUtil;
-import org.json.*;
 import org.json.simple.JSONObject;
+
+import Utilities.JavaUtil;
 
 public class Array {
 
@@ -10,95 +11,134 @@ public class Array {
 
 		Scanner in = new Scanner(System.in);
 
-		int[] bubbleSortArray = JavaUtil.createArray();
-		System.out.println("Array befor Bubble Sorting is : ");
-		JavaUtil.print(bubbleSortArray);
-		bubbleSort(bubbleSortArray);
-		System.out.println("Array after Bubble Sorting is : ");
-		JavaUtil.print(bubbleSortArray);
-
-		int[] insertionSortArray =JavaUtil.createArray();
-		System.out.println("Array befor Insertin Sorting is : ");
-		JavaUtil.print(insertionSortArray);
-		insertionSort(insertionSortArray);
-		System.out.println("Array after Insertion Sort is : ");
-		JavaUtil.print(insertionSortArray);
-
-		int[] selectionSortArray =JavaUtil.createArray();
-		System.out.println("Array befor Selection Sort is : ");
-		JavaUtil.print(selectionSortArray);
-		selectionSort(selectionSortArray);
-		System.out.println("Array after Selection Sort is : ");
-		JavaUtil.print(selectionSortArray);
-
-		int[] countingSortArray =JavaUtil.createArray();
-		System.out.println("Array befor Counting Sort is : ");
-		JavaUtil.print(countingSortArray);
-		countingSort(countingSortArray);
-
-		int[] mergeSortArray =JavaUtil.createArray();
-		System.out.println("Array befor Merge Sort is : ");
-		JavaUtil.print(mergeSortArray);
-		mergeSort(mergeSortArray,0,mergeSortArray.length-1);
-		System.out.println("Array after Merge Sort is : ");
-		JavaUtil.print(mergeSortArray);		
-
-		int[] quickSortArray =JavaUtil.createArray();
-		System.out.println("Array befor Quick Sort is : ");
-		JavaUtil.print(quickSortArray);
-		quickSort(quickSortArray,0,quickSortArray.length-1);
-		System.out.println("Array after Quick Sort is : ");
-		JavaUtil.print(quickSortArray);		
-
-		int[] heapSortArray =JavaUtil.createArray();
-		System.out.println("Array befor Heap Sort is : ");
-		JavaUtil.print(heapSortArray);
-		heapSort(heapSortArray,heapSortArray.length);
-		System.out.println("Array after Merge Sort is : ");
-		JavaUtil.print(heapSortArray);		
-
-		int[] findkthSmallesstElement =JavaUtil.createArray();
-		System.out.println("Enter k value ");
-		int k = in.nextInt();
-		if(k>findkthSmallesstElement.length) {
-			System.out.println("Invalis k value");
-		}else {
-			int result=kthSmallestElement(findkthSmallesstElement,k);
-			System.out.println("kth smallest element is "+result);
-		}
-
-		int[]  findSubArrayWithGivenSum=JavaUtil.createArray();
-		int sum = in.nextInt();
-		findSubArrayWithGivenSum(findSubArrayWithGivenSum,sum);
-
-		int[]  findMaxSubArray=JavaUtil.createArray();
-		findMaxSubArray(findMaxSubArray);
-
-		int[]  findMinSubArray=JavaUtil.createArray();
-		findMinSubArray(findMinSubArray);
-
-		int[]  findMaxProductSubArray=JavaUtil.createArray();
-		findMaxProductSubArray(findMaxProductSubArray);
-
-
-		int[]  MaxSubArrayWithEqualNumberOfOneAndZero=JavaUtil.createArray();
-		MaxSubArrayWithEqualNumberOfOneAndZero(MaxSubArrayWithEqualNumberOfOneAndZero);
-
-		int[] numberOfPairsWithGivenSum = JavaUtil.createArray();
-		System.out.println("Enter the sum");
-		int sum = in.nextInt();
-		findNOOfPairsWithGivenSum(numberOfPairsWithGivenSum,sum);
-
-		int[] maxOfEachSubArrayOfSizeK=JavaUtil.createArray();
-		System.out.println("Enter K");
-		int k=in.nextInt();
-		maxOfEachSubArrayOfSizeK(maxOfEachSubArrayOfSizeK,k);
-
-		int[] rainTrappingArray = JavaUtil.createArray();
-		trapCount(rainTrappingArray);
-
-		int[] firstMissingPositiveInteger = JavaUtil.createArray();
-		firstMissingPositiveInteger(firstMissingPositiveInteger);
+//		int[] bubbleSortArray = JavaUtil.createArray();
+//		System.out.println("Array befor Bubble Sorting is : ");
+//		JavaUtil.print(bubbleSortArray);
+//		bubbleSort(bubbleSortArray);
+//		System.out.println("Array after Bubble Sorting is : ");
+//		JavaUtil.print(bubbleSortArray);
+//
+//		int[] insertionSortArray =JavaUtil.createArray();
+//		System.out.println("Array befor Insertin Sorting is : ");
+//		JavaUtil.print(insertionSortArray);
+//		insertionSort(insertionSortArray);
+//		System.out.println("Array after Insertion Sort is : ");
+//		JavaUtil.print(insertionSortArray);
+//
+//		int[] selectionSortArray =JavaUtil.createArray();
+//		System.out.println("Array befor Selection Sort is : ");
+//		JavaUtil.print(selectionSortArray);
+//		selectionSort(selectionSortArray);
+//		System.out.println("Array after Selection Sort is : ");
+//		JavaUtil.print(selectionSortArray);
+//
+//		int[] countingSortArray =JavaUtil.createArray();
+//		System.out.println("Array befor Counting Sort is : ");
+//		JavaUtil.print(countingSortArray);
+//		countingSort(countingSortArray);
+//
+//		int[] mergeSortArray =JavaUtil.createArray();
+//		System.out.println("Array befor Merge Sort is : ");
+//		JavaUtil.print(mergeSortArray);
+//		mergeSort(mergeSortArray,0,mergeSortArray.length-1);
+//		System.out.println("Array after Merge Sort is : ");
+//		JavaUtil.print(mergeSortArray);		
+//
+//		int[] quickSortArray =JavaUtil.createArray();
+//		System.out.println("Array befor Quick Sort is : ");
+//		JavaUtil.print(quickSortArray);
+//		quickSort(quickSortArray,0,quickSortArray.length-1);
+//		System.out.println("Array after Quick Sort is : ");
+//		JavaUtil.print(quickSortArray);		
+//
+//		int[] heapSortArray =JavaUtil.createArray();
+//		System.out.println("Array befor Heap Sort is : ");
+//		JavaUtil.print(heapSortArray);
+//		heapSort(heapSortArray,heapSortArray.length);
+//		System.out.println("Array after Merge Sort is : ");
+//		JavaUtil.print(heapSortArray);		
+//
+//		int[] findkthSmallesstElement =JavaUtil.createArray();
+//		System.out.println("Enter k value ");
+//		int k = in.nextInt();
+//		if(k>findkthSmallesstElement.length) {
+//			System.out.println("Invalis k value");
+//		}else {
+//			int result=kthSmallestElement(findkthSmallesstElement,k);
+//			System.out.println("kth smallest element is "+result);
+//		}
+//
+//		int[]  findSubArrayWithGivenSum=JavaUtil.createArray();
+//		int sum = in.nextInt();
+//		findSubArrayWithGivenSum(findSubArrayWithGivenSum,sum);
+//
+//		int[]  findMaxSubArray=JavaUtil.createArray();
+//		findMaxSubArray(findMaxSubArray);
+//
+//		int[]  findMinSubArray=JavaUtil.createArray();
+//		findMinSubArray(findMinSubArray);
+//
+//		int[]  findMaxProductSubArray=JavaUtil.createArray();
+//		findMaxProductSubArray(findMaxProductSubArray);
+//
+//
+//		int[]  MaxSubArrayWithEqualNumberOfOneAndZero=JavaUtil.createArray();
+//		MaxSubArrayWithEqualNumberOfOneAndZero(MaxSubArrayWithEqualNumberOfOneAndZero);
+//
+//		int[] numberOfPairsWithGivenSum = JavaUtil.createArray();
+//		System.out.println("Enter the sum");
+//		int sum = in.nextInt();
+//		findNOOfPairsWithGivenSum(numberOfPairsWithGivenSum,sum);
+//
+//		int[] maxOfEachSubArrayOfSizeK=JavaUtil.createArray();
+//		System.out.println("Enter K");
+//		int k=in.nextInt();
+//		maxOfEachSubArrayOfSizeK(maxOfEachSubArrayOfSizeK,k);
+//
+//		int[] rainTrappingArray = JavaUtil.createArray();
+//		trapCount(rainTrappingArray);
+//
+//		int[] firstMissingPositiveInteger = JavaUtil.createArray();
+//		firstMissingPositiveInteger(firstMissingPositiveInteger);
+//		
+//		medianOfTwoSortedArrays();
+//		
+//		insertNewInterval();
+//		
+//		int[] stockPrice=JavaUtil.createArray();
+//		bestTimeToBuyAndSellStocks(stockPrice);
+//		
+//		int[] binarySearchArray = JavaUtil.createArray();
+//		System.out.println("Enter the element to be searched");
+//		int k=in.nextInt();
+//		int index = binarySearch(binarySearchArray,0,binarySearchArray.length-1,k);
+//		if(index!=-1) {
+//			System.out.println("Element found at"+index);
+//		}else {
+//			System.out.println("Element Not found");
+//		}
+//
+//		int[] minimumInRotatedArray = JavaUtil.createArray();
+//		int index = minimumInRotatedArray(minimumInRotatedArray,0,minimumInRotatedArray.length-1);
+//		if(index!=-1) {
+//			System.out.println("Min Element found at"+index);
+//		}else {
+//			System.out.println("Min Element Not found");
+//		}
+//		
+//		int[] numberOfPairsWithGivenSum = JavaUtil.createArray();
+//		System.out.println("Enter the sum");
+//		int sum = in.nextInt();
+//		findNOOfPairsWithGivenSumUsingSorting(numberOfPairsWithGivenSum,sum);
+		
+//		int[] tripletsWithSumZero = JavaUtil.createArray();
+//		printAllTripletsWithSumZero(tripletsWithSumZero);
+		
+//		int[] leastCommonMultiple = JavaUtil.createArray();
+//		leastCommonMultiple(leastCommonMultiple);
+		
+		int[] sumOfPerfectNumbers = JavaUtil.createArray();
+		sumOfPerfectNumbers(sumOfPerfectNumbers);
 
 	}
 
@@ -198,7 +238,7 @@ public class Array {
 
 	public static void mergeSort(int[] arr,int l,int r){
 		if(l<r) {
-			int mid=(l+(r-1))/2;
+			int mid=(l+r)/2;
 			mergeSort(arr,l,mid);
 			mergeSort(arr,mid+1,r);
 			merge(arr,l,mid,r);
@@ -463,4 +503,245 @@ public class Array {
 		}
 		System.out.println("max product is "+maxProduct+" start index is "+start+" end is "+end);
 	}
+	
+	/***  There is another method which will not use xtra space and it is done by comparing medians of two arrays
+	 *    https://www.geeksforgeeks.org/median-of-two-sorted-arrays/
+	 */
+	public static void medianOfTwoSortedArrays() {
+		int[] arr1 = JavaUtil.createArray();
+		int[] arr2 = JavaUtil.createArray();
+		int l1=arr1.length;
+		int l2=arr2.length;
+		int[] arr3=new int[l1+l2];
+		int i=0,j=0,k=0;
+		while(i<l1&&j<l2) {
+			if(arr1[i]<arr2[j]) {
+				arr3[k]=arr1[i];
+				i++;
+			}else {
+				arr3[k]=arr2[j];
+				j++;
+			}
+			k++;
+		}
+		while(i<l1) {
+			arr3[k]=arr1[i];
+			i++;
+			k++;
+		}
+		while(j<l2) {
+			arr3[k]=arr2[j];
+			j++;
+			k++;
+		}
+		if(k%2==0) {
+			System.out.println("Median is"+((arr3[k/2])+arr3[k/2-1])/2);
+		}else {
+			System.out.println("Median is"+arr3[k/2]);
+		}
+	}
+	
+	public static void insertNewInterval() {
+		Scanner in = new Scanner(System.in);
+		int start=-1,end=-1;
+		System.out.println("Enter no of intervals");
+		int noOfIntervals=in.nextInt();
+		int[][] input = new int[noOfIntervals][2];
+		for(int i=0;i<noOfIntervals;i++) {
+			for(int j=0;j<2;j++) {
+				input[i][j]=in.nextInt();
+			}
+		}
+		int[] newInterval=new int[2];
+		System.out.println("Enter new interval");
+		newInterval[0]=in.nextInt();
+		newInterval[1]=in.nextInt();
+		for(int i=0;i<noOfIntervals;i++) {
+				if(input[i][0]<=newInterval[0]&&newInterval[0]<=input[i][1]) {
+					start=i;
+				}
+				if(input[i][0]<=newInterval[1]&&newInterval[1]<=input[i][1]) {
+					end=i;
+				}
+		}
+		if(end==-1) {
+			input[start][1]=newInterval[1];
+			for(int i=0;i<noOfIntervals;i++) {
+				System.out.println("["+input[i][0]+","+input[i][1]+"]");
+			}
+		}else if(end !=-1 && end != start) {
+			input[start][1] = input[end][1];
+			for(int i=0;i<noOfIntervals;i++) {
+				if(i<=start || i>end)
+				System.out.println("["+input[i][0]+","+input[i][1]+"]");
+			}
+		}else if(start==-1 && end==-1) {
+			if(newInterval[0]<input[0][0]) {
+				System.out.println("["+newInterval[0]+","+newInterval[1]+"] ");
+				for(int i=0;i<noOfIntervals;i++) {
+					System.out.println("["+input[i][0]+","+input[i][1]+"]");
+				}
+			}else if(newInterval[1]>input[noOfIntervals][1]) {
+				for(int i=0;i<noOfIntervals;i++) {
+					System.out.println("["+input[i][0]+","+input[i][1]+"]");
+				}
+				System.out.println("["+newInterval[0]+","+newInterval[1]+"] ");
+			}
+		}
+	}
+	
+	public static void bestTimeToBuyAndSellStocks(int[] arr) {
+		ArrayList<int[]> input = new ArrayList<int[]>();
+		int profit=0,max_profit=0,ind_max_profit=0;
+		for(int i=0;i<arr.length-1;i++) {
+			max_profit=0;
+			for(int j=i+1;j<arr.length;j++) {
+				profit=arr[j]-arr[i];
+				if(max_profit<profit) {
+					max_profit=profit;
+					int arr1[]= {i,j,profit};
+					input.add(arr1);
+					if(ind_max_profit<profit) {
+						ind_max_profit=profit;
+					}
+				}
+			}
+		}
+		max_profit=0;
+		for(int i=0;i<input.size();i++) {
+			for(int j=i+1;j<input.size();j++) {
+				int end=input.get(i)[1];
+				int start = input.get(j)[0];
+				if(Integer.valueOf(input.get(i)[1])<Integer.valueOf(input.get(j)[0])) {
+					profit = input.get(i)[2]+input.get(j)[2];
+					if(max_profit<profit) {
+						max_profit=profit;
+					}
+				}
+			}
+		}
+		if(max_profit<ind_max_profit) {
+			max_profit=ind_max_profit;
+		}
+		System.out.println("Maximum profir is"+max_profit);
+	}
+	
+	public static int binarySearch(int[] arr,int l,int r,int k) {
+		if(l<=r) {
+			int mid=(l+r)/2;
+			if(arr[mid]==k) {
+				System.out.println("Element found at"+mid);
+				return mid;
+			}
+			if(k<arr[mid]) {
+				return binarySearch(arr,l,mid-1,k);
+			}else {
+				return binarySearch(arr,mid+1,r,k);
+			}
+		}
+		return -1;
+	}
+	
+	
+	//****  Refer***/ 
+	public static int minimumInRotatedArray(int[] arr,int l,int r) {
+		if(l<=r) {
+			if(l==r) {
+				return l;
+			}
+			int mid=(l+r)/2;
+			if(mid==0) {
+				return mid;
+			}
+			if(arr[mid]<arr[mid-1]) {
+				return mid;
+			}
+			if(arr[mid]>arr[r]) {
+				return minimumInRotatedArray(arr,mid+1,r);
+			}else {
+				return minimumInRotatedArray(arr,l,mid-1);
+			}
+		}
+		return -1;
+
+	}
+	
+	public static void findNOOfPairsWithGivenSumUsingSorting(int[] arr,int sum) {
+		quickSort(arr,0,arr.length-1);
+		int count=0;
+		int l=0,r=arr.length-1;
+		while(l<r) {
+			if((arr[l]+arr[r]==sum)){
+				System.out.println("pair is "+arr[l]+"and "+arr[r]);
+				count++;
+			}
+			if((arr[l]+arr[r]>sum)) {
+				r--;
+			}else {
+				l++;
+			}
+		}
+		if(count==0) {
+			System.out.println("No such pairs found");
+		}
+	}
+	
+	public static void printAllTripletsWithSumZero(int[] arr) {
+		quickSort(arr,0,arr.length-1);
+		int count=0;
+		for(int i=0;i<arr.length-2;i++) {
+			int l=i+1,r=arr.length-1;
+			while(l<r) {
+				if((arr[l]+arr[r]==-arr[i])){
+					System.out.println("Triplet is "+arr[i]+" , "+arr[l]+" , "+arr[r]);
+					count++;
+				}
+				if((arr[l]+arr[r]>-arr[i])) {
+					r--;
+				}else {
+					l++;
+				}
+			}
+		}
+		if(count==0) {
+			System.out.println("No such pairs found");
+		}
+	}
+	
+	public static void leastCommonMultiple(int[] arr) {
+		int max=JavaUtil.getMaxEle(arr);
+		int res=1,fac=2;
+		while(fac<=max) {
+			ArrayList<Integer> multiples=new ArrayList<Integer>();
+			for(int i=0;i<arr.length;i++) {
+				if(arr[i]%fac==0) {
+					multiples.add(i);
+				}
+			}
+				if(multiples.size()>1) {
+					for(int j=0;j<multiples.size();j++) {
+						arr[multiples.get(j)]= arr[multiples.get(j)]/fac;
+					}
+					res=res*fac;
+					max=JavaUtil.getMaxEle(arr);
+				}else {
+					fac++;
+				}
+		}
+		for(int i=0;i<arr.length;i++) {
+			res=res*arr[i];
+		}
+		System.out.println("LCM of given array is "+res);
+	}
+	
+	public static void sumOfPerfectNumbers(int[] arr) {
+		int sum=0;
+		for(int i=0;i<arr.length;i++) {
+			if(JavaUtil.isPerfectNumber(arr[i])) {
+				sum=sum+arr[i];
+			}
+		}
+		System.out.println("Sum of perfect numbers is "+sum);
+	}
+	
 }
