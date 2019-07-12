@@ -136,9 +136,12 @@ public class Array {
 		
 //		int[] leastCommonMultiple = JavaUtil.createArray();
 //		leastCommonMultiple(leastCommonMultiple);
+//		
+//		int[] sumOfPerfectNumbers = JavaUtil.createArray();
+//		sumOfPerfectNumbers(sumOfPerfectNumbers);
 		
-		int[] sumOfPerfectNumbers = JavaUtil.createArray();
-		sumOfPerfectNumbers(sumOfPerfectNumbers);
+		int[] numbers = JavaUtil.createArray();
+		numbersInAscOrderContains123(numbers);
 
 	}
 
@@ -742,6 +745,48 @@ public class Array {
 			}
 		}
 		System.out.println("Sum of perfect numbers is "+sum);
+	}
+	
+	public static boolean isValid(int n) {
+		boolean isOne=false,isTwo=false,isThree=false;
+		while(n!=0) {
+			if(n%10==1)isOne=true;
+			if(n%10==2)isTwo=true;
+			if(n%10==3)isThree=true;
+			n=n/10;
+		}
+		if(isOne && isTwo && isThree) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
+	/****  https://www.geeksforgeeks.org/print-number-ascending-order-contains-1-2-3-digits/  ***/
+	public static void numbersInAscOrderContains123(int[] arr) {
+		ArrayList<Integer> nums=new ArrayList<Integer>();
+		for(int i=0;i<arr.length;i++) {
+			if(isValid(arr[i])) {
+				nums.add(arr[i]);
+			}
+		}
+		if(nums.size()>0) {
+			for(int i=1;i<nums.size();i++) {
+				int j=i-1;
+				int key=nums.get(i);
+				while(j>=0 && nums.get(j)>key) {
+					nums.set(j+1, nums.get(j));
+					j--;
+				}
+				nums.set(j+1, key);
+			}
+			for(int i=0;i<nums.size();i++) {
+				System.out.println(nums.get(i));
+			}
+		}else {
+			System.out.println("-1");
+		}
 	}
 	
 }
