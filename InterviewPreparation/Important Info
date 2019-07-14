@@ -1,0 +1,11 @@
+
+
+Does Java pass by reference or pass by value??????
+why won't a swap function work
+
+Java Uses pass by value.
+https://www.javaworld.com/article/2077424/learn-java-does-java-pass-by-reference-or-pass-by-value.html
+
+
+Swapping primitives and objects in java
+https://www.techiedelight.com/swapping-primitives-objects-java/

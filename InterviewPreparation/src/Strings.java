@@ -10,74 +10,74 @@ public class Strings {
 	public static void main(String[] args) throws JSONException {
 		Scanner in = new Scanner(System.in);
 		
-//		System.out.println("Enter String to be reversed");
-//		String str= in.nextLine();
-//		str = reverseString(str);
-//		System.out.println("Reversed String is "+str);
-//		
-//		System.out.println("Enter the strings to be added");
-//		String str1 = in.nextLine();
-//		String str2 = in.nextLine();
-//		addStrings(str1,str2);
-//		
-//		System.out.println("Enter the string");
-//		String str = in.nextLine();
-//		firstNonReapeatingChar(str.toCharArray());
-//		
-//		System.out.println("Enter the string");
-//		String str = in.nextLine();
-//		System.out.println("Enter K");
-//		int k=in.nextInt();
-//		kthCharInDecryptedString(str.toCharArray(),k);
-//
-//		System.out.println("Enter the strings");
-//		String str1 = in.nextLine();
-//		String str2 = in.nextLine();
-//		oneXtraCharInString(str1.toCharArray(),str2.toCharArray());
-//		
-//		System.out.println("Enter the string");
-//		String str = in.nextLine();
-//		System.out.println("Enter the index from where string to be reversed");
-//		int ind=in.nextInt();
-//		reverseStringFromParticularIndex(str.toCharArray(),ind);
-//
-//		System.out.println("Enter the string");
-//		String str = in.nextLine();
-//		printAllPermutations(str.toCharArray(),0,str.length()-1);
-//		
-//		System.out.println("Enter the number");
-//		long num=in.nextInt();
-//		maxNumberFromGivenNum(num);
-//		
-//		System.out.println("Enter the number");
-//		int num=in.nextInt();
-//		findnearestPalyndrome(num);
-//		
-//		System.out.println("Enter the strings");
-//		String str = in.nextLine();
-//		reverseWordsInStrinf(str.toCharArray());
-//		
-//		System.out.println("Enter the string");
-//		String str=in.next();
-//		toUppercase(str.toCharArray());
-//		
-//		System.out.println("Enter the string");
-//		String str=in.next();
-//		checkIfParenthesisAreBalanced(str.toCharArray());
-//		
-//		System.out.println("Enter No of strings");
-//		int n= in.nextInt();
-//		System.out.println("Enter the strings");
-//		ArrayList<char[]> strings=new ArrayList<char[]>();
-//		for(int i=0;i<n;i++) {
-//			String str=in.next();
-//			strings.add(str.toCharArray());
-//		}
-//		sortWords(strings);
-//		
-//		System.out.println("Enter the string");
-//		String str=in.next();
-//		sortStringFollowedByIntegerSum(str.toCharArray());
+		System.out.println("Enter String to be reversed");
+		String str= in.nextLine();
+		str = reverseString(str);
+		System.out.println("Reversed String is "+str);
+		
+		System.out.println("Enter the strings to be added");
+		String str1 = in.nextLine();
+		String str2 = in.nextLine();
+		addStrings(str1,str2);
+		
+		System.out.println("Enter the string");
+		String str = in.nextLine();
+		firstNonReapeatingChar(str.toCharArray());
+		
+		System.out.println("Enter the string");
+		String str = in.nextLine();
+		System.out.println("Enter K");
+		int k=in.nextInt();
+		kthCharInDecryptedString(str.toCharArray(),k);
+
+		System.out.println("Enter the strings");
+		String str1 = in.nextLine();
+		String str2 = in.nextLine();
+		oneXtraCharInString(str1.toCharArray(),str2.toCharArray());
+		
+		System.out.println("Enter the string");
+		String str = in.nextLine();
+		System.out.println("Enter the index from where string to be reversed");
+		int ind=in.nextInt();
+		reverseStringFromParticularIndex(str.toCharArray(),ind);
+
+		System.out.println("Enter the string");
+		String str = in.nextLine();
+		printAllPermutations(str.toCharArray(),0,str.length()-1);
+		
+		System.out.println("Enter the number");
+		long num=in.nextInt();
+		maxNumberFromGivenNum(num);
+		
+		System.out.println("Enter the number");
+		int num=in.nextInt();
+		findnearestPalyndrome(num);
+		
+		System.out.println("Enter the strings");
+		String str = in.nextLine();
+		reverseWordsInStrinf(str.toCharArray());
+		
+		System.out.println("Enter the string");
+		String str=in.next();
+		toUppercase(str.toCharArray());
+		
+		System.out.println("Enter the string");
+		String str=in.next();
+		checkIfParenthesisAreBalanced(str.toCharArray());
+		
+		System.out.println("Enter No of strings");
+		int n= in.nextInt();
+		System.out.println("Enter the strings");
+		ArrayList<char[]> strings=new ArrayList<char[]>();
+		for(int i=0;i<n;i++) {
+			String str=in.next();
+			strings.add(str.toCharArray());
+		}
+		sortWords(strings);
+		
+		System.out.println("Enter the string");
+		String str=in.next();
+		sortStringFollowedByIntegerSum(str.toCharArray());
 		
 		System.out.println("Enter the Number");
 		int n=in.nextInt();
@@ -239,8 +239,6 @@ public class Strings {
 	
 	public static void printAllPermutations(char[] arr,int l,int r) {
 		if(l==r) {
-//			int number=number(arr,0,r);
-//			System.out.println("Number is "+number);
 			System.out.println(new String(arr));
 		}else {
 			for(int i=l;i<=r;i++) {

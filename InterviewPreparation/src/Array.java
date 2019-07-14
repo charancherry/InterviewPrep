@@ -11,137 +11,141 @@ public class Array {
 
 		Scanner in = new Scanner(System.in);
 
-//		int[] bubbleSortArray = JavaUtil.createArray();
-//		System.out.println("Array befor Bubble Sorting is : ");
-//		JavaUtil.print(bubbleSortArray);
-//		bubbleSort(bubbleSortArray);
-//		System.out.println("Array after Bubble Sorting is : ");
-//		JavaUtil.print(bubbleSortArray);
-//
-//		int[] insertionSortArray =JavaUtil.createArray();
-//		System.out.println("Array befor Insertin Sorting is : ");
-//		JavaUtil.print(insertionSortArray);
-//		insertionSort(insertionSortArray);
-//		System.out.println("Array after Insertion Sort is : ");
-//		JavaUtil.print(insertionSortArray);
-//
-//		int[] selectionSortArray =JavaUtil.createArray();
-//		System.out.println("Array befor Selection Sort is : ");
-//		JavaUtil.print(selectionSortArray);
-//		selectionSort(selectionSortArray);
-//		System.out.println("Array after Selection Sort is : ");
-//		JavaUtil.print(selectionSortArray);
-//
-//		int[] countingSortArray =JavaUtil.createArray();
-//		System.out.println("Array befor Counting Sort is : ");
-//		JavaUtil.print(countingSortArray);
-//		countingSort(countingSortArray);
-//
-//		int[] mergeSortArray =JavaUtil.createArray();
-//		System.out.println("Array befor Merge Sort is : ");
-//		JavaUtil.print(mergeSortArray);
-//		mergeSort(mergeSortArray,0,mergeSortArray.length-1);
-//		System.out.println("Array after Merge Sort is : ");
-//		JavaUtil.print(mergeSortArray);		
-//
-//		int[] quickSortArray =JavaUtil.createArray();
-//		System.out.println("Array befor Quick Sort is : ");
-//		JavaUtil.print(quickSortArray);
-//		quickSort(quickSortArray,0,quickSortArray.length-1);
-//		System.out.println("Array after Quick Sort is : ");
-//		JavaUtil.print(quickSortArray);		
-//
-//		int[] heapSortArray =JavaUtil.createArray();
-//		System.out.println("Array befor Heap Sort is : ");
-//		JavaUtil.print(heapSortArray);
-//		heapSort(heapSortArray,heapSortArray.length);
-//		System.out.println("Array after Merge Sort is : ");
-//		JavaUtil.print(heapSortArray);		
-//
-//		int[] findkthSmallesstElement =JavaUtil.createArray();
-//		System.out.println("Enter k value ");
-//		int k = in.nextInt();
-//		if(k>findkthSmallesstElement.length) {
-//			System.out.println("Invalis k value");
-//		}else {
-//			int result=kthSmallestElement(findkthSmallesstElement,k);
-//			System.out.println("kth smallest element is "+result);
-//		}
-//
-//		int[]  findSubArrayWithGivenSum=JavaUtil.createArray();
-//		int sum = in.nextInt();
-//		findSubArrayWithGivenSum(findSubArrayWithGivenSum,sum);
-//
-//		int[]  findMaxSubArray=JavaUtil.createArray();
-//		findMaxSubArray(findMaxSubArray);
-//
-//		int[]  findMinSubArray=JavaUtil.createArray();
-//		findMinSubArray(findMinSubArray);
-//
-//		int[]  findMaxProductSubArray=JavaUtil.createArray();
-//		findMaxProductSubArray(findMaxProductSubArray);
-//
-//
-//		int[]  MaxSubArrayWithEqualNumberOfOneAndZero=JavaUtil.createArray();
-//		MaxSubArrayWithEqualNumberOfOneAndZero(MaxSubArrayWithEqualNumberOfOneAndZero);
-//
-//		int[] numberOfPairsWithGivenSum = JavaUtil.createArray();
-//		System.out.println("Enter the sum");
-//		int sum = in.nextInt();
-//		findNOOfPairsWithGivenSum(numberOfPairsWithGivenSum,sum);
-//
-//		int[] maxOfEachSubArrayOfSizeK=JavaUtil.createArray();
-//		System.out.println("Enter K");
-//		int k=in.nextInt();
-//		maxOfEachSubArrayOfSizeK(maxOfEachSubArrayOfSizeK,k);
-//
-//		int[] rainTrappingArray = JavaUtil.createArray();
-//		trapCount(rainTrappingArray);
-//
-//		int[] firstMissingPositiveInteger = JavaUtil.createArray();
-//		firstMissingPositiveInteger(firstMissingPositiveInteger);
-//		
-//		medianOfTwoSortedArrays();
-//		
-//		insertNewInterval();
-//		
-//		int[] stockPrice=JavaUtil.createArray();
-//		bestTimeToBuyAndSellStocks(stockPrice);
-//		
-//		int[] binarySearchArray = JavaUtil.createArray();
-//		System.out.println("Enter the element to be searched");
-//		int k=in.nextInt();
-//		int index = binarySearch(binarySearchArray,0,binarySearchArray.length-1,k);
-//		if(index!=-1) {
-//			System.out.println("Element found at"+index);
-//		}else {
-//			System.out.println("Element Not found");
-//		}
-//
-//		int[] minimumInRotatedArray = JavaUtil.createArray();
-//		int index = minimumInRotatedArray(minimumInRotatedArray,0,minimumInRotatedArray.length-1);
-//		if(index!=-1) {
-//			System.out.println("Min Element found at"+index);
-//		}else {
-//			System.out.println("Min Element Not found");
-//		}
-//		
-//		int[] numberOfPairsWithGivenSum = JavaUtil.createArray();
-//		System.out.println("Enter the sum");
-//		int sum = in.nextInt();
-//		findNOOfPairsWithGivenSumUsingSorting(numberOfPairsWithGivenSum,sum);
+		int[] bubbleSortArray = JavaUtil.createArray();
+		System.out.println("Array befor Bubble Sorting is : ");
+		JavaUtil.print(bubbleSortArray);
+		bubbleSort(bubbleSortArray);
+		System.out.println("Array after Bubble Sorting is : ");
+		JavaUtil.print(bubbleSortArray);
+
+		int[] insertionSortArray =JavaUtil.createArray();
+		System.out.println("Array befor Insertin Sorting is : ");
+		JavaUtil.print(insertionSortArray);
+		insertionSort(insertionSortArray);
+		System.out.println("Array after Insertion Sort is : ");
+		JavaUtil.print(insertionSortArray);
+
+		int[] selectionSortArray =JavaUtil.createArray();
+		System.out.println("Array befor Selection Sort is : ");
+		JavaUtil.print(selectionSortArray);
+		selectionSort(selectionSortArray);
+		System.out.println("Array after Selection Sort is : ");
+		JavaUtil.print(selectionSortArray);
+
+		int[] countingSortArray =JavaUtil.createArray();
+		System.out.println("Array befor Counting Sort is : ");
+		JavaUtil.print(countingSortArray);
+		countingSort(countingSortArray);
+
+		int[] mergeSortArray =JavaUtil.createArray();
+		System.out.println("Array befor Merge Sort is : ");
+		JavaUtil.print(mergeSortArray);
+		mergeSort(mergeSortArray,0,mergeSortArray.length-1);
+		System.out.println("Array after Merge Sort is : ");
+		JavaUtil.print(mergeSortArray);		
+
+		int[] quickSortArray =JavaUtil.createArray();
+		System.out.println("Array befor Quick Sort is : ");
+		JavaUtil.print(quickSortArray);
+		quickSort(quickSortArray,0,quickSortArray.length-1);
+		System.out.println("Array after Quick Sort is : ");
+		JavaUtil.print(quickSortArray);		
+
+		int[] heapSortArray =JavaUtil.createArray();
+		System.out.println("Array befor Heap Sort is : ");
+		JavaUtil.print(heapSortArray);
+		heapSort(heapSortArray,heapSortArray.length);
+		System.out.println("Array after Merge Sort is : ");
+		JavaUtil.print(heapSortArray);		
+
+		int[] findkthSmallesstElement =JavaUtil.createArray();
+		System.out.println("Enter k value ");
+		int k = in.nextInt();
+		if(k>findkthSmallesstElement.length) {
+			System.out.println("Invalis k value");
+		}else {
+			int result=kthSmallestElement(findkthSmallesstElement,k);
+			System.out.println("kth smallest element is "+result);
+		}
+
+		int[]  findSubArrayWithGivenSum=JavaUtil.createArray();
+		int sum = in.nextInt();
+		findSubArrayWithGivenSum(findSubArrayWithGivenSum,sum);
+
+		int[]  findMaxSubArray=JavaUtil.createArray();
+		findMaxSubArray(findMaxSubArray);
+
+		int[]  findMinSubArray=JavaUtil.createArray();
+		findMinSubArray(findMinSubArray);
+
+		int[]  findMaxProductSubArray=JavaUtil.createArray();
+		findMaxProductSubArray(findMaxProductSubArray);
+
+
+		int[]  MaxSubArrayWithEqualNumberOfOneAndZero=JavaUtil.createArray();
+		MaxSubArrayWithEqualNumberOfOneAndZero(MaxSubArrayWithEqualNumberOfOneAndZero);
+
+		int[] numberOfPairsWithGivenSum = JavaUtil.createArray();
+		System.out.println("Enter the sum");
+		int sum = in.nextInt();
+		findNOOfPairsWithGivenSum(numberOfPairsWithGivenSum,sum);
+
+		int[] maxOfEachSubArrayOfSizeK=JavaUtil.createArray();
+		System.out.println("Enter K");
+		int k=in.nextInt();
+		maxOfEachSubArrayOfSizeK(maxOfEachSubArrayOfSizeK,k);
+
+		int[] rainTrappingArray = JavaUtil.createArray();
+		trapCount(rainTrappingArray);
+
+		int[] firstMissingPositiveInteger = JavaUtil.createArray();
+		firstMissingPositiveInteger(firstMissingPositiveInteger);
 		
-//		int[] tripletsWithSumZero = JavaUtil.createArray();
-//		printAllTripletsWithSumZero(tripletsWithSumZero);
+		medianOfTwoSortedArrays();
 		
-//		int[] leastCommonMultiple = JavaUtil.createArray();
-//		leastCommonMultiple(leastCommonMultiple);
-//		
-//		int[] sumOfPerfectNumbers = JavaUtil.createArray();
-//		sumOfPerfectNumbers(sumOfPerfectNumbers);
+		insertNewInterval();
+		
+		int[] stockPrice=JavaUtil.createArray();
+		bestTimeToBuyAndSellStocks(stockPrice);
+		
+		int[] binarySearchArray = JavaUtil.createArray();
+		System.out.println("Enter the element to be searched");
+		int k=in.nextInt();
+		int index = binarySearch(binarySearchArray,0,binarySearchArray.length-1,k);
+		if(index!=-1) {
+			System.out.println("Element found at"+index);
+		}else {
+			System.out.println("Element Not found");
+		}
+
+		int[] minimumInRotatedArray = JavaUtil.createArray();
+		int index = minimumInRotatedArray(minimumInRotatedArray,0,minimumInRotatedArray.length-1);
+		if(index!=-1) {
+			System.out.println("Min Element found at"+index);
+		}else {
+			System.out.println("Min Element Not found");
+		}
+		
+		int[] numberOfPairsWithGivenSum = JavaUtil.createArray();
+		System.out.println("Enter the sum");
+		int sum = in.nextInt();
+		findNOOfPairsWithGivenSumUsingSorting(numberOfPairsWithGivenSum,sum);
+		
+		int[] tripletsWithSumZero = JavaUtil.createArray();
+		printAllTripletsWithSumZero(tripletsWithSumZero);
+		
+		int[] leastCommonMultiple = JavaUtil.createArray();
+		leastCommonMultiple(leastCommonMultiple);
+		
+		int[] sumOfPerfectNumbers = JavaUtil.createArray();
+		sumOfPerfectNumbers(sumOfPerfectNumbers);
 		
 		int[] numbers = JavaUtil.createArray();
 		numbersInAscOrderContains123(numbers);
+		
+		int[] numbers = JavaUtil.createArray();
+		replaceWithGreatestElementOnRightSide(numbers);
+
 
 	}
 
@@ -786,6 +790,20 @@ public class Array {
 			}
 		}else {
 			System.out.println("-1");
+		}
+	}
+	
+	public static void replaceWithGreatestElementOnRightSide(int[] nums) {
+		int max=nums[nums.length-1];
+		nums[nums.length-1]=-1;
+		for(int i=nums.length-2;i>=0;i--) {
+			int temp=nums[i];
+			nums[i]=max;
+			if(max<temp)
+				max=temp;
+		}
+		for(int i=0;i<nums.length;i++) {
+			System.out.print(nums[i]);
 		}
 	}
 	
