@@ -423,6 +423,15 @@ public class LinkedList {
 		System.out.println("middle node is"+slow.data);
 	}
 	
+	public Node convertToCircular(Node head) {
+		Node temp=head;
+		while(temp.next!=null) {
+			temp=temp.next;
+		}
+		temp.next=head;
+		return head;
+	}
+	
 	public static void main(String[] args) {
 		LinkedList list=new LinkedList();
 		Scanner in=new Scanner(System.in);
@@ -468,6 +477,8 @@ public class LinkedList {
 		list.moveAllOccurancesToEnd(key);
 		list.print(list.head);
 		list.middle();
+		list.head=list.convertToCircular(list.head);
+		list.print(list.head);
 	}
 
 }
