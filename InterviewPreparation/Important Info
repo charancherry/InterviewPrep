@@ -13,3 +13,17 @@ https://www.techiedelight.com/swapping-primitives-objects-java/
 
 Strings in Java
 https://www.javastring.net/
+
+Number of binary trees possible with n unlabeled nodes is  2nCn/(n+1)
+
+Number of binary trees possible with n labeled nodes is n!*(2nCn/(n+1)) 
+
+Number of binary tree with given pre-order and n labeled nodes is 2nCn/(n+1)
+
+Number of binary tree with given pre-order and post-order and n labeled nodes will be more than unique.
+
+Number of binary tree with given pre-order,in-order and post-order and n labeled nodes will be unique.
+
+Unique binary tree can be constructed with given pre and in order or post and in-order.
+
+No of BST possible with n distict keys is 2nCn/(n+1)
