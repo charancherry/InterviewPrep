@@ -9,10 +9,12 @@ import java.util.TreeMap;
 public class BinaryTree {
 	
 	Node root;
+	Node root1;
 	static int preIndex=0;
 	static int count=0;
 	static Node temp=null;
 	static int d=0;
+	static int max_sum=0;
 	static boolean isAtSameLevel=true;
 	static int max_level=0;
 	
@@ -439,7 +441,7 @@ public class BinaryTree {
 				System.out.println("Postorder successor of "+x+" is "+root.data);
 			}else if(root.left==temp) {
 				int succ=minLeftNode(root.right);
-				System.out.println("Inorder Sucessor of "+x+" is "+succ);
+				System.out.println("Postorder Sucessor of "+x+" is "+succ);
 			}
 			
 		}
@@ -576,7 +578,127 @@ public class BinaryTree {
 		NodesAtParticulardistanceFromrRoot(root.left,x-1);
 		NodesAtParticulardistanceFromrRoot(root.right,x-1);
 	}
+		
+	/*******************  https://www.geeksforgeeks.org/print-path-root-given-node-binary-tree/  ****************/
+	public boolean findPath(Node root,int x) {
+		Node current=root;
+		boolean lFound,rFound;
+		if(current==null) {
+			return false;
+		}
+		int da=current.data;
+		if(current.data==x) {
+			System.out.print(current.data+" ");
+			temp=current;
+			return true;
+		}else {
+			lFound=findPath(current.left,x);
+			rFound=findPath(current.right,x);
+		}
+		if(lFound||rFound) {
+			System.out.print(current.data+" ");
+		}
+		return (lFound||rFound);
+	}
 	
+	
+	/******************* https://www.geeksforgeeks.org/check-root-leaf-path-given-sequence/ ******/
+	public boolean checkIfPathExistFromRootToLeafWithGivenSequence(Node root,int[] arr) {
+		boolean isNodeExist;
+		if(root==null)
+			return false;
+		if(root.data!=arr[0]) {
+			return false;
+		}
+		for(int i=1;i<arr.length;i++) {
+			isNodeExist=false;
+			if(root.left!=null && root.left.data==arr[i]) {
+				root=root.left;
+				isNodeExist=true;
+			}
+			if(root.right!=null && root.right.data==arr[i]) {
+				root=root.right;
+				isNodeExist=true;
+			}
+			if(!isNodeExist)
+				return false;
+		}
+		return true;
+	}
+	
+	public int sumOfAllNodes(Node root) {
+		if(root==null) {
+			return 0;
+		}
+		return root.data+sumOfAllNodes(root.left)+sumOfAllNodes(root.right);
+	}
+	
+	
+	/*****************************  https://www.geeksforgeeks.org/sum-parent-nodes-child-node-x/  *********************/
+	public int sumOfParentNodesWithGivenChild(Node root,int x) {
+		if(root==null) {
+			return 0;
+		}
+		return (root.data==x ? root.data:0)+sumOfParentNodesWithGivenChild(root.left,x)+sumOfParentNodesWithGivenChild(root.right,x);
+	}
+	
+	
+	/**********************  https://www.geeksforgeeks.org/find-largest-subtree-sum-tree/  *************************/
+	public int maxSubTreeSum(Node root) {
+		if(root==null) {
+			return 0;
+		}
+		int leftSum=maxSubTreeSum(root.left);
+		int rightSum=maxSubTreeSum(root.right);
+		if(max_sum<root.data+leftSum+rightSum) {
+			max_sum=root.data+leftSum+rightSum;
+		}
+		return root.data+leftSum+rightSum;
+	}
+	
+	/*****************************   https://www.geeksforgeeks.org/subtree-given-sum-binary-tree/     **************************/
+	public int checkSubtreeWithGivenSumExist(Node root,int x) {
+		if(root==null) {
+			return 0;
+		}
+		int sum=root.data+checkSubtreeWithGivenSumExist(root.left,x)+checkSubtreeWithGivenSumExist(root.right,x);
+		if(x==sum){
+			System.out.println("Subtree exist");
+		}
+		return sum;
+	}
+	
+	
+	/*************************  https://www.geeksforgeeks.org/sum-heights-individual-nodes-binary-tree/     *******************/
+	public int sumOfHeightsOfAllNodes(Node root) {
+		if(root==null) {
+			return 0;
+		}
+		return sumOfHeightsOfAllNodes(root.left)+height(root)+sumOfHeightsOfAllNodes(root.right);
+	}
+	
+	public int maxSumPathToLeafFromRoot(Node root) {
+		if(root==null) {
+			return 0;
+		}
+		int lSum=maxSumPathToLeafFromRoot(root.left)+root.data;
+		int rSum=maxSumPathToLeafFromRoot(root.right)+root.data;
+		return Math.max(lSum,rSum);
+	}
+	
+	/********************   https://www.geeksforgeeks.org/find-maximum-path-sum-two-leaves-binary-tree/       **************/
+	public int maxPathSumBetweenTwoLeafs(Node root) {
+		if(root==null) {
+			return 0;
+		}
+		int lSum=maxSumPathToLeafFromRoot(root.left);
+		int rSum=maxSumPathToLeafFromRoot(root.right);
+		int leftSum=maxPathSumBetweenTwoLeafs(root.left);
+		int rightSum=maxPathSumBetweenTwoLeafs(root.right);
+		return Math.max(root.data+lSum+rSum, Math.max(leftSum, rightSum));
+	}
+	
+	/***********************   https://www.geeksforgeeks.org/diameter-of-a-binary-tree/      **********************/
 	public int diameter(Node root) {
 		if(root==null) {
 			return 0;
@@ -587,6 +709,18 @@ public class BinaryTree {
 		int rDiameter=diameter(root.right);
 		return(Math.max(lHeight+rHeight+1,Math.max(lDiameter,rDiameter)));
 	}
+	
+	/**************************** https://www.geeksforgeeks.org/check-if-two-trees-are-mirror/  ***********************/
+	public boolean areMirror(Node root1,Node root2) {
+		if(root1==null&&root2==null) {
+			return true;
+		}
+		if(root1==null || root2==null) {
+			return false;
+		}
+		return root1.data==root2.data&&areMirror(root1.left,root2.right)&&areMirror(root1.right,root2.left);
+	}
+	
 
 	public static void main(String[] args) {
 		BinaryTree tree=new BinaryTree();
@@ -600,6 +734,17 @@ public class BinaryTree {
 		tree.root.right.right=new Node(27);
 		tree.root.right.left.left=new Node(5);
 		tree.root.right.left.right=new Node(6);
+		
+		tree.root1=new Node(20);
+		tree.root1.left=new Node(26);
+		tree.root1.right=new Node(10);
+		tree.root1.left.left=new Node(27);
+		tree.root1.left.right=new Node(24);
+		tree.root1.right.left=new Node(18);
+		tree.root1.right.right=new Node(4);
+		tree.root1.left.right.left=new Node(6);
+		tree.root1.left.right.right=new Node(5);
+		
 		//*********************  All Traversals  *******************/////////////
 		System.out.println("inorderTraversal is ");
 		tree.inorder(tree.root);
@@ -693,12 +838,42 @@ public class BinaryTree {
 		tree.inorder(tree.root);
 		int[] pre = {1,2,4,5,3,6};
 		int[] inOrder= {4,2,5,1,3,6};
-		tree.root=tree.buildTree(pre, inOrder, 0, pre.length-1);
-		tree.postOrder(tree.root);
-		
-		
-
-		
+		Node root3=tree.buildTree(pre, inOrder, 0, pre.length-1);
+		System.out.println("PostOrder of Given Inorder and preorder sequence is");
+		tree.postOrder(root3);
+		System.out.println();
+		boolean isPathExist=tree.findPath(tree.root, 24);
+		if(isPathExist) {
+			System.out.println();
+			System.out.println("Above is path from Root to given node");
+		}else {
+			System.out.println("Path doesn't exist");
 		}
-
+		System.out.println();
+		int[] arr= {20,26,24,5};
+		boolean isPathExists = tree.checkIfPathExistFromRootToLeafWithGivenSequence(tree.root, arr);
+		if(isPathExists) {
+			System.out.println("Path exist from Root to leaf with given sequence");
+		}else {
+			System.out.println("Path doesn't exist");
+		}
+		System.out.println("Sum of all nodes is "+tree.sumOfAllNodes(tree.root));
+		System.out.println("Sum of all parent nodes with given node is "+tree.sumOfParentNodesWithGivenChild(tree.root,18));
+		
+		Node root2=new Node(1);
+		root2.left=new Node(-2);
+		root2.right=new Node(3);
+		root2.left.left=new Node(4);
+		root2.left.right=new Node(5);
+		root2.right.left=new Node(-7);
+		root2.right.right=new Node(2);
+		tree.maxSubTreeSum(root2);
+		System.out.println("Largest Sum subtree  is "+tree.max_sum);
+		
+		tree.checkSubtreeWithGivenSumExist(tree.root, 100);
+		System.out.println("Sum of heights of all nodes is "+tree.sumOfHeightsOfAllNodes(tree.root));
+		System.out.println("Max sum path to leaf from root is "+tree.maxSumPathToLeafFromRoot(tree.root));
+		System.out.println("Max sum path between two leafs is "+tree.maxPathSumBetweenTwoLeafs(tree.root));
+		System.out.println("Two trees are mirror "+tree.areMirror(tree.root, tree.root1));
+	}
 }
