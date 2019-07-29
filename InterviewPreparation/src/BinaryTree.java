@@ -17,6 +17,7 @@ public class BinaryTree {
 	static int max_sum=0;
 	static boolean isAtSameLevel=true;
 	static int max_level=0;
+	static int deep_level=0;
 	
 	public static class Node{
 		int data;
@@ -723,8 +724,62 @@ public class BinaryTree {
 		return dist1+dist2-2*dist3;
 	}
 	
+	/***********************  https://www.geeksforgeeks.org/get-level-of-a-node-in-a-binary-tree/   *************************/
+	public void findLevel(Node root,int key,int level) {
+		if(root==null){
+			return;
+		}
+		if(root.data==key) {
+			System.out.println("Level of key is "+level);
+			return;
+		}else {
+			findLevel(root.left,key,level+1);
+			findLevel(root.right,key,level+1);
+		}
+	}
 	
+	/****************************   https://www.geeksforgeeks.org/largest-value-level-binary-tree-set-2-iterative-approach/  *************************/
+	public void findMaxAtEachLevel(Node root) {
+		if(root==null)
+			return;
+		Queue q=new LinkedList();
+		q.add(root);
+		int nodeCount=q.size();
+		while(!q.isEmpty()) {
+			int max=Integer.MIN_VALUE;
+			nodeCount=q.size();
+			while(nodeCount!=0) {
+				Node temp=(Node)q.peek();
+				q.remove();
+				if(max<temp.data)
+					max=temp.data;
+				if(temp.left!=null) {
+					q.add(temp.left);
+				}
+				if(temp.right!=null) {
+					q.add(temp.right);
+				}
+				nodeCount--;
+			}
+			System.out.println(max+" ");
+		}
+	}
 	
+	/********************************   https://www.geeksforgeeks.org/find-deepest-node-binary-tree/  ***************************/
+	public void deepestNode(Node root,int depth) {
+		if(root==null) {
+			return;
+		}
+		if(root.left==null && root.right==null) {
+			if(deep_level<depth) {
+				deep_level=depth;
+				temp=root;
+			}
+		}else {
+			deepestNode(root.left,depth+1);
+			deepestNode(root.right,depth+1);
+		}
+	}
 	/******************* https://www.geeksforgeeks.org/check-root-leaf-path-given-sequence/ ******/
 	public boolean checkIfPathExistFromRootToLeafWithGivenSequence(Node root,int[] arr) {
 		boolean isNodeExist;
@@ -1015,5 +1070,12 @@ public class BinaryTree {
 		System.out.println();
 		System.out.println("Distance from root to given node is "+tree.distanceFromRoot(tree.root, 4));
 		System.out.println("Distance between two nodes is "+tree.distanceBetweenTwoNodes(tree.root, 5,6));
+		System.out.println("Level of given node is ");
+		tree.findLevel(tree.root, 5, 1);
+		System.out.println();
+		System.out.println("Max Node in each level is ");
+		tree.findMaxAtEachLevel(tree.root);
+		tree.deepestNode(tree.root, 1);
+		System.out.println("Deepest Node is "+temp.data);
 	}
 }
