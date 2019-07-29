@@ -586,10 +586,8 @@ public class BinaryTree {
 		if(current==null) {
 			return false;
 		}
-		int da=current.data;
 		if(current.data==x) {
 			System.out.print(current.data+" ");
-			temp=current;
 			return true;
 		}else {
 			lFound=findPath(current.left,x);
@@ -600,6 +598,131 @@ public class BinaryTree {
 		}
 		return (lFound||rFound);
 	}
+	
+	public boolean findPathForLCA(Node root,int x,ArrayList path) {
+		Node current=root;
+		boolean lFound,rFound;
+		if(current==null) {
+			return false;
+		}
+		if(current.data==x) {
+			path.add(current.data);
+			return true;
+		}else {
+			lFound=findPathForLCA(current.left,x,path);
+			rFound=findPathForLCA(current.right,x,path);
+		}
+		if(lFound||rFound) {
+			path.add(current.data);
+		}
+		return (lFound||rFound);
+	}
+	
+	/*******************  https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/  **************************/
+	public int lowestCommonAncestor(Node root,int x1,int x2) {
+		int LCA=-1;
+		if(root==null) {
+			return -1;
+		}
+		ArrayList path1=new ArrayList();
+		ArrayList path2=new ArrayList();
+		if(!findPathForLCA(root,x1,path1) || !findPathForLCA(root,x2,path2)) {
+			return -1;
+		}
+		int i=path1.size()-1;
+		int j=path2.size()-1;
+		while(i>=0&&j>=0) {
+			if(path1.get(i)!=path2.get(j)) {
+				LCA=(int) path1.get(i+1);
+				break;
+			}
+			i--;
+			j--;
+		}
+		if(i==-1) {
+			LCA=(int) path1.get(0);
+		}
+		if(j==-1) {
+			LCA=(int) path2.get(0);
+		}
+		return LCA;
+	}
+	
+	/********************  https://www.geeksforgeeks.org/print-common-nodes-path-root-common-ancestors/   *******************/
+	public boolean commonAncestorsofGivenTwoNodes(Node root,int x1,int x2) {
+		if(root==null) {
+			return false;
+		}
+		ArrayList path1=new ArrayList();
+		ArrayList path2=new ArrayList();
+		if(!findPathForLCA(root,x1,path1) || !findPathForLCA(root,x2,path2)) {
+			return false;
+		}
+		int i=path1.size()-1;
+		int j=path2.size()-1;
+		while(i>=0&&j>=0) {
+			if(path1.get(i)!=path2.get(j)) {
+				for(int k=i+1;k<=path1.size()-1;k++) {
+					System.out.print(path1.get(k)+" ");
+				}
+				break;
+			}
+			i--;
+			j--;
+		}
+		if(i==-1) {
+			for(int k=i+1;k<=path1.size()-1;k++) {
+				System.out.print(path1.get(k)+" ");
+			}
+		}
+		if(j==-1) {
+			for(int k=j+1;k<=path2.size()-1;k++) {
+				System.out.print(path2.get(k)+" ");
+			}
+		}
+		return true;
+	}
+	
+	/************************  https://www.geeksforgeeks.org/find-distance-root-given-node-binary-tree/  **************************/
+	public int distanceFromRoot(Node root,int x) {
+		if(root==null) {
+			return 0;
+		}
+		Node current=root;
+		int  ldist=0,rdist=0;
+		if(current==null) {
+			return 0;
+		}
+		if(current.data==x) {
+			return 1;
+		}else {
+			ldist=distanceFromRoot(root.left,x);
+			rdist=distanceFromRoot(current.right,x);
+		}
+		if(ldist>0) {
+			ldist++;
+		}
+		if(rdist>0) {
+			rdist++;
+		}
+		return Math.max(ldist, rdist);
+	}
+	
+	/***********************   https://www.geeksforgeeks.org/find-distance-between-two-nodes-of-a-binary-tree/    *****************/
+	public int distanceBetweenTwoNodes(Node root,int x1,int x2) {
+		if(root==null) {
+			return -1;
+		}
+		int dist1= distanceFromRoot(root,x1);
+		int dist2=distanceFromRoot(root,x2);
+		if(dist1==0 || dist2==0) {
+			return 0;
+		}
+		int LCA=lowestCommonAncestor(root,x1,x2);
+		int dist3=distanceFromRoot(root,LCA);
+		return dist1+dist2-2*dist3;
+	}
+	
 	
 	
 	/******************* https://www.geeksforgeeks.org/check-root-leaf-path-given-sequence/ ******/
@@ -875,5 +998,22 @@ public class BinaryTree {
 		System.out.println("Max sum path to leaf from root is "+tree.maxSumPathToLeafFromRoot(tree.root));
 		System.out.println("Max sum path between two leafs is "+tree.maxPathSumBetweenTwoLeafs(tree.root));
 		System.out.println("Two trees are mirror "+tree.areMirror(tree.root, tree.root1));
+		System.out.println();
+		System.out.print("Lowest Common Ancestor of two nodes ");
+		int LCA = tree.lowestCommonAncestor(tree.root, 5,6);
+		if(LCA==-1) {
+			System.out.println("doesn't exist");
+		}else {
+			System.out.println(LCA);
+		}
+		
+		System.out.print("Common Ancestors of two nodes ");
+		boolean commonAncestorsExist = tree.commonAncestorsofGivenTwoNodes(tree.root, 5,6);
+		if(!commonAncestorsExist) {
+			System.out.println("doesn't exist");
+		}
+		System.out.println();
+		System.out.println("Distance from root to given node is "+tree.distanceFromRoot(tree.root, 4));
+		System.out.println("Distance between two nodes is "+tree.distanceBetweenTwoNodes(tree.root, 5,6));
 	}
 }
