@@ -11,6 +11,7 @@ public class BinaryTree {
 	Node root;
 	Node root1;
 	static int preIndex=0;
+	static int postIndex=0;
 	static int count=0;
 	static Node temp=null;
 	static int d=0;
@@ -123,15 +124,26 @@ public class BinaryTree {
 	public void preOrderWithoutRecurssion(Node root) {
 		Node current=root;
 		Stack s =new Stack();
-		while(current != null || !s.empty()) {
-			while(current!=null) {
-				System.out.print(current.data+" ");
-				s.push(current);
-				current=current.left;
+		s.push(root);
+		while(!s.isEmpty()) {
+			current=(Node)s.pop();
+			System.out.print(current.data+" ");
+			if(current.right!=null) {
+				s.push(current.right);
 			}
-			Node temp=(Node)s.pop();
-			current=temp.right;
+			if(current.left!=null) {
+				s.push(current.left);
+			}
 		}
+//		while(current != null || !s.empty()) {
+//			while(current!=null) {
+//				System.out.print(current.data+" ");
+//				s.push(current);
+//				current=current.left;
+//			}
+//			Node temp=(Node)s.pop();
+//			current=temp.right;
+//		}
 	}
 	
 	//*****************   https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/   *******************/
@@ -297,7 +309,7 @@ public class BinaryTree {
 			return 0;
 		}
 		System.out.print(root.data+" ");
-		return printAndCountAllNonLeafNodes(root.left)+printAndCountAllNonLeafNodes(root.right);
+		return 1+printAndCountAllNonLeafNodes(root.left)+printAndCountAllNonLeafNodes(root.right);
 	}
 	
 	public int countNoofNodes(Node root) {
@@ -348,6 +360,26 @@ public class BinaryTree {
 			return null;
 		}
 	}
+	
+	
+	/********************* https://www.geeksforgeeks.org/construct-a-binary-tree-from-postorder-and-inorder/  ******************/
+	public Node buildTreeFromPostAndInOrder(int[] post,int[] inOrder,int l,int r) {
+		if(l<=r) {
+			int index=search(inOrder,post[postIndex]);
+			postIndex--;
+			Node root=new Node(inOrder[index]);
+			if(l==r) {
+				return root;
+			}
+			root.right=buildTreeFromPostAndInOrder(post,inOrder,index+1,r);
+			root.left=buildTreeFromPostAndInOrder(post,inOrder,l,index-1);
+			return root;
+		}
+		else {
+			return null;
+		}	
+	}
+
 		
 	public void  nthNodeInInorder(Node root,int n) {
 		if(root!=null) {
@@ -449,20 +481,41 @@ public class BinaryTree {
 	}
 	
 	public void printRightSideNodes(Node root) {
+		if(root==null) {
+			return;
+		}
 		if(root.right!=null) {
 			printRightSideNodes(root.right);
-			System.out.print(root.data);
+			System.out.print(root.data+" ");
+		}
+		else if (root.left!=null) {
+			printRightSideNodes(root.left);
+			System.out.print(root.data+" ");
+		}
+	}
+	
+	public void printLeftSideNodes(Node root) {
+		if(root==null) {
+			return;
+		}
+		if(root.left!=null) {
+			System.out.print(root.data+" ");
+			printRightSideNodes(root.left);
+		}
+		else if(root.right!=null) {
+			System.out.print(root.data+" ");
+			printRightSideNodes(root.right);
 		}
 	}
 	
 	
 	/************************   https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/       ****************************/
 	public void boundaryTravaersal(Node root) {
-		Node temp=root;
-		while(temp.left!=null) {
-			System.out.print(temp.data+" ");
-			temp=temp.left;
+		if(root==null) {
+			return;
 		}
+		System.out.print(root.data+" ");
+		printLeftSideNodes(root.left);
 		printAndCountAllLeafNodes(root);
 		printRightSideNodes(root.right);
 	}
@@ -739,6 +792,8 @@ public class BinaryTree {
 	}
 	
 	/****************************   https://www.geeksforgeeks.org/largest-value-level-binary-tree-set-2-iterative-approach/  *************************/
+	
+	////////////////////////////////////////  Seeeeeeeeeeeee logiccccc /////////////////////////////////////////////////////////
 	public void findMaxAtEachLevel(Node root) {
 		if(root==null)
 			return;
@@ -899,6 +954,42 @@ public class BinaryTree {
 		return root1.data==root2.data&&areMirror(root1.left,root2.right)&&areMirror(root1.right,root2.left);
 	}
 	
+	
+	/***********************************8   https://www.geeksforgeeks.org/merge-two-binary-trees-node-sum/ *************/
+	public static Node mergeTwoTrees(Node root1,Node root2) {
+		if(root1==null) {
+			return root2;
+		}
+		if(root2==null) {
+			return root1;
+		}
+		root1.data=root1.data+root2.data;
+		root1.left=mergeTwoTrees(root1.left,root2.left);
+		root1.right=mergeTwoTrees(root1.right,root2.right);
+		return root1;
+	}
+	
+	public static boolean twoTreesAreIdentical(Node root1,Node root2) {
+		if((root1==null && root2!=null) || (root1!=null && root2 ==null)) {
+			return false;
+		}
+		if(root1==null && root2==null) {
+			return true;
+		}
+		return  (root1.data==root2.data) && twoTreesAreIdentical(root1.left,root2.left) && twoTreesAreIdentical(root1.right,root2.right);
+		
+	}
+	
+	/*********************   https://www.geeksforgeeks.org/check-for-children-sum-property-in-a-binary-tree/        ****************/
+	public static boolean isChildrenSumProperty(Node root) {
+		if(root==null) {
+			return false;
+		}
+		if(root.left==null&& root.right==null) {
+			return true;
+		}
+		return isChildrenSumProperty(root.left)&&isChildrenSumProperty(root.right)&&(root.data==(root.left!=null?root.left.data:0)+(root.right!=null?root.right.data:0));
+	}
 
 	public static void main(String[] args) {
 		BinaryTree tree=new BinaryTree();
@@ -912,170 +1003,199 @@ public class BinaryTree {
 		tree.root.right.right=new Node(27);
 		tree.root.right.left.left=new Node(5);
 		tree.root.right.left.right=new Node(6);
-		
-		tree.root1=new Node(20);
-		tree.root1.left=new Node(26);
-		tree.root1.right=new Node(10);
-		tree.root1.left.left=new Node(27);
-		tree.root1.left.right=new Node(24);
-		tree.root1.right.left=new Node(18);
-		tree.root1.right.right=new Node(4);
-		tree.root1.left.right.left=new Node(6);
-		tree.root1.left.right.right=new Node(5);
-		
-		//*********************  All Traversals  *******************/////////////
-		System.out.println("inorderTraversal is ");
-		tree.inorder(tree.root);
-		System.out.println();
-		System.out.println("InOrder traversal without recurssion is");
-		tree.inOrderWithoutRecursion(tree.root);
-		System.out.println();
-		System.out.println("InorderTraversal using Morris Algorithm without stack and recurssion is ");
-		tree.inOrderWithoutStackAndRecurssion(tree.root);
-		System.out.println();
-		System.out.println("preorderTraversal is ");
-		tree.preOrder(tree.root);
-		System.out.println();
-		System.out.println("preorderTraversal without recurssion is ");
-		tree.preOrderWithoutRecurssion(tree.root);
-		System.out.println();
-		System.out.println("preorderTraversal using Morris Algorithm without stack and recurssion is ");
-		tree.preOrderWithoutStackAndRecurssion(tree.root);
-		System.out.println();
-		System.out.println("postorderTraversal is ");
-		tree.postOrder(tree.root);
-		System.out.println();
-		System.out.println("postorderTraversal without recurssion is ");
-		tree.postOrderWithoutRecurssion(tree.root);
-		System.out.println();
-		System.out.println("Level Order traversal of tree is");
-		tree.printLevelOrder(tree.root);
-		System.out.println();
-		System.out.println("Level Order traversal of tree without recurssion is");
-		tree.levelOrderWithoutRecurssion(tree.root);
-		System.out.println();
+//		
+//		tree.root1=new Node(20);
+//		tree.root1.left=new Node(26);
+//		tree.root1.right=new Node(10);
+//		tree.root1.left.left=new Node(27);
+//		tree.root1.left.right=new Node(24);
+//		tree.root1.right.left=new Node(18);
+//		tree.root1.right.right=new Node(4);
+//		tree.root1.left.right.left=new Node(6);
+//		tree.root1.left.right.right=new Node(5);
+//		
+//		//*********************  All Traversals  *******************/////////////
+//		System.out.println("inorderTraversal is ");
+//		tree.inorder(tree.root);
+//		System.out.println();
+//		System.out.println("InOrder traversal without recurssion is");
+//		tree.inOrderWithoutRecursion(tree.root);
+//		System.out.println();
+//		System.out.println("InorderTraversal using Morris Algorithm without stack and recurssion is ");
+//		tree.inOrderWithoutStackAndRecurssion(tree.root);
+//		System.out.println();
+//		System.out.println("preorderTraversal is ");
+//		tree.preOrder(tree.root);
+//		System.out.println();
+//		System.out.println("preorderTraversal without recurssion is ");
+//		tree.preOrderWithoutRecurssion(tree.root);
+//		System.out.println();
+//		System.out.println("preorderTraversal using Morris Algorithm without stack and recurssion is ");
+//		tree.preOrderWithoutStackAndRecurssion(tree.root);
+//		System.out.println();
+//		System.out.println("postorderTraversal is ");
+//		tree.postOrder(tree.root);
+//		System.out.println();
+//		System.out.println("postorderTraversal without recurssion is ");
+//		tree.postOrderWithoutRecurssion(tree.root);
+//		System.out.println();
+//		System.out.println("Level Order traversal of tree is");
+//		tree.printLevelOrder(tree.root);
+//		System.out.println();
+//		System.out.println("Level Order traversal of tree without recurssion is");
+//		tree.levelOrderWithoutRecurssion(tree.root);
+//		System.out.println();
 		System.out.println("Boundary traversal of tree is");
 		tree.boundaryTravaersal(tree.root);
 		System.out.println();
-		System.out.println("Vertical order traversal of tree is");
-		tree.verticalOrderTraversal(tree.root);
-		System.out.println();
-
+//		System.out.println("Vertical order traversal of tree is");
+//		tree.verticalOrderTraversal(tree.root);
+//		System.out.println();
+//
+//		
+//		
+//		/*******************  Nodes details *********************/
+//		System.out.println("Height of tree is "+tree.height(tree.root));
+//		System.out.println("Diameter of tree is "+tree.diameter(tree.root));
+//		System.out.println("No of Nodes are "+tree.countNoofNodes(tree.root));
+//		System.out.println("Leaf Nodes are");
+//		int noOfLeafs=tree.printAndCountAllLeafNodes(tree.root);
+//		System.out.println();
+//		System.out.println("No of Leaf Nodes are "+noOfLeafs);
+//		System.out.println("Non Leaf Nodes are");
+//		int noOfNonLeafs=tree.printAndCountAllNonLeafNodes(tree.root);
+//		System.out.println();
+//		System.out.println("No of Non Leaf Nodes are "+noOfNonLeafs);
+//		System.out.println("Full Nodes are");
+//		int noOfFullNodes=tree.countAndprintAllFullNodes(tree.root);
+//		System.out.println();
+//		System.out.println("No of Full Nodes are "+noOfFullNodes);
+//		tree.isAllLeafsAtSameLevel(tree.root, 1);
+//		if(isAtSameLevel) {
+//			System.out.println("All leafs are at same level");
+//		}else {
+//			System.out.println("All leafs are not at same level");
+//		}
+//		System.out.println();
+//		
+//		/*******************  Finding Predeccessor and Successor in all traversals       *******************/
+//		tree.nthNodeInInorder(tree.root, 4);
+//		tree.inOrderSuccessor(tree.root, 20);
+//		tree.inOrderPredeccessor(tree.root, 5);
+//		tree.postOrderSuccessor(tree.root, 4);
+//		
+//		
+//		/*********************  Different Views of tree *******************************/
+//		System.out.println("Left View of tree is ");
+//		tree.leftViewOfTree(tree.root,1);
+//		System.out.println();
+//		System.out.println("Right view of tree is");
+//		tree.rightViewOfTree(tree.root, 1);
+//		System.out.println();
+//		System.out.println("Bottom view of tree is");
+//		tree.bottomViewOfTree(tree.root);
+//		System.out.println();
+//		System.out.println("Top view of tree is");
+//		tree.topViewOfTree(tree.root);
+//		System.out.println();
+//
+//		
+//		System.out.println("Nodes at particular distance from root is");
+//		tree.NodesAtParticulardistanceFromrRoot(tree.root, 2);
+//		System.out.println();
+//		tree.levelOrderInsert(tree.root, 12);
+//		tree.inorder(tree.root);
+//		int[] pre = {1,2,4,5,3,6};
+//		int[] inOrder= {4,2,5,1,3,6};
+//		Node root3=tree.buildTree(pre, inOrder, 0, pre.length-1);
+//		System.out.println();
+//		System.out.println("PostOrder of Given Inorder and preorder sequence is");
+//		tree.postOrder(root3);
+//		System.out.println();
+//		int[] post= {4,5,2,6,3,1};
+//		tree.postIndex=post.length-1;
+//		Node root4=tree.buildTreeFromPostAndInOrder(post, inOrder, 0, pre.length-1);
+//		System.out.println("PretOrder of Given Inorder and postorder sequence is");
+//		tree.preOrder(root4);
+//		System.out.println();
+//		boolean isPathExist=tree.findPath(tree.root, 24);
+//		if(isPathExist) {
+//			System.out.println();
+//			System.out.println("Above is path from Root to given node");
+//		}else {
+//			System.out.println("Path doesn't exist");
+//		}
+//		System.out.println();
+//		int[] arr= {20,26,24,5};
+//		boolean isPathExists = tree.checkIfPathExistFromRootToLeafWithGivenSequence(tree.root, arr);
+//		if(isPathExists) {
+//			System.out.println("Path exist from Root to leaf with given sequence");
+//		}else {
+//			System.out.println("Path doesn't exist");
+//		}
+//		System.out.println("Sum of all nodes is "+tree.sumOfAllNodes(tree.root));
+//		System.out.println("Sum of all parent nodes with given node is "+tree.sumOfParentNodesWithGivenChild(tree.root,18));
+//		
+//		Node root2=new Node(1);
+//		root2.left=new Node(-2);
+//		root2.right=new Node(3);
+//		root2.left.left=new Node(4);
+//		root2.left.right=new Node(5);
+//		root2.right.left=new Node(-7);
+//		root2.right.right=new Node(2);
+//		tree.maxSubTreeSum(root2);
+//		System.out.println("Largest Sum subtree  is "+tree.max_sum);
+//		
+//		tree.checkSubtreeWithGivenSumExist(tree.root, 100);
+//		System.out.println("Sum of heights of all nodes is "+tree.sumOfHeightsOfAllNodes(tree.root));
+//		System.out.println("Max sum path to leaf from root is "+tree.maxSumPathToLeafFromRoot(tree.root));
+//		System.out.println("Max sum path between two leafs is "+tree.maxPathSumBetweenTwoLeafs(tree.root));
+//		System.out.println("Two trees are mirror "+tree.areMirror(tree.root, tree.root1));
+//		System.out.println();
+//		System.out.print("Lowest Common Ancestor of two nodes ");
+//		int LCA = tree.lowestCommonAncestor(tree.root, 5,6);
+//		if(LCA==-1) {
+//			System.out.println("doesn't exist");
+//		}else {
+//			System.out.println(LCA);
+//		}
+//		
+//		System.out.print("Common Ancestors of two nodes ");
+//		boolean commonAncestorsExist = tree.commonAncestorsofGivenTwoNodes(tree.root, 5,6);
+//		if(!commonAncestorsExist) {
+//			System.out.println("doesn't exist");
+//		}
+//		System.out.println();
+//		System.out.println("Distance from root to given node is "+tree.distanceFromRoot(tree.root, 4));
+//		System.out.println("Distance between two nodes is "+tree.distanceBetweenTwoNodes(tree.root, 5,6));
+//		System.out.println("Level of given node is ");
+//		tree.findLevel(tree.root, 5, 1);
+//		System.out.println();
+//		System.out.println("Max Node in each level is ");
+//		tree.findMaxAtEachLevel(tree.root);
+//		tree.deepestNode(tree.root, 1);
+//		System.out.println("Deepest Node is "+temp.data);
+//		
+//		Node root5=new Node(10);
+//		root5.left=new Node(8);
+//		root5.right=new Node(2);
+//		root5.left.left=new Node(3);
+//		root5.left.right=new Node(5);
+//		
+//		Node root6=new Node(1);
+//		root6.left=new Node(2);
+//		root6.right=new Node(3);
+//		root6.right.left=new Node(4);
+//		root6.left.right=new Node(5);
+//		
+//		root5=mergeTwoTrees(root5,root6);
+//		System.out.println("Level Order traversal of merged tree is");
+//		tree.printLevelOrder(root5);
+//		System.out.println();
+//		
+//		System.out.println("Given two trees are identical "+twoTreesAreIdentical(root5,root6));
+//		
+//		System.out.println("Given tree satisfies childsum property "+isChildrenSumProperty(root5));
 		
-		
-		/*******************  Nodes details *********************/
-		System.out.println("Height of tree is "+tree.height(tree.root));
-		System.out.println("Diameter of tree is "+tree.diameter(tree.root));
-		System.out.println("No of Nodes are "+tree.countNoofNodes(tree.root));
-		System.out.println("Leaf Nodes are");
-		int noOfLeafs=tree.printAndCountAllLeafNodes(tree.root);
-		System.out.println();
-		System.out.println("No of Leaf Nodes are "+noOfLeafs);
-		System.out.println("Non Leaf Nodes are");
-		int noOfNonLeafs=tree.printAndCountAllNonLeafNodes(tree.root);
-		System.out.println();
-		System.out.println("No of Non Leaf Nodes are "+noOfNonLeafs);
-		System.out.println("Full Nodes are");
-		int noOfFullNodes=tree.countAndprintAllFullNodes(tree.root);
-		System.out.println();
-		System.out.println("No of Full Nodes are "+noOfFullNodes);
-		tree.isAllLeafsAtSameLevel(tree.root, 1);
-		if(isAtSameLevel) {
-			System.out.println("All leafs are at same level");
-		}else {
-			System.out.println("All leafs are not at same level");
-		}
-		System.out.println();
-		
-		/*******************  Finding Predeccessor and Successor in all traversals       *******************/
-		tree.nthNodeInInorder(tree.root, 4);
-		tree.inOrderSuccessor(tree.root, 20);
-		tree.inOrderPredeccessor(tree.root, 20);
-		tree.postOrderSuccessor(tree.root, 4);
-		
-		
-		/*********************  Different Views of tree *******************************/
-		System.out.println("Left View of tree is ");
-		tree.leftViewOfTree(tree.root,1);
-		System.out.println();
-		System.out.println("Right view of tree is");
-		tree.rightViewOfTree(tree.root, 1);
-		System.out.println();
-		System.out.println("Bottom view of tree is");
-		tree.bottomViewOfTree(tree.root);
-		System.out.println();
-		System.out.println("Top view of tree is");
-		tree.topViewOfTree(tree.root);
-		System.out.println();
-
-		
-		System.out.println("Nodes at particular distance from root is");
-		tree.NodesAtParticulardistanceFromrRoot(tree.root, 2);
-		System.out.println();
-		tree.levelOrderInsert(tree.root, 12);
-		tree.inorder(tree.root);
-		int[] pre = {1,2,4,5,3,6};
-		int[] inOrder= {4,2,5,1,3,6};
-		Node root3=tree.buildTree(pre, inOrder, 0, pre.length-1);
-		System.out.println("PostOrder of Given Inorder and preorder sequence is");
-		tree.postOrder(root3);
-		System.out.println();
-		boolean isPathExist=tree.findPath(tree.root, 24);
-		if(isPathExist) {
-			System.out.println();
-			System.out.println("Above is path from Root to given node");
-		}else {
-			System.out.println("Path doesn't exist");
-		}
-		System.out.println();
-		int[] arr= {20,26,24,5};
-		boolean isPathExists = tree.checkIfPathExistFromRootToLeafWithGivenSequence(tree.root, arr);
-		if(isPathExists) {
-			System.out.println("Path exist from Root to leaf with given sequence");
-		}else {
-			System.out.println("Path doesn't exist");
-		}
-		System.out.println("Sum of all nodes is "+tree.sumOfAllNodes(tree.root));
-		System.out.println("Sum of all parent nodes with given node is "+tree.sumOfParentNodesWithGivenChild(tree.root,18));
-		
-		Node root2=new Node(1);
-		root2.left=new Node(-2);
-		root2.right=new Node(3);
-		root2.left.left=new Node(4);
-		root2.left.right=new Node(5);
-		root2.right.left=new Node(-7);
-		root2.right.right=new Node(2);
-		tree.maxSubTreeSum(root2);
-		System.out.println("Largest Sum subtree  is "+tree.max_sum);
-		
-		tree.checkSubtreeWithGivenSumExist(tree.root, 100);
-		System.out.println("Sum of heights of all nodes is "+tree.sumOfHeightsOfAllNodes(tree.root));
-		System.out.println("Max sum path to leaf from root is "+tree.maxSumPathToLeafFromRoot(tree.root));
-		System.out.println("Max sum path between two leafs is "+tree.maxPathSumBetweenTwoLeafs(tree.root));
-		System.out.println("Two trees are mirror "+tree.areMirror(tree.root, tree.root1));
-		System.out.println();
-		System.out.print("Lowest Common Ancestor of two nodes ");
-		int LCA = tree.lowestCommonAncestor(tree.root, 5,6);
-		if(LCA==-1) {
-			System.out.println("doesn't exist");
-		}else {
-			System.out.println(LCA);
-		}
-		
-		System.out.print("Common Ancestors of two nodes ");
-		boolean commonAncestorsExist = tree.commonAncestorsofGivenTwoNodes(tree.root, 5,6);
-		if(!commonAncestorsExist) {
-			System.out.println("doesn't exist");
-		}
-		System.out.println();
-		System.out.println("Distance from root to given node is "+tree.distanceFromRoot(tree.root, 4));
-		System.out.println("Distance between two nodes is "+tree.distanceBetweenTwoNodes(tree.root, 5,6));
-		System.out.println("Level of given node is ");
-		tree.findLevel(tree.root, 5, 1);
-		System.out.println();
-		System.out.println("Max Node in each level is ");
-		tree.findMaxAtEachLevel(tree.root);
-		tree.deepestNode(tree.root, 1);
-		System.out.println("Deepest Node is "+temp.data);
 	}
 }

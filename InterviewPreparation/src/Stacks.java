@@ -51,7 +51,7 @@ public class Stacks {
 		}
 	}
 }
- class main{
+ class main1{
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		Stacks s= new Stacks();
@@ -59,36 +59,36 @@ public class Stacks {
 			s.push(i);
 		}
 		
-		System.out.println("Enter Infix Expression to be converted to Postfix expression");
-		String infixToPostfixexp=in.next();
-		String infixToPostfix = infixToPostfix(infixToPostfixexp.toCharArray());
-		System.out.println("infixToPostfix expression is "+infixToPostfix);
-
-		System.out.println("Enter Infix Expression to be converted to Prefix expression");
-		String infixToPrefixexp=in.next();
-		String infixToPrefix = infixToPrefix(infixToPrefixexp.toCharArray());
-		System.out.println("infixToPrefix expression is "+infixToPrefix);
-		
-		System.out.println("Enter Postfix Expression to be converted to Infix expression");
-		String postfixToInfixexp=in.next();
-		String postfixToInfix = postfixToInfix(postfixToInfixexp.toCharArray());
-		System.out.println("postfixToInfix expression is "+postfixToInfix);
-		
-		System.out.println("Enter Prefix Expression to be converted to Infix expression");
-		String prefixToInfixexp=in.next();
-		String prefixToInfix = prefixToInfix(prefixToInfixexp.toCharArray());
-		System.out.println("prefixToInfix expression is "+prefixToInfix);
-		
-		System.out.println("Enter Postfix Expression to be converted to Prefix expression");
-		String postfixToPrefixexp=in.next();
-		String postfixToPrefix = postfixToPrefix(postfixToPrefixexp.toCharArray());
-		System.out.println("postfixToPrefix expression is "+postfixToPrefix);
-		
-		int[] nextGreaterElement= JavaUtil.createArray();
-		nextGreaterElement(nextGreaterElement);
-		
-		String balancedparanthesis = in.next();
-		balancedparanthesis(balancedparanthesis.toCharArray());
+//		System.out.println("Enter Infix Expression to be converted to Postfix expression");
+//		String infixToPostfixexp=in.next();
+//		String infixToPostfix = infixToPostfix(infixToPostfixexp.toCharArray());
+//		System.out.println("infixToPostfix expression is "+infixToPostfix);
+//
+//		System.out.println("Enter Infix Expression to be converted to Prefix expression");
+//		String infixToPrefixexp=in.next();
+//		String infixToPrefix = infixToPrefix(infixToPrefixexp.toCharArray());
+//		System.out.println("infixToPrefix expression is "+infixToPrefix);
+//		
+//		System.out.println("Enter Postfix Expression to be converted to Infix expression");
+//		String postfixToInfixexp=in.next();
+//		String postfixToInfix = postfixToInfix(postfixToInfixexp.toCharArray());
+//		System.out.println("postfixToInfix expression is "+postfixToInfix);
+//		
+//		System.out.println("Enter Prefix Expression to be converted to Infix expression");
+//		String prefixToInfixexp=in.next();
+//		String prefixToInfix = prefixToInfix(prefixToInfixexp.toCharArray());
+//		System.out.println("prefixToInfix expression is "+prefixToInfix);
+//		
+//		System.out.println("Enter Postfix Expression to be converted to Prefix expression");
+//		String postfixToPrefixexp=in.next();
+//		String postfixToPrefix = postfixToPrefix(postfixToPrefixexp.toCharArray());
+//		System.out.println("postfixToPrefix expression is "+postfixToPrefix);
+//		
+//		int[] nextGreaterElement= JavaUtil.createArray();
+//		nextGreaterElement(nextGreaterElement);
+//		
+//		String balancedparanthesis = in.next();
+//		balancedparanthesis(balancedparanthesis.toCharArray());
 		
 		int[] stockPrice=JavaUtil.createArray();
 		stockSpanProb(stockPrice);

@@ -437,7 +437,7 @@ public class LinkedList {
 		Scanner in=new Scanner(System.in);
 		System.out.println("Enter the length of linked list");
 		int l=in.nextInt();
-		int l1=in.nextInt();
+//		int l1=in.nextInt();
 				
 		Node head2=null;
 		for(int i=0;i<l;i++) {
@@ -446,39 +446,39 @@ public class LinkedList {
 		}
 
 		
-		for(int i=0;i<l1;i++) {
-			int data=in.nextInt();
-			head2=list.addNode(data,head2);
-		}
-		list.head.next.next.next=head2.next;
-		list.print(list.head);
-		list.print(head2);
+//		for(int i=0;i<l1;i++) {
+//			int data=in.nextInt();
+//			head2=list.addNode(data,head2);
+//		}
+//		list.head.next.next.next=head2.next;
+//		list.print(list.head);
+//		list.print(head2);
 
 		list.print(list.head);
-		list.head=list.reverse(list.head);
-		list.delete(0);
-		list.head=list.reverse(list.head);
-		list.deleteAtPosition(5);
-		System.out.println("Length of given Linked list is"+list.length(list.head));
-		list.head.next.next.next.next.next.next=list.head.next.next;
-		list.loopExist();
-		list.deleteNodeWithoutHead(list.head.next.next);
-		list.findNthNodeFromLast(3);
-		list.swapNodes(0, 5);
-		list.deleteDuplicatesInSortedLinkedList();
-		list.moveLastNodeToFirst();
-		list.pairWiseSwapNodes();
-		list.isPalyndrome();
-		list.intersectionOfTwoNodes(list.head, head2);
-		list.segregateOddAndEven();
-		list.multiplyTwoNumbersRepresentedByLL(list.head, head2);
-		list.segregate012();
-		int key=in.nextInt();
-		list.moveAllOccurancesToEnd(key);
-		list.print(list.head);
-		list.middle();
-		list.head=list.convertToCircular(list.head);
-		list.print(list.head);
+//		list.head=list.reverse(list.head);
+//		list.delete(0);
+//		list.head=list.reverse(list.head);
+//		list.deleteAtPosition(5);
+//		System.out.println("Length of given Linked list is"+list.length(list.head));
+//		list.head.next.next.next.next.next.next=list.head.next.next;
+//		list.loopExist();
+//		list.deleteNodeWithoutHead(list.head.next.next);
+//		list.findNthNodeFromLast(3);
+//		list.swapNodes(0, 5);
+//		list.deleteDuplicatesInSortedLinkedList();
+//		list.moveLastNodeToFirst();
+//		list.pairWiseSwapNodes();
+//		list.isPalyndrome();
+//		list.intersectionOfTwoNodes(list.head, head2);
+//		list.segregateOddAndEven();
+//		list.multiplyTwoNumbersRepresentedByLL(list.head, head2);
+//		list.segregate012();
+//		int key=in.nextInt();
+//		list.moveAllOccurancesToEnd(key);
+//		list.print(list.head);
+//		list.middle();
+//		list.head=list.convertToCircular(list.head);
+//		list.print(list.head);
 	}
 
 }

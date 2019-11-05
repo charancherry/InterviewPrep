@@ -96,25 +96,25 @@ public class Queues {
 		
 		/********* Implementation of queue using stack ***************/
 		/*********************** https://www.geeksforgeeks.org/queue-using-stacks/      **********/
-		Stack s1=new Stack();
-		Stack s2=new Stack();
-		for(int i=0;i<5;i++) {
-			enqueue(s1,i);
-		}
-		System.out.println("Dequeued Element is "+dequeue(s1,s2));
-		System.out.println("Dequeued Element is "+dequeue(s1,s2));
-		System.out.println("Dequeued Element is "+dequeue(s1,s2));
-		System.out.println("Dequeued Element is "+dequeue(s1,s2));
-		System.out.println("Dequeued Element is "+dequeue(s1,s2));
-		System.out.println("Dequeued Element is "+dequeue(s1,s2));
-		
-		for(int i=6;i<10;i++) {
-			enqueue(s1,i);
-		}
-
-		System.out.println("Dequeued Element is "+dequeue(s1,s2));
-		System.out.println("Dequeued Element is "+dequeue(s1,s2));
-		System.out.println("s1 size is "+s1.size()+"and s2 size is "+s2.size());
+//		Stack s1=new Stack();
+//		Stack s2=new Stack();
+//		for(int i=0;i<5;i++) {
+//			enqueue(s1,i);
+//		}
+//		System.out.println("Dequeued Element is "+dequeue(s1,s2));
+//		System.out.println("Dequeued Element is "+dequeue(s1,s2));
+//		System.out.println("Dequeued Element is "+dequeue(s1,s2));
+//		System.out.println("Dequeued Element is "+dequeue(s1,s2));
+//		System.out.println("Dequeued Element is "+dequeue(s1,s2));
+//		System.out.println("Dequeued Element is "+dequeue(s1,s2));
+//		
+//		for(int i=6;i<10;i++) {
+//			enqueue(s1,i);
+//		}
+//
+//		System.out.println("Dequeued Element is "+dequeue(s1,s2));
+//		System.out.println("Dequeued Element is "+dequeue(s1,s2));
+//		System.out.println("s1 size is "+s1.size()+"and s2 size is "+s2.size());
 		
 		
 		/************** Implementation of Stack Using Queue **********/

@@ -10,80 +10,117 @@ public class Strings {
 	public static void main(String[] args) throws JSONException {
 		Scanner in = new Scanner(System.in);
 		
-		System.out.println("Enter String to be reversed");
-		String str= in.nextLine();
-		str = reverseString(str);
-		System.out.println("Reversed String is "+str);
+//		System.out.println("Enter String to be reversed");
+//		String str= in.nextLine();
+//		str = reverseString(str);
+//		System.out.println("Reversed String is "+str);
+//		
+//		System.out.println("Enter the strings to be added");
+//		String str1 = in.nextLine();
+//		String str2 = in.nextLine();
+//		addStrings(str1,str2);
+//		
+//		System.out.println("Enter the string");
+//		String str = in.nextLine();
+//		firstNonReapeatingChar(str.toCharArray());
+//		
+//		System.out.println("Enter the string");
+//		String str = in.nextLine();
+//		System.out.println("Enter K");
+//		int k=in.nextInt();
+//		kthCharInDecryptedString(str.toCharArray(),k);
+//
+//		System.out.println("Enter the strings");
+//		String str1 = in.nextLine();
+//		String str2 = in.nextLine();
+//		oneXtraCharInString(str1.toCharArray(),str2.toCharArray());
+//		
+//		System.out.println("Enter the string");
+//		String str = in.nextLine();
+//		System.out.println("Enter the index from where string to be reversed");
+//		int ind=in.nextInt();
+//		reverseStringFromParticularIndex(str.toCharArray(),ind);
+//
+//		System.out.println("Enter the string");
+//		String str = in.nextLine();
+//		printAllPermutations(str.toCharArray(),0,str.length()-1);
+//		
+//		System.out.println("Enter the number");
+//		long num=in.nextInt();
+//		maxNumberFromGivenNum(num);
+//		
+//		System.out.println("Enter the number");
+//		int num=in.nextInt();
+//		findnearestPalyndrome(num);
+//		
+//		System.out.println("Enter the strings");
+//		String str = in.nextLine();
+//		reverseWordsInStrinf(str.toCharArray());
+//		
+//		System.out.println("Enter the string");
+//		String str=in.next();
+//		toUppercase(str.toCharArray());
+//		
+//		System.out.println("Enter the string");
+//		String str=in.next();
+//		checkIfParenthesisAreBalanced(str.toCharArray());
+//		
+//		System.out.println("Enter No of strings");
+//		int n= in.nextInt();
+//		System.out.println("Enter the strings");
+//		ArrayList<char[]> strings=new ArrayList<char[]>();
+//		for(int i=0;i<n;i++) {
+//			String str=in.next();
+//			strings.add(str.toCharArray());
+//		}
+//		sortWords(strings);
+//		
+//		System.out.println("Enter the string");
+//		String str=in.next();
+//		sortStringFollowedByIntegerSum(str.toCharArray());
+//		
+//		System.out.println("Enter the Number");
+//		int n=in.nextInt();
+//		numberAsStringAANDB(n);
+//		
+//		String[] a = {"bella","label","roller"};
+//		List<String> str = commonChars(a);
+//		System.out.println(str);
 		
-		System.out.println("Enter the strings to be added");
-		String str1 = in.nextLine();
-		String str2 = in.nextLine();
-		addStrings(str1,str2);
-		
-		System.out.println("Enter the string");
-		String str = in.nextLine();
-		firstNonReapeatingChar(str.toCharArray());
-		
-		System.out.println("Enter the string");
-		String str = in.nextLine();
-		System.out.println("Enter K");
-		int k=in.nextInt();
-		kthCharInDecryptedString(str.toCharArray(),k);
-
-		System.out.println("Enter the strings");
-		String str1 = in.nextLine();
-		String str2 = in.nextLine();
-		oneXtraCharInString(str1.toCharArray(),str2.toCharArray());
-		
-		System.out.println("Enter the string");
-		String str = in.nextLine();
-		System.out.println("Enter the index from where string to be reversed");
-		int ind=in.nextInt();
-		reverseStringFromParticularIndex(str.toCharArray(),ind);
-
-		System.out.println("Enter the string");
-		String str = in.nextLine();
-		printAllPermutations(str.toCharArray(),0,str.length()-1);
-		
-		System.out.println("Enter the number");
-		long num=in.nextInt();
-		maxNumberFromGivenNum(num);
-		
-		System.out.println("Enter the number");
-		int num=in.nextInt();
-		findnearestPalyndrome(num);
-		
-		System.out.println("Enter the strings");
-		String str = in.nextLine();
-		reverseWordsInStrinf(str.toCharArray());
-		
-		System.out.println("Enter the string");
+		System.out.println("Enter string");
 		String str=in.next();
-		toUppercase(str.toCharArray());
-		
-		System.out.println("Enter the string");
-		String str=in.next();
-		checkIfParenthesisAreBalanced(str.toCharArray());
-		
-		System.out.println("Enter No of strings");
-		int n= in.nextInt();
-		System.out.println("Enter the strings");
-		ArrayList<char[]> strings=new ArrayList<char[]>();
-		for(int i=0;i<n;i++) {
-			String str=in.next();
-			strings.add(str.toCharArray());
-		}
-		sortWords(strings);
-		
-		System.out.println("Enter the string");
-		String str=in.next();
-		sortStringFollowedByIntegerSum(str.toCharArray());
-		
-		System.out.println("Enter the Number");
-		int n=in.nextInt();
-		numberAsStringAANDB(n);
+		recurssivelyRemoveAdjDuplicates(str);
 	}
 	
+	/****************************  https://www.geeksforgeeks.org/recursively-remove-adjacent-duplicates-given-string/  *************/
+	public static void recurssivelyRemoveAdjDuplicates(String str) {
+		char[] c = str.toCharArray();
+		Stack s = new Stack();
+		char temp='\0';
+		s.push(c[0]);
+		for(int i=1;i<str.length();i++) {
+			if(!s.empty() && (char) s.peek() == c[i]) {
+				temp=c[i];
+			}
+			if(temp != '\0' && temp != c[i]) {
+				while(!s.empty() && (char) s.peek()==temp) {
+					s.pop();
+				}
+				temp = '\0';
+				i--;
+				continue;
+			}
+			s.push(c[i]);
+		}
+		if(temp != '\0') {
+			while(!s.empty() && (char) s.peek()==temp) {
+				s.pop();
+			}
+		}
+		while(!s.empty()) {
+			System.out.print(s.pop());
+		}
+	}
 	public static String reverseString(String str) {
 		char[] charArray = str.toCharArray();
 		int l= charArray.length-1;
@@ -98,7 +135,7 @@ public class Strings {
 		char[] strArray1=str1.toCharArray();
 		char[] strArray2=str2.toCharArray();
 		StringBuilder resultString = new StringBuilder();
-		int i=0,j=0,carry=0,sum1=0,k=0;
+		int i=0,j=0,carry=0,sum1=0;
 		while(i<str1.length()&&j<str2.length()) {
 			sum1=strArray1[str1.length()-i-1]+strArray2[str2.length()-j-1]-96;
 			if(carry!=0) {
@@ -110,7 +147,6 @@ public class Strings {
 			resultString.append(sum1);
 			i++;
 			j++;
-			k++;
 		}
 		while(i<str1.length()) {
 			sum1=strArray1[str1.length()-i-1]-48+carry;
@@ -118,7 +154,6 @@ public class Strings {
 			sum1=sum1%10;
 			resultString.append(sum1);
 			i++;
-			k++;
 
 		}
 		while(j<str2.length()) {
@@ -127,7 +162,6 @@ public class Strings {
 			sum1=sum1%10;
 			resultString.append(sum1);
 			j++;
-			k++;
 		}
 		if(carry !=0) {
 			resultString.append(carry);
@@ -176,6 +210,7 @@ public class Strings {
 		return sum;
 	}
 	
+	/*************    https://www.geeksforgeeks.org/find-kth-character-of-decrypted-string/  *************/
 	public static void kthCharInDecryptedString(char[] arr,int k) {
 		int count=0,prev_count=0;
 		int char_start=0,char_end=0,count_start=0,count_end=0;
@@ -211,6 +246,56 @@ public class Strings {
 		}
 		System.out.println("kth character is"+arr[char_start+index]);
 	}
+	
+//    public List<String> commonChars(String[] A) {
+//        List<String> str=new ArrayList<String>();
+//        char[] c = A[0].toCharArray();
+//        boolean isExist=false;
+//        for(int i=0;i<c.length;i++){
+//            isExist=true;
+//            for(int j=0;j<A.length;j++){
+//                if(!A[j].contains(Character.toString(c[i]))){
+//                    isExist=false;
+//                }
+//        }   
+//            if(isExist){
+//             str.add(Character.toString(c[i]));   
+//            }
+//    }
+//        return str;
+//    }
+    
+    public static List<String> commonChars(String[] A) {
+        List<String> str=new ArrayList<String>();
+        int[][] count = new int[A.length][26];
+        for(int i=0;i<A.length;i++){
+            char[] temp=A[i].toCharArray();
+            for(int j=0;j<temp.length;j++){
+                count[i][temp[j]-'a']++;
+            }
+        }
+        int max=0;
+        char[] temp = A[0].toCharArray();
+        for(int i=0;i<temp.length;i++){
+            max=count[0][temp[i]-'a'];
+            for(int j=0;j<count.length;j++){
+                if(count[j][temp[i]-'a']==0){
+                    max=0;
+                    break;
+                }else{
+                    if(max>count[j][temp[i]-'a']){
+                        max=count[j][temp[i]-'a'];
+                    }
+                }
+            }
+            if(max>0&&!str.contains(Character.toString(temp[i]))){
+                for(int k=0;k<max;k++){
+                    str.add(Character.toString(temp[i]));
+                }
+            }
+        }
+        return str;
+    }
 	
 	public static void oneXtraCharInString(char[] str1,char[] str2) {
 		HashMap<Character,Integer> charMap = new HashMap<Character,Integer>();
@@ -273,6 +358,7 @@ public class Strings {
 		}
 	}
 	
+	/************************  https://www.geeksforgeeks.org/closest-palindrome-number-whose-absolute-difference-min/ ************/
 	public static void findnearestPalyndrome(int num) {
 		int count=0;
 		char[] nums=String.valueOf(num).toCharArray();
@@ -385,7 +471,7 @@ public class Strings {
 	/**** https://www.geeksforgeeks.org/rearrange-a-string-in-sorted-order-followed-by-the-integer-sum/  **/
 	public static void sortStringFollowedByIntegerSum(char[] arr) {
 		int sum=0,count=0;
-		HashMap<Character,Integer> charInfo = new HashMap<Character,Integer>();
+		Map<Character,Integer> charInfo = new TreeMap<Character,Integer>();
 		for(int i=0;i<arr.length;i++) {
 			if(arr[i]>='A' && arr[i]<='Z') {
 				count=1;

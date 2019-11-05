@@ -41,6 +41,23 @@ public class JavaUtil {
 		return arr;
 	}
 	
+	public static int[][] create2DArray(){
+		int r,c;
+		Scanner in=new Scanner(System.in);
+		System.out.println("Enter No of rows");
+		r=in.nextInt();
+		System.out.println("Enter No of columns");
+		c=in.nextInt();
+		int[][] arr = new int[r][c];
+		System.out.println("Enter Elements");
+		for(int i=0;i<r;i++) {
+			for(int j=0;j<c;j++) {
+				arr[i][j]=in.nextInt();
+			}
+		}
+		return arr;
+	}
+	
 	public static int getMinEle(int[] arr) {
 		int min=Integer.MAX_VALUE;
 		int len=arr.length;

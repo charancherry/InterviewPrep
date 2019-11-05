@@ -253,8 +253,6 @@ public class DoubleLinkedList {
 		temp.next=null;
 		head.prev=null;
 		Node last=lastNode(head);
-		int x=last.data;
-		Node hh=head.prev;
 		last.next=head1;
 		head1.prev=last;
 		return head;
@@ -282,7 +280,6 @@ public class DoubleLinkedList {
 		Node current=head;
 		Node prev=null;
 		Node next=null;
-		Node tempHead=head;
 		int count=0;
 		while(current!=null && count<size) {
 			next=current.next;
@@ -293,8 +290,8 @@ public class DoubleLinkedList {
 			count++;
 		}
 		if(current!=null) {
-			tempHead.next=reverseInGroups(current,size);
-			tempHead.next.prev=tempHead;
+			head.next=reverseInGroups(current,size);
+			head.next.prev=head;
 		}
 		return prev;
 	}
@@ -411,30 +408,30 @@ public class DoubleLinkedList {
 			list.head=list.addNode(d, list.head);
 		}
 		list.print(list.head);
-		list.addAfterGivenNode(6,8,list.head);
-		list.addBeforeGivenNode(7, 8, list.head);
-		list.print(list.head);
-		list.head=list.delete(5, list.head);
-		list.print(list.head);
-		list.head=list.reverse(list.head);
-		list.print(list.head);
-		list.head=list.removeDuplicates(list.head);
-		list.print(list.head);
-		list.findPairsWithGivenSum(7, list.head);
-		Node last=list.lastNode(list.head);
-		list.quickSort(list.head, last);
-		int pos=in.nextInt();
-		list.head=list.rotateCounterClockwise(pos, list.head);
-		list.isPalyndrome(list.head);
+//		list.addAfterGivenNode(6,8,list.head);
+//		list.addBeforeGivenNode(7, 8, list.head);
+//		list.print(list.head);
+//		list.head=list.delete(5, list.head);
+//		list.print(list.head);
+//		list.head=list.reverse(list.head);
+//		list.print(list.head);
+//		list.head=list.removeDuplicates(list.head);
+//		list.print(list.head);
+//		list.findPairsWithGivenSum(7, list.head);
+//		Node last=list.lastNode(list.head);
+//		list.quickSort(list.head, last);
+//		int pos=in.nextInt();
+//		list.head=list.rotateCounterClockwise(pos, list.head);
+//		list.isPalyndrome(list.head);
 		int groupSize=in.nextInt();
 		list.head=list.reverseInGroups(list.head, groupSize);
 		list.print(list.head);
-		list.LargestNode(list.head);
-		int sum=in.nextInt();
-		list.findTripletsWithGivenSum(sum, list.head);
-		list.sortBiotonicLinkedList(list.head);
-		list.head=list.swapKNodeFromLastAndFirst(list.head, 6);
-		list.print(list.head);
+//		list.LargestNode(list.head);
+//		int sum=in.nextInt();
+//		list.findTripletsWithGivenSum(sum, list.head);
+//		list.sortBiotonicLinkedList(list.head);
+//		list.head=list.swapKNodeFromLastAndFirst(list.head, 6);
+//		list.print(list.head);
 		}
 
 }

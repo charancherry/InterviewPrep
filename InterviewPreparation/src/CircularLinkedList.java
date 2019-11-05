@@ -149,7 +149,7 @@ public class CircularLinkedList {
 		Node prev=null;
 		int pos=1;
 		int l=length(head);
-		while(temp.next!=head || pos==l) {
+		while(pos<=l) {
 			if(pos%2==1) {
 				if(prev==null) {
 					prev=lastNode(head);
@@ -330,23 +330,23 @@ public class CircularLinkedList {
 			list.head=list.addNode(list.head, d);
 		}
 		list.print(list.head);
-		list.head=list.delete(list.head, 5);
-		list.head=list.sortedInsert(list.head, 12);
-		list.print(list.head);
-		System.out.println("Given linkedList is circular "+list.isCircular(list.head));
-		System.out.println("Length of formed circular linkedList is "+list.length(list.head));
-		list.head=list.splitFirstNNodesIntoNewCLL(list.head, 3);
+//		list.head=list.delete(list.head, 5);
+//		list.head=list.sortedInsert(list.head, 12);
+//		list.print(list.head);
+//		System.out.println("Given linkedList is circular "+list.isCircular(list.head));
+//		System.out.println("Length of formed circular linkedList is "+list.length(list.head));
+//		list.head=list.splitFirstNNodesIntoNewCLL(list.head, 3);
 		list.head=list.deleteAllOddPostionNodes(list.head);
-		list.head=list.deleteAllEvenPostionNodes(list.head);
-		list.search(list.head, 14);
+//		list.head=list.deleteAllEvenPostionNodes(list.head);
+//		list.search(list.head, 14);
 		list.print(list.head);
-		list.findMinAndMax(list.head);
-		list.head=list.exchangeLastAndFirst(list.head);
-		list.print(list.head);
-		list.luckyAlivePerson(list.head);
-		list.splitIntoTwoHalves(list.head);
-		list.head=list.deleteEveryKNode(list.head, 4);
-		list.print(list.head);
+//		list.findMinAndMax(list.head);
+//		list.head=list.exchangeLastAndFirst(list.head);
+//		list.print(list.head);
+//		list.luckyAlivePerson(list.head);
+//		list.splitIntoTwoHalves(list.head);
+//		list.head=list.deleteEveryKNode(list.head, 4);
+//		list.print(list.head);
 	}
 
 }
