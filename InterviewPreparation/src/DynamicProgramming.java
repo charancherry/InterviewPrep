@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Stack;
 
 import Utilities.JavaUtil;
 
 public class DynamicProgramming {
+	static Stack<Integer> s = new Stack<Integer>();
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		//int[][] mine = JavaUtil.create2DArray();
@@ -12,6 +15,12 @@ public class DynamicProgramming {
 //		String str1=in.nextLine();
 //		String str2=in.nextLine();
 //		longestCommonSubsequence(str1.toCharArray(),str2.toCharArray());
+//	
+//		System.out.println("Enter the 2 input strings");
+//		String str1=in.nextLine();
+//		String str2=in.nextLine();
+//		longestCommonSubString(str1.toCharArray(),str2.toCharArray());
+//		
 //		int[] longestIncreasingSubsequence=JavaUtil.createArray();
 //		longestIncreasingSubSequence(longestIncreasingSubsequence);
 //		
@@ -42,17 +51,78 @@ public class DynamicProgramming {
 //		int m=in.nextInt();
 //		KnapSackZeroOrOne(w,p,m);
 		
-		int[] maxSumWithNo2Adjacent=JavaUtil.createArray();
-		maxSumWithNo2Adjacent(maxSumWithNo2Adjacent);
-
+		int[] arr = JavaUtil.createArray();
+		System.out.println("Enter sum");
+		int sum=in.nextInt();
+		subsetSum(arr,sum);
+//		
+//		int[] maxSumWithNo2Adjacent=JavaUtil.createArray();
+//		maxSumWithNo2Adjacent(maxSumWithNo2Adjacent);
+//		
+//		s.push(1);
+//		s.push(2);
+//		s.push(3);
+//		s.push(4);
+//		System.out.println("Elements in stack are ");
+//		System.out.println();
+//		for(int i=0;i<s.size();i++) {
+//			System.out.print(s.get(i)+" ");
+//		}
+//		reverseStackUsingRecurssion();
+//		System.out.println();
+//		System.out.println("Elements in stack after reverse ");
+//		System.out.println();
+//		for(int i=0;i<s.size();i++) {
+//			System.out.print(s.get(i)+" ");
+//		}
+//		
+//		int[] maxSumIncreasingSubSequence=JavaUtil.createArray();
+//		maxSumIncreasingSubSequence(maxSumIncreasingSubSequence);
+//		
+//		int[] maxProductSubArray = JavaUtil.createArray();
+//		maxProductSubArray(maxProductSubArray);
+//
+//		int[] givenSumSubArrays = JavaUtil.createArray();
+//		System.out.println("Enter the required sum");
+//		int sum=in.nextInt();
+//		givenSumSubArrays(givenSumSubArrays,sum);
+//		
+//		int[] dividArrayWithEqualSum = JavaUtil.createArray();
+//		dividArrayWithEqualSum(dividArrayWithEqualSum);
+//		
+//		System.out.println("Enter the string");
+//		String str=in.next();
+//		longestPalindromicSubSequence(str);
+//		
+//		System.out.println("Enter the string");
+//		String str=in.next();
+//		longestPalyndromicSubString(str);
+	}
+	
+	public static void insertAtBottom(int x) {
+		if(s.size()==0) {
+			s.push(x);
+		}else {
+			int top=s.pop();
+			insertAtBottom(x);
+			s.push(top);
+		}
+	}
+	
+	public static void reverseStackUsingRecurssion() {
+		if(s.size()>0) {
+			int x = s.pop();
+			reverseStackUsingRecurssion();
+			insertAtBottom(x);
+		}
 	}
 	
 	//*********************   https://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/     ********************/
 	public static void maxSumWithNo2Adjacent(int[] arr) {
 		int incl=arr[0],excl=0,temp;
 		for(int i=1;i<arr.length;i++) {
-			temp=incl;
-			incl=Math.max(excl+arr[i], incl);
+			temp=Math.max(incl, excl);
+			incl=excl+arr[i];
 			excl=temp;
 		}
 		System.out.println("Max sum with no two elements adjacent to each other "+Math.max(incl, excl));
@@ -77,35 +147,28 @@ public class DynamicProgramming {
 		System.out.println("max profit is "+t[n][m]);
 	}
 	
-	/*******************  https://www.geeksforgeeks.org/fractional-knapsack-problem/    **************/
-	public static void grredyKnapsack(ArrayList<int[]> arr,int m) {
-		int l=arr.size();
-		int j,temp[];
-		for(int i=1;i<l;i++) {
-			j=i-1;
-			temp=arr.get(i);
-			while(j>=0 && (arr.get(j)[0]/arr.get(j)[1])<temp[0]/temp[1]) {
-				arr.set(j+1, arr.get(j));
-				j--;
-			}
-			arr.set(j+1, temp);
-		}
-//		for(int i=0;i<l;i++) {
-//			System.out.println(arr.get(i)[0]+" "+arr.get(i)[1]);
-//		}
-		int i=0;
-		int sum=0;
-		while(m>=0 && arr.get(i)[1]<=m) {
-			sum=sum+arr.get(i)[0];
-			m=m-arr.get(i)[1];
-			i++;
-		}
-		if(m>0) {
-			sum=sum+m*(arr.get(i)[0]/arr.get(i)[1]);
-		}
-		System.out.println("maximum profit is"+sum);
-	}
 	
+	/****************************   https://www.geeksforgeeks.org/subset-sum-problem-dp-25/     *************/
+	public static void subsetSum(int[] arr,int s) {
+		int n=arr.length;
+		boolean[][] ss= new boolean[n+1][s+1];
+		for(int i=1;i<=s;i++) {
+			ss[0][i]=false;
+		}
+		for(int i=0;i<=n;i++) {
+			ss[i][0]=true;
+		}
+		for(int i=1;i<n+1;i++) {
+			for(int j=1;j<s+1;j++) {
+				if(arr[i-1]>j) {
+					ss[i][j]=ss[i-1][j];
+				}else {
+					ss[i][j]=ss[i-1][j-arr[i-1]] || ss[i-1][j];
+				}
+			}
+		}
+		System.out.println("Wether Susbset with given sum is possible "+ss[n][s]);
+	}
 	
 	public static void longestCommonSubsequence(char[] str1,char[] str2) {
 		int l1=str1.length+1;
@@ -128,6 +191,29 @@ public class DynamicProgramming {
 		System.out.println("Length of longest common subsequence is "+c[l1-1][l2-1]);
 	}
 	
+	/****************   https://www.geeksforgeeks.org/longest-common-substring-dp-29/  **********/
+	public static void longestCommonSubString(char[] str1,char[] str2) {
+		int l1=str1.length+1;
+		int l2=str2.length+1;
+		int[][] c = new int[l1][l2];
+		int res=0;
+		for(int i=0;i<l1;i++) {
+			for(int j=0;j<l2;j++) {
+				if(i==0||j==0) {
+					c[i][j]=0;
+				}else {
+					if(str1[i-1]==str2[j-1]) {
+						c[i][j]=c[i-1][j-1]+1;
+						res=Math.max(res, c[i][j]);
+					}else {
+						c[i][j]=0;
+					}
+				}
+			}
+		}
+		System.out.println("Length of longest common substring is "+res);
+	}
+	
 	
 	/***************  https://www.youtube.com/watch?v=E6us4nmXTHs    ***************/
 	public static void longestIncreasingSubSequence(int[] arr) {
@@ -136,6 +222,9 @@ public class DynamicProgramming {
 		int[] index=new int[l1];
 		for(int i=0;i<l1;i++)
 			len[i]=1;
+		for(int i=0;i<arr.length;i++) {
+			index[i]=i;
+		}
 		for(int i=1;i<l1;i++) {
 			for(int j=0;j<i;j++) {
 				if(arr[j]<arr[i]) {
@@ -145,7 +234,7 @@ public class DynamicProgramming {
 					}
 				}
 			}
-		}
+		} 
 		int max=0;
 		int ind=0;
 		for(int i=0;i<l1;i++) {
@@ -163,6 +252,128 @@ public class DynamicProgramming {
 			System.out.print(arr[ind]+" ");
 		}
 		
+	}
+	
+	
+	/******************************   https://www.geeksforgeeks.org/print-all-subarrays-with-0-sum/  **********************/
+	public static void maxSumIncreasingSubSequence(int[] arr) {
+		int l1=arr.length;
+		int[] sum=new int[arr.length];
+		int[] ind = new int[arr.length];
+		int max_sum=0,index=0;
+		for(int i=0;i<arr.length;i++) {
+			sum[i]=arr[i];
+		}
+		for(int i=0;i<arr.length;i++) {
+			ind[i]=i;
+		}
+		for(int i=1;i<arr.length;i++) {
+			for(int j=0;j<i;j++) {
+				if(arr[i]>arr[j] && sum[i]<sum[j]+arr[i]) {
+					sum[i]=sum[j]+arr[i];
+					ind[i]=j;
+				}
+			}
+		}
+		for(int i=0;i<arr.length;i++) {
+			if(max_sum<sum[i]) {
+				max_sum=sum[i];
+				index=i;
+			}
+		}
+		System.out.println("Max sum increasing sub sequence sum is "+max_sum);
+		System.out.println();
+		System.out.println("Sub sequence is");
+		System.out.println();
+		System.out.print(arr[index]+" ");
+		while(index !=ind[index]) {
+			index = ind[index];
+			System.out.print(arr[index]+" ");
+		}
+	}
+	
+	
+	/**************************   https://www.geeksforgeeks.org/print-all-subarrays-with-0-sum/   *****************/
+	public static void givenSumSubArrays(int[] arr,int reqSum) {
+		int sum=0;
+		HashMap<Integer,ArrayList<Integer>> map=new HashMap<Integer,ArrayList<Integer>>();
+		ArrayList<int[]> res=new ArrayList<int[]>();
+		for(int i=0;i<arr.length;i++) {
+			sum=sum+arr[i];
+			if(sum==reqSum) {
+				int[] pair=new int[2];
+				pair[0]=0;
+				pair[1]=i;
+				res.add(pair);
+			}
+			if(map.containsKey(sum-reqSum)) {
+				ArrayList list=map.get(sum-reqSum);
+				for(int j=0;j<list.size();j++) {
+					int[] pair=new int[2];
+					pair[0]=(int) list.get(j)+1;
+					pair[1]=i;
+					res.add(pair);
+				}
+			}
+			if(map.containsKey(sum)) {
+				ArrayList list=map.get(sum);
+				list.add(i);
+				map.put(sum, list);
+			}
+			else {
+				ArrayList list=new ArrayList();
+				list.add(i);
+				map.put(sum, list);
+			}
+		}
+		for(int i=0;i<res.size();i++) {
+			int[] pair = res.get(i);
+			System.out.println("Start Index is "+pair[0]+" end index is "+pair[1]);
+		}
+	}
+	
+	
+	/*********************************     https://www.geeksforgeeks.org/find-if-array-can-be-divided-into-two-subarrays-of-equal-sum/    ************/
+	public static void dividArrayWithEqualSum(int[] arr) {
+		int totalSum=0;
+		for(int i=0;i<arr.length;i++) {
+			totalSum=totalSum+arr[i];
+		}
+		int sum=0;
+		for(int i=0;i<arr.length;i++) {
+			if(sum==totalSum-arr[i]-sum) {
+				System.out.println("Array can be divided by removing element "+arr[i]+" at index "+ i);
+				return;
+			}
+			sum=sum+arr[i];
+		}
+		System.out.println("Array cannot be divided");
+	}
+	
+	public static void maxProductSubArray(int[] arr) {
+		int max_end=1,min_end=1,max_so_far=1,flag=0;
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]>0) {
+				max_end=max_end*arr[i];
+				min_end=Math.min(min_end*arr[i], 1);
+				flag=1;
+			}else if(arr[i]==0) {
+				max_end=1;
+				min_end=1;
+			}else {
+				int temp=max_end;
+				max_end=Math.max(min_end*arr[i], 1);
+				min_end=temp*arr[i];
+			}
+			if(max_so_far<max_end) {
+				max_so_far=max_end;
+			}
+		}
+		if(flag==0 && max_so_far==1) {
+			System.out.println("Max produxt sub array is 0");
+			return;
+		}
+		System.out.println("Max produxt sub array is "+max_so_far);
 	}
 	
 	public static void printParenthesis(int i,int j,int[][] b) {
@@ -187,7 +398,7 @@ public class DynamicProgramming {
 			for(i=1;i<n-l+1;i++) {
 				j=i+l-1;
 				m[i][j]=Integer.MAX_VALUE;
-				for(k=i;k<=j-1;k++) {
+				for(k=i;k<j;k++) {
 					sum=m[i][k]+m[k+1][j]+p[i-1]*p[k]*p[j];
 					if(sum<m[i][j]) {
 						m[i][j]=sum;
@@ -198,6 +409,95 @@ public class DynamicProgramming {
 		}
 		System.out.println("Minimum no of scalar multiplications required is "+m[1][n-1]);
 		printParenthesis(1,n-1,s);
+	}
+	
+	/****************  https://www.geeksforgeeks.org/longest-palindromic-subsequence-dp-12/    ***/
+	public static void longestPalindromicSubSequence(String str) {
+		char[] c=str.toCharArray();
+		int l=c.length;
+		int[][] lps=new int[l][l];
+		for(int i=0;i<l;i++) {
+			lps[i][i]=1;
+		}
+		for(int len=2;len<=l;len++) {
+			for(int i=0;i<l-len+1;i++) {
+				int j=i+len-1;
+				if(c[i]==c[j] && len==2) {
+					lps[i][j]=2;
+				}else if(c[i]==c[j]) {
+					lps[i][j]=2+lps[i+1][j-1];
+				}else {
+					lps[i][j]=Math.max(lps[i+1][j],lps[i][j-1]);
+				}
+			}
+		}
+		System.out.println("Lnegth of longest palyndromic subsequence is "+lps[0][l-1]);
+	}
+	
+	
+	/*************  https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/   ***/
+	public static void longestPalyndromicSubString(String str) {
+		char[] c=str.toCharArray();
+		int l=c.length;
+		int[][] lps=new int[l][l];
+		for(int i=0;i<l;i++) {
+			lps[i][i]=1;
+		}
+		int res=0;
+		for(int len=2;len<=l;len++) {
+			for(int i=0;i<=l-len;i++) {
+				int j=i+len-1;
+				if(c[i]==c[j]&&len==2) {
+					lps[i][j]=2;
+					res=Math.max(res, lps[i][j]);
+				}else if(c[i]==c[j]) {
+					lps[i][j]=2+lps[i+1][j-1];
+					res=Math.max(res, lps[i][j]);
+				}else {
+					lps[i][j]=0;
+				}
+			}
+		}
+		if(res!=0) {
+			int start=-1,end=-1;
+			for(int i=0;i<l;i++) {
+				for(int j=l-1;j>=0;j--) {
+					if(lps[i][j]==res) {
+						start=i;
+						end=j;
+					}
+				}
+			}
+			System.out.println("Length of Longest Substring is "+res+" and found from index "+start+" and index "+end);
+		}else {
+			System.out.println("Longest palyndromic substring does not exist");
+		}
+	}
+	
+	/*******************  https://www.geeksforgeeks.org/fractional-knapsack-problem/    **************/
+	public static void grredyKnapsack(ArrayList<int[]> arr,int m) {
+		int l=arr.size();
+		int j,temp[];
+		for(int i=1;i<l;i++) {
+			j=i-1;
+			temp=arr.get(i);
+			while(j>=0 && (arr.get(j)[0]/arr.get(j)[1])<temp[0]/temp[1]) {
+				arr.set(j+1, arr.get(j));
+				j--;
+			}
+			arr.set(j+1, temp);
+		}
+		int i=0;
+		int sum=0;
+		while(m>=0 && arr.get(i)[1]<=m) {
+			sum=sum+arr.get(i)[0];
+			m=m-arr.get(i)[1];
+			i++;
+		}
+		if(m>0) {
+			sum=sum+m*(arr.get(i)[0]/arr.get(i)[1]);
+		}
+		System.out.println("maximum profit is"+sum);
 	}
 	
 	/*******************  https://www.geeksforgeeks.org/gold-mine-problem/    **************/

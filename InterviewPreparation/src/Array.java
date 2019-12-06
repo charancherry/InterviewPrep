@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import Utilities.JavaUtil;
 
 public class Array {
-
+	static long count=0;
 	public static void main(String[] args) {
 
 		Scanner in = new Scanner(System.in);
@@ -43,9 +43,12 @@ public class Array {
 //		int[] mergeSortArray =JavaUtil.createArray();
 //		System.out.println("Array befor Merge Sort is : ");
 //		JavaUtil.print(mergeSortArray);
+//		count=0;
 //		mergeSort(mergeSortArray,0,mergeSortArray.length-1);
+//		System.out.println("inversion count is "+count);
 //		System.out.println("Array after Merge Sort is : ");
-//		JavaUtil.print(mergeSortArray);		
+//		JavaUtil.print(mergeSortArray);	
+//	    
 //
 //		int[] quickSortArray =JavaUtil.createArray();
 //		System.out.println("Array befor Quick Sort is : ");
@@ -121,11 +124,21 @@ public class Array {
 //			System.out.println("Element Not found");
 //		}
 //
+//		
+//		/****************   https://www.geeksforgeeks.org/search-an-element-in-a-sorted-and-pivoted-array/   **************/
 //		int[] minimumInRotatedArray = JavaUtil.createArray();
+//		System.out.println("Enter the element to find");
+//		int k = in.nextInt();
 //		int index = minimumInRotatedArray(minimumInRotatedArray,0,minimumInRotatedArray.length-1);
 //		if(index!=-1) {
+//			if(minimumInRotatedArray[0]<k) {
+//				int ind = binarySearch(minimumInRotatedArray,0,index-1,k);
+//			}else {
+//				int ind = binarySearch(minimumInRotatedArray,index+1,minimumInRotatedArray.length-1,k);
+//			}
 //			System.out.println("Min Element found at"+index);
 //		}else {
+//			int ind = binarySearch(minimumInRotatedArray,0,minimumInRotatedArray.length-1,k);
 //			System.out.println("Min Element Not found");
 //		}
 //		
@@ -152,9 +165,9 @@ public class Array {
 //		int[] arr=JavaUtil.createArray();
 //		reArrange(arr);
 //		
-//		int[] shuffleArr=JavaUtil.createArray();
-//		shuffle(shuffleArr,0,shuffleArr.length-1);
-//		JavaUtil.print(shuffleArr);
+//		int[] shuffleArray=JavaUtil.createArray();
+//		shuffleArray(shuffleArray,0,shuffleArray.length-1);
+//		JavaUtil.print(shuffleArray);
 //		
 //		int[] arr=JavaUtil.createArray();
 //		int k=in.nextInt();
@@ -173,9 +186,36 @@ public class Array {
 //		
 //		int[][] arr = {{1,1,0},{1,0,1},{0,0,0}};
 //		arr=flipAndInvertImage(arr);
+//		
+//		int[] MaxOccurWithEqualProb = JavaUtil.createArray();
+//		MaxOccurWithEqualProb(MaxOccurWithEqualProb);
+//		
+//		
+//		int[] majorityElement = JavaUtil.createArray();
+//		majorityElement(majorityElement);
+//		
+//		int[] uniqueElement = JavaUtil.createArray();
+//		uniqueElement(uniqueElement);
+//	
+//		String s=in.nextLine();
+//		int n=in.nextInt();
+//		checkDivisibility(s,n);
+//		
+//	    int r=in.nextInt();
+//	    int c=in.nextInt();
+//	    int[][] inputMatrix = new int[r][c];
+//	    for(int i=0;i<r;i++){
+//	      for(int j=0;j<c;j++)
+//	      {
+//	        inputMatrix[i][j]=in.nextInt();
+//	      }   
+//	    }
+//	    spiralCopy(inputMatrix);
+//	    
+//		int[] largestNumber = JavaUtil.createArray();
+//		largestNumber(largestNumber);
+
 		
-		int[] MaxOccurWithEqualProb = JavaUtil.createArray();
-		MaxOccurWithEqualProb(MaxOccurWithEqualProb);
 	}
 	
 	/*******************  https://leetcode.com/problems/flipping-an-image/     *****************/
@@ -312,29 +352,30 @@ public class Array {
 		}
 	}
 	
-	public static void shuffle(int[] arr,int l,int r) {
-		if(l>=r) {
-			return;
+	
+	public static void shuffleArray(int[] arr,int l,int r) {
+		if(l<r) {
+			if(l-r==1) {
+				return;
+			}
+			int mid=(l+r)/2;
+			int temp=mid+1;
+			int fmid = (l+mid)/2;
+			for(int i=fmid+1;i<=mid;i++) {
+				JavaUtil.swap(arr, i, temp);
+				temp++;
+			}
+			shuffleArray(arr,l,mid);
+			shuffleArray(arr,mid+1,r);
 		}
-		if(r-l==1) {
-			return;
-		}
-		int mid=(l+r)/2;
-		int smid=(l+mid)/2;
-		int temp=mid+1;
-		for(int i=smid+1;i<=mid;i++) {
-			JavaUtil.swap(arr, i, temp++);
-		}
-		shuffle(arr,l,mid);
-		shuffle(arr,mid+1,r);
 	}
-
+	
 	public static void bubbleSort(int[] arr) {
-		int len=arr.length;
-		for(int outerInd=0;outerInd<len-1;outerInd++) {
-			for(int innerInd=outerInd;innerInd<len;innerInd++) {
-				if(arr[outerInd]<arr[innerInd]) {
-					JavaUtil.swap(arr,outerInd,innerInd);
+		int l=arr.length;
+		for(int i=0;i<l-1;i++) {
+			for(int j=0;j<l-i-1;j++) {
+				if(arr[j]>arr[j+1]) {
+					JavaUtil.swap(arr, j, j+1);
 				}
 			}
 		}
@@ -409,6 +450,7 @@ public class Array {
 				arr[k]=right[j];
 				j++;
 				k++;
+				count=count+left.length-i;
 			}
 		}
 		while(i<left.length) {
@@ -433,36 +475,18 @@ public class Array {
 		}
 	}
 
-//	public static int partition(int[] arr,int l,int r) {
-//		int pivotVal=arr[r];
-//		int i=l;
-//		for(int j=l;j<r;j++) {
-//			if(arr[j]<=pivotVal) {
-//				JavaUtil.swap(arr,i,j);
-//				i++;
-//			}
-//		}
-//		JavaUtil.swap(arr,i,r);
-//		return (i);
-//	}
-//	
-    public static int partition(int[] arr,int l,int r){
-        int pivot=arr[r];
-        int i=l;
-        for(int j=l;j<r;j++){
-            if(arr[j]<=pivot){
-                int temp=arr[i];
-                arr[i]=arr[j];
-                arr[j]=temp;
-                i++;
-            }
-        }
-            int temp=arr[i];
-                arr[i]=arr[r];
-                arr[r]=temp;
-        return i;
-        
-    }
+	public static int partition(int[] arr,int l,int r) {
+		int pivotVal=arr[r];
+		int i=l;
+		for(int j=l;j<r;j++) {
+			if(arr[j]<=pivotVal) {
+				JavaUtil.swap(arr,i,j);
+				i++;
+			}
+		}
+		JavaUtil.swap(arr,i,r);
+		return (i);
+	}
 
 	public static void quickSort(int[] arr,int l,int r) {
 		if(l<r) {
@@ -572,54 +596,28 @@ public class Array {
 		System.out.println("Min sum is"+min_sum +"and start index="+start+"end index="+end);
 	}
 
-	/****************************   https://www.geeksforgeeks.org/largest-subarray-with-equal-number-of-0s-and-1s/    ***************/
+	/****************************   https://www.geeksforgeeks.org/largest-subarray-with-equal-number-of-0s-and-1s/    ***************/	
 	public static void MaxSubArrayWithEqualNumberOfOneAndZero(int[] arr) {
-		int oneCount=0,zeroCount=0,max_length=0,k;
+		int sum=arr[0],max=Integer.MIN_VALUE,start=-1;
 		for(int i=0;i<arr.length;i++) {
-			if(arr[i]==1) {
-				oneCount++;
-			}else {
-				zeroCount++;
-			}
-		}
-		if(oneCount==0 || zeroCount==0) {
-			System.out.println("No such array exist");
-			return;
-		}
-		max_length=oneCount<zeroCount?oneCount:zeroCount;
-		for(int i=max_length;i>0;i--) {
-			oneCount=0;zeroCount=0;
-			k=2*i;
-			for(int j=0;j<k;j++) {
-				if(arr[j]==1) {
-					oneCount++;
+			sum = arr[i]==0?-1:1;
+			for(int j=i+1;j<arr.length;j++) {
+				if(arr[j]==0) {
+					sum=sum-1;
 				}else {
-					zeroCount++;
+					sum=sum+1;
 				}
-			}
-			if(oneCount==zeroCount) {
-				System.out.println("Largest array is found between 0 and "+ (k-1));
-				return;
-			}else {
-				for(int j=k;j<arr.length;j++) {
-					if(arr[j]==1) {
-						oneCount++;
-					}else {
-						zeroCount++;
-					}
-					if(arr[j-k]==1) {
-						oneCount--;
-					}else {
-						zeroCount--;
-					}
-					if(oneCount==zeroCount) {
-						System.out.println("Largest array is found between "+ (j-k+1) +" and "+  j);
-						return;
-					}
+				if(sum==0&&max<j-i+1) {
+					start=i;
+					max=j-i+1;
 				}
 			}
 		}
-		System.out.println("No such array exist");
+		if(sum==-1) {
+			System.out.println("Sub-array does not exist");
+		}else {
+			System.out.println("max sub array is of size"+max);
+		}
 	}
 
 	public static void findNOOfPairsWithGivenSum(int[] arr,int sum) {
@@ -722,35 +720,28 @@ public class Array {
 	public static void medianOfTwoSortedArrays() {
 		int[] arr1 = JavaUtil.createArray();
 		int[] arr2 = JavaUtil.createArray();
+		int m1=-1,m2=-1,j=0,i=0;
 		int l1=arr1.length;
 		int l2=arr2.length;
-		int[] arr3=new int[l1+l2];
-		int i=0,j=0,k=0;
-		while(i<l1&&j<l2) {
+		for(int c=0;c<=arr1.length;c++) {
+			m1=m2;
+			if(i==arr1.length) {
+				m2=arr2[0];
+				break;
+			}
+			if(j==arr2.length) {
+				m2=arr1[0];
+				break;
+			}
 			if(arr1[i]<arr2[j]) {
-				arr3[k]=arr1[i];
+				m2=arr1[i];
 				i++;
 			}else {
-				arr3[k]=arr2[j];
+				m2=arr2[j];
 				j++;
 			}
-			k++;
 		}
-		while(i<l1) {
-			arr3[k]=arr1[i];
-			i++;
-			k++;
-		}
-		while(j<l2) {
-			arr3[k]=arr2[j];
-			j++;
-			k++;
-		}
-		if(k%2==0) {
-			System.out.println("Median is"+((arr3[k/2])+arr3[k/2-1])/2);
-		}else {
-			System.out.println("Median is"+arr3[k/2]);
-		}
+		System.out.println("Median is "+(m1+m2)/2);
 	}
 	
 	/****************  https://www.geeksforgeeks.org/insert-in-sorted-and-non-overlapping-interval-array/      **************/
@@ -1048,5 +1039,111 @@ public class Array {
 		int rand=(int)Math.random()%max_key;
 			System.out.print(a.get(rand));
 	}
+	
+/////*******************  https://www.geeksforgeeks.org/majority-element/ *********************/
+	/********************  see  O(n) logic also ***************************/
+	public static void majorityElement(int[] arr) {
+		HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+		for(int i=0;i<arr.length;i++) {
+			if(map.containsKey(arr[i])) {
+				int count=map.get(arr[i]);
+				count++;
+				map.put(arr[i], count);
+			}else {
+				map.put(arr[i], 1);
+			}
+		}
+		for(int k:map.keySet()) {
+			if(map.get(k)>arr.length/2) {
+				System.out.println("Major element is "+k);
+				return;
+			}
+		}
+		System.out.println("There is no majority element");
+	}
+	
+	/**************   https://www.geeksforgeeks.org/check-divisibility-binary-stream/  ***********/
+	public static void checkDivisibility(String s,int n) {
+		char[] stream = s.toCharArray();
+		int r=0;
+		for(int i=0;i<s.length();i++) {
+			if(stream[i]=='1') {
+				r = ((r*2)+1)%n;
+			}else {
+				r=(r*2)%n;
+			}
+		}
+		if(r%n==0) {
+			System.out.println("Given stream is divisible by"+n);
+		}else {
+			System.out.println("Given stream is not divisible");
+		}
+	}
+	
+	/**************************    https://www.geeksforgeeks.org/find-element-appears-array-every-element-appears-twice/    *******************/
+	   public static void uniqueElement(int[] arr){
+		    int res=0;
+		    for(int i=0;i<arr.length;i++){
+		        res=res^arr[i];
+		    }
+		    System.out.println(res);
+		}
+	   
+	   static int[] spiralCopy(int[][] inputMatrix) {
+		    int row=inputMatrix.length;
+		    int col=inputMatrix[0].length;
+		    int[] spiralCopy= new int[row*col];
+		    int count=0;
+		    for(int i=0;i<(row+1)/2;i++){
+		      for(int j=i;j<col-i-1;j++){
+		        spiralCopy[count]=inputMatrix[i][j];
+		        count++;
+		      }
+		      for(int j=i;j<row-i;j++){
+		        spiralCopy[count]=inputMatrix[j][col-i-1];
+		        count++;
+		      }
+		      for(int j=col-i-2;j>i;j--){
+		        spiralCopy[count]=inputMatrix[row-i-1][j];
+		        count++;
+		      }
+		      for(int j=row-i-1;j>i;j--){
+		        spiralCopy[count]=inputMatrix[j][i];
+		        count++;
+		      }
+		    }
+		    for(int i=0;i<count;i++) {
+		    	System.out.print(spiralCopy[i]+" ");
+		    }
+		    return spiralCopy;
+		  }
+	   
+	    public static boolean isGreater(int num1,int num2){
+	        String str1=Integer.toString(num1)+Integer.toString(num2);
+	        String str2=Integer.toString(num2)+Integer.toString(num1);
+	        if(str2.compareTo(str1)>0){
+	            return true;
+	        }else{
+	            return false;
+	        }
+	    }
+	    
+	    /**********  https://practice.geeksforgeeks.org/problems/largest-number-formed-from-an-array/0 **********/
+	    public static void largestNumber(int[] arr){
+	        for(int i=1;i<arr.length;i++){
+	            int temp=arr[i];
+	            int j=i-1;
+	            while(j>=0 && isGreater(arr[j],temp)){
+	                arr[j+1]=arr[j];
+	                j--;
+	            }
+	            arr[j+1]=temp;
+	        }
+	        String res="";
+	        for(int ind=0;ind<arr.length;ind++){
+	            res += Integer.toString(arr[ind]);
+	        }
+	        System.out.println(res);
+	    }
 	
 }

@@ -1,0 +1,26 @@
+Can Garbage collection be forcibly called in java???
+Garbage collection in java can not be enforced. But still sometimes, we call the System.gc( ) method explicitly. System.gc() method provides just a "hint" to the JVM that garbage collection should run. It is not guaranteed!
+
+How do you make an object eligible for garbage collection???
+a. Nullifying reference variable
+b. Re- assigning reference variable
+c. Objects created inside method
+
+How do you create immutable classes???
+1.The class must be declared as final (So that child classes can’t be created)
+2.Data members in the class must be declared as final (So that we can’t change the value of it after object creation)
+3.A parameterized constructor
+4.Getter method for all the variables in it
+5.No setters(To not have the option to change the value of the instance variable)
+
+wait,notify,notifyall are in object class
+
+Why wait,notify,notifyall are in object class??
+wait - wait method tells the current thread to give up monitor and go to sleep.
+notify - Wakes up a single thread that is waiting on this object's monitor.
+So you see wait() and notify() methods work at the monitor level, thread which is currently holding the monitor is asked to give up that monitor through wait() method and through notify() method (or notifyAll) threads which are waiting on the object's monitor are notified that threads can wake up.
+Important point to note here is that monitor is assigned to an object not to a particular thread.Thats one reason why these methods are in Object class.
+
+What is race condition??
+Race condition in Java occurs in a multi-threaded environment when more than one thread try to access a shared resource (modify, write) at the same time. 
+Since multiple threads try to race each other to finish executing a method thus the name race condition.

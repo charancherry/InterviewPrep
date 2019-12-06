@@ -277,14 +277,14 @@ public class Graphs {
 		Scanner in = new Scanner(System.in);
 //		System.out.println("Enter No of nodes in graph");
 //		int n = in.nextInt();
-//		Graph g=new Graph(5);
-//		addUnDirectedEdge(g, 0, 1);
-//		addUnDirectedEdge(g, 0, 4);
-//		addUnDirectedEdge(g, 1, 2);
-//		addUnDirectedEdge(g, 1, 3);
-//		addUnDirectedEdge(g, 1, 4);
-//		addUnDirectedEdge(g, 2, 3);
-//		addUnDirectedEdge(g, 2, 4);
+		Graph g=new Graph(5);
+		addUnDirectedEdge(g, 0, 1);
+		addUnDirectedEdge(g, 0, 4);
+		addUnDirectedEdge(g, 1, 2);
+		addUnDirectedEdge(g, 1, 3);
+		addUnDirectedEdge(g, 1, 4);
+		addUnDirectedEdge(g, 2, 3);
+		addUnDirectedEdge(g, 2, 4);
 //		System.out.println("Adjacent vertices of each vertex is ");
 //		printAdjacentNodes(g);
 //		System.out.println();
@@ -330,24 +330,24 @@ public class Graphs {
                 { 0, 3, 0, 0, 7 },  
                 { 6, 8, 0, 0, 9 },  
                 { 0, 5, 7, 9, 0 } };  
-		//minimumSpanningTree(graph);
-        
-		Graph g5 =new Graph(9);
-		addEdge(g5, 0,1,4);
-		addEdge(g5, 0,7,8);
-		addEdge(g5, 1,2,8);
-		addEdge(g5, 1,7,11);
-		addEdge(g5, 2,3,7);
-		addEdge(g5, 2,8,2);
-		addEdge(g5, 2,5,4);
-		addEdge(g5, 3,4,9);
-		addEdge(g5, 3,5,14);
-		addEdge(g5, 4,5,10);
-		addEdge(g5, 5,6,2);
-		addEdge(g5, 6,7,1);
-		addEdge(g5, 6,8,6);
-		addEdge(g5, 7,8,7);
-		isPathWithMoreThanKExist(g5,58);
+		minimumSpanningTree(graph);
+//        
+//		Graph g5 =new Graph(9);
+//		addEdge(g5, 0,1,4);
+//		addEdge(g5, 0,7,8);
+//		addEdge(g5, 1,2,8);
+//		addEdge(g5, 1,7,11);
+//		addEdge(g5, 2,3,7);
+//		addEdge(g5, 2,8,2);
+//		addEdge(g5, 2,5,4);
+//		addEdge(g5, 3,4,9);
+//		addEdge(g5, 3,5,14);
+//		addEdge(g5, 4,5,10);
+//		addEdge(g5, 5,6,2);
+//		addEdge(g5, 6,7,1);
+//		addEdge(g5, 6,8,6);
+//		addEdge(g5, 7,8,7);
+//		isPathWithMoreThanKExist(g5,58);
 	}
 
 }

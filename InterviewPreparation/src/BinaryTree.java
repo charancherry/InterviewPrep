@@ -990,7 +990,21 @@ public class BinaryTree {
 		}
 		return isChildrenSumProperty(root.left)&&isChildrenSumProperty(root.right)&&(root.data==(root.left!=null?root.left.data:0)+(root.right!=null?root.right.data:0));
 	}
-
+	
+	/********************************   https://www.geeksforgeeks.org/check-if-a-binary-tree-is-subtree-of-another-binary-tree/  **************/
+    public static boolean isSubtree(Node T, Node S) {
+        if(S==null){
+            return true;
+        }
+        if(T==null){
+            return false;
+        }
+        if(twoTreesAreIdentical(T,S)){
+            return true;
+        }
+        return isSubtree(T.left,S) || isSubtree(T.right,S);
+    }
+	
 	public static void main(String[] args) {
 		BinaryTree tree=new BinaryTree();
 		Scanner in=new Scanner(System.in);
@@ -1152,13 +1166,13 @@ public class BinaryTree {
 //		System.out.println("Max sum path between two leafs is "+tree.maxPathSumBetweenTwoLeafs(tree.root));
 //		System.out.println("Two trees are mirror "+tree.areMirror(tree.root, tree.root1));
 //		System.out.println();
-//		System.out.print("Lowest Common Ancestor of two nodes ");
-//		int LCA = tree.lowestCommonAncestor(tree.root, 5,6);
-//		if(LCA==-1) {
-//			System.out.println("doesn't exist");
-//		}else {
-//			System.out.println(LCA);
-//		}
+		System.out.print("Lowest Common Ancestor of two nodes ");
+		int LCA = tree.lowestCommonAncestor(tree.root, 5,6);
+		if(LCA==-1) {
+			System.out.println("doesn't exist");
+		}else {
+			System.out.println(LCA);
+		}
 //		
 //		System.out.print("Common Ancestors of two nodes ");
 //		boolean commonAncestorsExist = tree.commonAncestorsofGivenTwoNodes(tree.root, 5,6);

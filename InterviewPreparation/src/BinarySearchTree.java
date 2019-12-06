@@ -109,14 +109,13 @@ public class BinarySearchTree {
 	/**********************    https://www.geeksforgeeks.org/construct-bst-from-given-preorder-traversa/  ****************/
 	public Node buildTreeFromPreOrder(int[] pre,int l,int r) {
 		if(l<=r) {
-			int data=pre[pre_index];
-			int index=findIndex(pre,pre_index);
-			pre_index++;
+			int data=pre[l];
+			int index=findIndex(pre,l);
 			Node root=new Node(data);
 			if(l==r) {
 				return root;
 			}
-			root.left=buildTreeFromPreOrder(pre,pre_index,index-1);
+			root.left=buildTreeFromPreOrder(pre,l+1,index-1);
 			root.right=buildTreeFromPreOrder(pre,index,r);
 			return root;
 		}else {
@@ -356,15 +355,15 @@ public class BinarySearchTree {
 	public static void main(String[] args) {
 		BinarySearchTree tree = new BinarySearchTree();
 		Scanner in = new Scanner(System.in);
-		System.out.println("Enter no of nodes in tree");
-		int n=in.nextInt();
-		for(int i=0;i<n;i++) {
-			int d=in.nextInt();
-			tree.root=tree.insertNode(tree.root, d);
-		}
-		System.out.println("Inorder traversal of given tree");
-		tree.inorder(tree.root);
-		System.out.println();
+//		System.out.println("Enter no of nodes in tree");
+//		int n=in.nextInt();
+//		for(int i=0;i<n;i++) {
+//			int d=in.nextInt();
+//			tree.root=tree.insertNode(tree.root, d);
+//		}
+//		System.out.println("Inorder traversal of given tree");
+//		tree.inorder(tree.root);
+//		System.out.println();
 //		tree.root=tree.delete(tree.root, in.nextInt());
 //		tree.inorder(tree.root);
 		int[] preOrder= {10,5,1,7,40,50};
@@ -372,56 +371,56 @@ public class BinarySearchTree {
 		System.out.println("InOrder of Given preorder sequence is");
 		tree.inorder(root1);
 		System.out.println();
-		tree.pre_index=0;
-		Node root2=new Node(10);
-		root2.left=new Node(2);
-		root2.right=new Node(7);
-		root2.left.left=new Node(8);
-		root2.left.right=new Node(4);
-		System.out.println("Inorder traversal of Given binary tree is");
-		tree.inorder(root2);
-		System.out.println();
-		root2=tree.convertBinaryToBST(root2);
-		System.out.println("Inorder traversal after converting given binary tree to BST is");
-		tree.inorder(root2);
-		System.out.println();
-		
-		Node root3=new Node(10);
-		root3.left=new Node(5);
-		root3.right=new Node(8);
-		root3.left.left=new Node(2);
-		root3.left.right=new Node(20);
-		tree.inorder(root3);
-				
-		System.out.println("Given tree is BST "+tree.isBST(root3));
-		tree.kthSmallestNode(tree.root, 3);
-		tree.nodeCount=0;
-		tree.kthLargestNode(tree.root, 2);
-		tree.correctBST(root3);
-		tree.inorder(root3);
-		ArrayList m=new ArrayList();
-		tree.pairWithGivenSum(root3, 22, m);
-		System.out.println("Size of given BST is"+tree.size(tree.root));
-		System.out.println("Largest BST sub tree is "+tree.largestBST(tree.root));
-		tree.nodeCount=0;
-		int[] arr= {8,2};
-		tree.isSubSequenceExist(root3, arr);
-		if(tree.nodeCount==arr.length) {
-			System.out.println("sub sequence exist in given tree");
-		}else {
-			System.out.println("Given sub sequence does not exist");
-		}
-		Node lsa=tree.LCA(tree.root, 1, 10);
-		System.out.println("LCA of given nodes is "+lsa.data);
-		int[] pre= {2,4,1};
-		boolean isBSTPossible = tree.givenPreOrderCanRepresentBSTOrNot(pre, 0, pre.length-1);
-		if(isBSTPossible) {
-			System.out.println("Can represent BST");
-		}else {
-			System.out.println("Cannot represent BST");
-		}
-		tree.maximumBetweenTwonodes(tree.root, 1, 10);
-		System.out.println("Max between given two nodes is "+tree.max);
+//		tree.pre_index=0;
+//		Node root2=new Node(10);
+//		root2.left=new Node(2);
+//		root2.right=new Node(7);
+//		root2.left.left=new Node(8);
+//		root2.left.right=new Node(4);
+//		System.out.println("Inorder traversal of Given binary tree is");
+//		tree.inorder(root2);
+//		System.out.println();
+//		root2=tree.convertBinaryToBST(root2);
+//		System.out.println("Inorder traversal after converting given binary tree to BST is");
+//		tree.inorder(root2);
+//		System.out.println();
+//		
+//		Node root3=new Node(10);
+//		root3.left=new Node(5);
+//		root3.right=new Node(8);
+//		root3.left.left=new Node(2);
+//		root3.left.right=new Node(20);
+//		tree.inorder(root3);
+//				
+//		System.out.println("Given tree is BST "+tree.isBST(root3));
+//		tree.kthSmallestNode(tree.root, 3);
+//		tree.nodeCount=0;
+//		tree.kthLargestNode(tree.root, 2);
+//		tree.correctBST(root3);
+//		tree.inorder(root3);
+//		ArrayList m=new ArrayList();
+//		tree.pairWithGivenSum(root3, 22, m);
+//		System.out.println("Size of given BST is"+tree.size(tree.root));
+//		System.out.println("Largest BST sub tree is "+tree.largestBST(tree.root));
+//		tree.nodeCount=0;
+//		int[] arr= {8,2};
+//		tree.isSubSequenceExist(root3, arr);
+//		if(tree.nodeCount==arr.length) {
+//			System.out.println("sub sequence exist in given tree");
+//		}else {
+//			System.out.println("Given sub sequence does not exist");
+//		}
+//		Node lsa=tree.LCA(tree.root, 1, 10);
+//		System.out.println("LCA of given nodes is "+lsa.data);
+//		int[] pre= {2,4,1};
+//		boolean isBSTPossible = tree.givenPreOrderCanRepresentBSTOrNot(pre, 0, pre.length-1);
+//		if(isBSTPossible) {
+//			System.out.println("Can represent BST");
+//		}else {
+//			System.out.println("Cannot represent BST");
+//		}
+//		tree.maximumBetweenTwonodes(tree.root, 1, 10);
+//		System.out.println("Max between given two nodes is "+tree.max);
 	}
 
 }

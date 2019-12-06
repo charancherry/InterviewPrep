@@ -5,7 +5,7 @@ public class LinkedList {
 
 	Node head;
 
-	public static class Node{
+	public class Node{
 		int data;
 		Node next;
 		public Node(int d) {
@@ -249,6 +249,24 @@ public class LinkedList {
 	}
 	
 	
+	public static Node pairswapNode(Node head,int size) {
+		Node prev=null;
+		Node current = head;
+		Node next=null;
+		int count=0;
+		while(current!=null && count<size) {
+			next=current.next;
+			current.next=prev;
+			prev=current;
+			current=next;
+			count++;
+		}
+		if(current != null) {
+			head.next=pairswapNode(current,size);
+		}
+		return prev;
+	}
+	
 	/***********  https://www.geeksforgeeks.org/function-to-check-if-a-singly-linked-list-is-palindrome/  ****/
 	public void isPalyndrome() {
 		int l=length(head);
@@ -454,6 +472,8 @@ public class LinkedList {
 //		list.print(list.head);
 //		list.print(head2);
 
+		list.print(list.head);
+		list.head=list.pairswapNode(list.head,2);
 		list.print(list.head);
 //		list.head=list.reverse(list.head);
 //		list.delete(0);

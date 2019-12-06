@@ -86,11 +86,100 @@ public class Strings {
 //		String[] a = {"bella","label","roller"};
 //		List<String> str = commonChars(a);
 //		System.out.println(str);
-		
-		System.out.println("Enter string");
-		String str=in.next();
-		recurssivelyRemoveAdjDuplicates(str);
+//
+//		System.out.println("Enter string");
+//		String str=in.next();
+//		recurssivelyRemoveAdjDuplicates(str);
+//		
+//		System.out.println("Enter strings");
+//		String str1=in.next();
+//		String str2=in.next();
+//		String result = abbreviation(str1,str2);
+//		System.out.println(result);
+//		
+//		int n=in.nextInt();
+//	    convertToWords(n);
+//		
+		System.out.println("Enter the n value");
+		int n=in.nextInt();
+		decodeAndFind(n);
 	}
+	
+	
+	public static boolean isUpperCaseExist(char[] c,int s,int l) {
+		for(int i=s+1;i<l;i++) {
+			if(c[i]>='A' && c[i]<='Z') {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+    public static int getIndex(ArrayList<Integer> list,int temp) {
+        for(int i=0;i<list.size();i++) {
+            if(list.get(i)>temp) {
+                return list.get(i);
+            }
+        }
+        return -1;
+    }
+	
+	static String abbreviation(String a, String b) {
+		HashMap<Character,ArrayList> m = new HashMap<Character,ArrayList>();
+		char[] c1=a.toCharArray();
+		char[] c2=b.toCharArray();
+		for(int i=0;i<c1.length;i++) {
+			char key;
+			if(c1[i]>='a' && c1[i]<='z') {
+				key=(char)((int)c1[i]-32);
+			}else {
+				key=c1[i];
+			}
+			if(m.containsKey(key)) {
+				ArrayList<Integer> index = m.get(key);
+				index.add(i);
+				m.put(key, index);
+			}else {
+				ArrayList<Integer> index = new ArrayList<Integer>();
+				index.add(i);
+				m.put(key, index);
+			}
+		}
+		int temp_Index=-1;
+		int start=-1;
+		boolean isUpperCaseExist =false;
+		for(int i=0;i<c2.length;i++) {
+			if(m.containsKey(c2[i])) {
+				char c = c2[i];
+				ArrayList<Integer> index=m.get(c2[i]);
+				int ind= getIndex(index,temp_Index);
+				if( ind!= -1){
+					if(temp_Index == -1) {
+						 isUpperCaseExist = false;
+					}else {
+					 isUpperCaseExist = isUpperCaseExist(c1,temp_Index,ind);
+					}
+					if(isUpperCaseExist) {
+						return new String("NO");
+					}
+					temp_Index = ind;
+					index.remove((Integer)ind);
+				}else {
+					return new String("NO");
+				}
+			}else {
+				return new String("NO");
+			}
+		}
+		boolean isUpperCaseExistAtEnd = isUpperCaseExist(c1,temp_Index,c1.length);
+        boolean isUpperCaseExistAtStart = isUpperCaseExist(c1,0,start);
+        if(isUpperCaseExistAtEnd || isUpperCaseExistAtStart) {
+            return new String("NO");    
+        }
+        return new String("YES");
+
+	}
+
 	
 	/****************************  https://www.geeksforgeeks.org/recursively-remove-adjacent-duplicates-given-string/  *************/
 	public static void recurssivelyRemoveAdjDuplicates(String str) {
@@ -519,6 +608,71 @@ public class Strings {
 		System.out.println("Result string is "+reverseString(str.toString()));
 		
 	}
+	
+	
+	/*********************  https://www.geeksforgeeks.org/look-and-say-sequence/ **************/
+	public static void decodeAndFind(int n) {
+		if(n==1) {
+			System.out.println("1");
+			return;
+		}
+		if(n==2) {
+			System.out.println("11");
+			return;
+		}
+		String temp="11";
+		for(int i=3;i<=n;i++) {
+			StringBuilder str = new StringBuilder();
+			char[] c=temp.toCharArray();
+			int count=1;
+			for(int j=1;j<temp.length();j++) {
+				if(c[j]!=c[j-1]) {
+					str.append(count);
+					str.append(c[j-1]);
+					count=1;
+				}else {
+					count++;
+				}
+			}
+			str.append(count);
+			str.append(c[c.length-1]);
+			temp=str.toString();
+		}
+		System.out.println(temp);
+	}
+	
+	public static void convertToWords(int n){
+        String[] tens = {"ten","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"};
+        String[] ones ={"one","two","three","four","five","six","seven","eight","nine"};
+        String[] special={"eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"};
+        String res ="";
+        int thousand = n/1000;
+        if(thousand!=0){
+            res =res+ones[thousand-1]+" thousand ";
+        }
+        int hun =n%1000/100;
+        if(hun!=0){
+            res = res+ones[hun-1]+" hundred ";
+        }
+        int ten = n%1000%100/10;
+        int units=n%1000%100%10;
+        if(hun!=0&&(ten!=0||units!=0)){
+            res = res +"and ";
+        }
+        if(ten!=1 && ten !=0){
+            res =res+tens[ten-1]+" ";
+            if(units !=0){
+                res = res+ones[units-1];
+            }
+        }else if(ten ==1 && units==0){
+            res = res +tens[0];
+        }else if(ten==1 && units !=0){
+            res = res+special[units-1];
+        }else if(units !=0){
+            res = res+ones[units-1];
+        }
+        System.out.println(res);
+    }
 
 
 }

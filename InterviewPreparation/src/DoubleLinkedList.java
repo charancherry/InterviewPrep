@@ -46,6 +46,7 @@ public class DoubleLinkedList {
 		temp.next=newNode;
 		newNode.prev=temp;
 		newNode.next=next;
+		next.prev=newNode;
 		return head;
 	}
 	
@@ -63,6 +64,7 @@ public class DoubleLinkedList {
 		prev.next=newNode;
 		newNode.prev=prev;
 		newNode.next=temp;
+		temp.prev=newNode;
 		return head;
 	}
 	
