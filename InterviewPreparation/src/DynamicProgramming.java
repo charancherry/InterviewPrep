@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -50,11 +53,11 @@ public class DynamicProgramming {
 //		System.out.println("Enter bag capacity");
 //		int m=in.nextInt();
 //		KnapSackZeroOrOne(w,p,m);
-		
-		int[] arr = JavaUtil.createArray();
-		System.out.println("Enter sum");
-		int sum=in.nextInt();
-		subsetSum(arr,sum);
+//		
+//		int[] arr = JavaUtil.createArray();
+//		System.out.println("Enter sum");
+//		int sum=in.nextInt();
+//		subsetSum(arr,sum);
 //		
 //		int[] maxSumWithNo2Adjacent=JavaUtil.createArray();
 //		maxSumWithNo2Adjacent(maxSumWithNo2Adjacent);
@@ -97,6 +100,31 @@ public class DynamicProgramming {
 //		System.out.println("Enter the string");
 //		String str=in.next();
 //		longestPalyndromicSubString(str);
+		
+//		numberOfPaths(3,3);
+//		
+//		int[][] matrix = {{1,0,0,1},{1,1,1,1},{1,0,1,1}};
+//		numberOfPathsInMaze(matrix);
+//		
+//		int[] maxSumSubArray=JavaUtil.createArray();
+//		int k=in.nextInt();
+//		maxSumSubArray(maxSumSubArray,k);
+//	
+//		int[] maxInEachSubArray=JavaUtil.createArray();
+//		int k=in.nextInt();
+//		maxInEachSubArray(maxInEachSubArray,k);
+//		
+//		noOfBinaryStringWithoutConsective1(in.nextInt());
+//		
+//		System.out.println("Please Enter string");
+//		String str=in.next();
+//		System.out.println("Please Enter pattern");
+//		String pattern = in.next();
+//		isPatternMatching(str,pattern);
+		
+		int[] s = {1,2,3};
+		int n=5;
+		coinChange(s,s.length,n);
 	}
 	
 	public static void insertAtBottom(int x) {
@@ -116,6 +144,176 @@ public class DynamicProgramming {
 			insertAtBottom(x);
 		}
 	}
+	
+	
+	/******************  https://www.geeksforgeeks.org/count-possible-paths-top-left-bottom-right-nxm-matrix/  ***********/
+	public static void numberOfPaths(int m,int n) {
+		int[][] count=new int[m][n];
+		for(int i=0;i<n;i++) {
+			count[0][i]=1;
+		}
+		for(int i=0;i<m;i++) {
+			count[i][0]=1;
+		}
+		for(int i=1;i<m;i++) {
+			for(int j=1;j<n;j++) {
+				count[i][j]=count[i-1][j]+count[i][j-1];
+			}
+		}
+		System.out.println("No of paths are "+count[m-1][n-1]);
+	}
+	
+	public static class pair{
+		int first;
+		int second;
+		public pair(int f,int s) {
+			first=f;
+			second=s;
+		}
+	}
+
+	
+	/*********  https://www.geeksforgeeks.org/count-number-of-ways-to-reach-destination-in-a-maze-using-bfs/  ***/
+	public static void numberOfPathsInMaze(int[][] m) {
+		int r=m.length;
+		int c=m[0].length;
+		Queue<pair> q = new LinkedList();
+		pair p=new pair(0,0);
+		q.add(p);
+		int count=0;
+		while(!q.isEmpty()) {
+			 p=q.peek();
+			 q.poll();
+			 if(p.first==r-1&&p.second==c-1) {
+				 count++;
+			 }
+			if(p.first+1<r&&m[p.first+1][p.second]==1) {
+				q.add(new pair(p.first+1,p.second));
+			}
+			if(p.second+1<c&&m[p.first][p.second+1]==1) {
+				q.add(new pair(p.first,p.second+1));
+			}
+		}
+		System.out.println("No of paths are "+count);
+	}
+	
+	
+	/*******************   https://www.youtube.com/watch?v=li9rcswj0WM   **********/
+	public static void maxSumSubArray(int[] arr,int k) {
+		int max_sum=0;
+		int sum=0;
+		int start=0;
+		for(int i=0;i<arr.length;i++) {
+			sum=sum+arr[i];
+			if(i>=k-1) {
+				max_sum=Math.max(sum, max_sum);
+				sum=sum-arr[start];
+				start++;
+			}
+		}
+		System.out.println(max_sum);
+	}
+	
+	
+	/**********************   https://algorithms.tutorialhorizon.com/sliding-window-algorithm-track-the-maximum-of-each-subarray-of-size-k/   ****************/
+	public static void maxInEachSubArray(int[] arr,int k) {
+		Deque<Integer> q=new LinkedList<Integer>();
+		for(int i=0;i<k;i++) {
+			while(!q.isEmpty() && arr[q.peekLast()]<=arr[i]) {
+				q.removeLast();
+			}
+			q.addLast(i);
+		}
+		for(int i=k;i<arr.length;i++) {
+			System.out.print(arr[q.peekFirst()]+" ");
+			while(!q.isEmpty() && q.peekFirst()<=i-k) {
+				q.pollFirst();
+			}
+			while(!q.isEmpty() && arr[q.peekLast()]<=arr[i]) {
+				q.removeLast();
+			}
+			q.addLast(i);
+		}
+		System.out.print(arr[q.peekFirst()]);
+	}
+	
+	/***************   https://www.geeksforgeeks.org/count-number-binary-strings-without-consecutive-1s/   ****************/
+	public static void noOfBinaryStringWithoutConsective1(int n) {
+		int[] a=new int[n];
+		int[] b=new int[n];
+		a[0]=1;b[0]=1;
+		for(int i=1;i<n;i++) {
+			a[i]=a[i-1]+b[i-1];
+			b[i]=a[i-1];
+		}
+		System.out.println("No of binary strings without consective 1's are "+(a[n-1]+b[n-1]));
+	}
+	
+	
+	/*******************   https://github.com/mission-peace/interview/blob/master/src/com/interview/dynamic/WildCardMatching.java   ************/
+	/*******************    https://www.youtube.com/watch?v=3ZDZ-N0EPV0    *****************/
+	public static void isPatternMatching(String s,String p) {
+		char[] str=s.toCharArray();
+		char[] pattern=p.toCharArray();
+		int index=0;
+		boolean isFirst=true;
+		for(int i=0;i<pattern.length;i++) {
+			if(pattern[i]=='*') {
+				if(isFirst) {
+					pattern[index++]=pattern[i];
+					isFirst=false;
+				}
+			}else {
+				pattern[index++]=pattern[i];
+				isFirst=true;
+			}
+		}
+		boolean[][] t=new boolean[str.length+1][index+1];
+		t[0][0]=true;
+		for(int i=1;i<t[0].length;i++) {
+			t[0][i]=false;
+		}
+		for(int i=1;i<t.length;i++) {
+			t[i][0]=false;
+		}
+		if(pattern[0]=='*') {
+			t[0][1]=true;
+		}
+		for(int i=1;i<t.length;i++) {
+			for(int j=1;j<t[0].length;j++) {
+				if(str[i-1]==pattern[j-1] || pattern[j-1]=='?') {
+					t[i][j]=t[i-1][j-1];
+				}else if(pattern[j-1]=='*') {
+					t[i][j]=t[i-1][j]||t[i][j-1];
+				}else {
+					t[i][j]=false;
+				}
+			}
+		}
+		System.out.println("Wether given pattern matches string is "+t[str.length][index]);
+	}
+	
+	
+	
+	/****************************    https://www.geeksforgeeks.org/coin-change-dp-7/     ********************/
+	public static void coinChange(int[] s,int m,int n) {
+		int[][] t=new int[n+1][m+1];
+		for(int i=0;i<n+1;i++) {
+			t[i][0]=0;
+		}
+		for(int i=0;i<m+1;i++) {
+			t[0][i]=1;
+		}
+		for(int i=1;i<n+1;i++) {
+			for(int j=1;j<m+1;j++) {
+				int incl=(i>=s[j-1])?t[i-s[j-1]][j] :0;
+				int excl=t[i][j-1];
+				t[i][j]=incl+excl;
+			}
+		}
+		System.out.println("No of ways possible are "+t[n][m]);
+	}
+	
 	
 	//*********************   https://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/     ********************/
 	public static void maxSumWithNo2Adjacent(int[] arr) {

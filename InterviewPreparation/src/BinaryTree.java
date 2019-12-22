@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
@@ -10,6 +11,8 @@ public class BinaryTree {
 	
 	Node root;
 	Node root1;
+	static Node prev=null;
+	static Node head=null;
 	static int preIndex=0;
 	static int postIndex=0;
 	static int count=0;
@@ -19,6 +22,7 @@ public class BinaryTree {
 	static boolean isAtSameLevel=true;
 	static int max_level=0;
 	static int deep_level=0;
+	static int max_size=0;
 	
 	public static class Node{
 		int data;
@@ -171,7 +175,7 @@ public class BinaryTree {
 			}
 		}
 		
-		public void printCurrentLevel(Node root,int l) {
+		public void printCurrentLevel(Node root,int l,boolean ledftToRight) {
 			if(root==null) {
 				return;
 			}
@@ -179,16 +183,22 @@ public class BinaryTree {
 				System.out.print(root.data+" ");
 				return;
 			}
-			printCurrentLevel(root.left,l-1);
-			printCurrentLevel(root.right,l-1);
+			if(ledftToRight) {
+				printCurrentLevel(root.left,l-1,ledftToRight);
+				printCurrentLevel(root.right,l-1,ledftToRight);
+			}else {
+				printCurrentLevel(root.right,l-1,ledftToRight);
+				printCurrentLevel(root.left,l-1,ledftToRight);
+			}
 		}
 		
 		/***************** https://www.geeksforgeeks.org/level-order-tree-traversal/         **************/
-		public void printLevelOrder(Node root) {
+		public void printLevelOrder(Node root,boolean ledftToRight,boolean isSpiral) {
 			int h=height(root);
 			for(int i=1;i<=h+1;i++) {
 				System.out.println();
-				printCurrentLevel(root,i);
+				printCurrentLevel(root,i,ledftToRight);
+				ledftToRight = isSpiral ? !ledftToRight : ledftToRight;
 			}
 		}
 		
@@ -621,6 +631,34 @@ public class BinaryTree {
 		}
 	}
 	
+	public void diagonalViewUtil(Node root,HashMap<Integer,LinkedList<Integer>> m,int d) {
+		if(root==null) {
+			return;
+		}
+			LinkedList<Integer> list= m.get(d);
+			if(list==null) {
+				list=new LinkedList<Integer>();
+			}
+			list.add(root.data);
+			m.put(d,list);
+			diagonalViewUtil(root.left,m,d+1);
+			diagonalViewUtil(root.right,m,d);
+		
+	}
+	
+	/**********************    https://www.geeksforgeeks.org/diagonal-traversal-of-binary-tree/   ***************/
+	public void diagonalView(Node root) {
+		HashMap<Integer,LinkedList<Integer>> m = new HashMap<Integer,LinkedList<Integer>>();
+		diagonalViewUtil(root,m,0);
+		for(Integer key:m.keySet()) {
+			LinkedList<Integer> list =m.get(key);
+			for(int i=0;i<list.size();i++) {
+				System.out.print(list.get(i)+" ");
+			}
+			System.out.println();
+		}
+	}
+	
 	/*******************  https://www.geeksforgeeks.org/print-nodes-at-k-distance-from-root/  **********************/
 	public void NodesAtParticulardistanceFromrRoot(Node root,int x){
 		if(root==null) {
@@ -1004,16 +1042,106 @@ public class BinaryTree {
         }
         return isSubtree(T.left,S) || isSubtree(T.right,S);
     }
+    
+    
+    
+    /******************************   https://www.geeksforgeeks.org/root-leaf-path-maximum-distinct-nodes/   *********************/
+    public static int noOfMaxDistinctNodesPath(Node root,HashMap<Integer,Integer> m) {
+    	if(root==null) {
+    		return m.size();
+    	}
+    	if(!m.containsKey(root.data)) {
+    		m.put(root.data, 1);
+    	}else {
+    		m.put(root.data, m.get(root.data)+1);
+    	}
+    	int max= Math.max(noOfMaxDistinctNodesPath(root.left,m), noOfMaxDistinctNodesPath(root.right,m));
+    	m.put(root.data, m.get(root.data)-1);
+    	if(m.get(root.data)==0) {
+    		m.remove(root.data);
+    	}
+    	return max;
+    }
+    
+    public void tripletsWithGivenSum(Node root,Node parent,int sum) {
+    	if(root==null)
+    		return;
+    	tripletsWithGivenSum(root.left,root,sum);
+    	if(parent!=null) {
+    		if(root.left!=null && root.data+parent.data+root.left.data==sum) {
+    			System.out.println("Triplet with given sum is "+parent.data+" "+root.data+" "+root.left.data);
+    		}
+    		if(root.right!=null && root.data+parent.data+root.right.data==sum) {
+    			System.out.println("Triplet with given sum is "+parent.data+" "+root.data+" "+root.right.data);
+    		}
+    	}
+    	tripletsWithGivenSum(root.right,root,sum);
+    }
+    
+    /*****************   https://www.geeksforgeeks.org/print-nodes-distance-k-given-node-binary-tree/   ********/
+	public int NodesAtParticularDistanceFromGivenNode(Node root,Node target,int k) {
+		if(root==null) {
+			return -1;
+		}
+		if(target==root) {
+			NodesAtParticulardistanceFromrRoot(root,k);
+			return 0;
+		}
+		int dl=NodesAtParticularDistanceFromGivenNode(root.left,target,k);
+		if(dl!=-1) {
+			if(dl+1==k) {
+				System.out.println(root.data);
+			}
+			NodesAtParticulardistanceFromrRoot(root.right,k-dl-2);
+			return dl+1;
+		}
+		int rl=NodesAtParticularDistanceFromGivenNode(root.right,target,k);
+		if(rl!=-1) {
+			if(rl+1==k) {
+				System.out.println(root.data);
+			}
+			NodesAtParticulardistanceFromrRoot(root.left,k-rl-2);
+			return rl+1;
+		}
+		return -1;
+	}
+	
+	
+	/*******************   https://www.geeksforgeeks.org/convert-given-binary-tree-doubly-linked-list-set-3/    *******************/
+	public static void convertTreeToDLL(Node root) {
+		if(root==null) {
+			return;
+		}
+		convertTreeToDLL(root.left);
+		if(prev==null) {
+			head=root;
+		}else {
+			root.left=prev;
+			prev.right=root;
+		}
+		prev=root;
+		convertTreeToDLL(root.right);
+	}
+	
+	public void printNodesInTreeConvertedDLL(Node head) {
+		if(head==null) {
+			return;
+		}
+		while(head!=null) {
+			System.out.print(head.data+" ");
+			head=head.right;
+		}
+	}
 	
 	public static void main(String[] args) {
 		BinaryTree tree=new BinaryTree();
 		Scanner in=new Scanner(System.in);
 		tree.root=new Node(20);
 		tree.root.left=new Node(10);
-		tree.root.right=new Node(26);
+		tree.root.right=new Node(3);
 		tree.root.left.left=new Node(4);
 		tree.root.left.right=new Node(18);
-		tree.root.right.left=new Node(24);
+		tree.root.right.left=new Node(11);
 		tree.root.right.right=new Node(27);
 		tree.root.right.left.left=new Node(5);
 		tree.root.right.left.right=new Node(6);
@@ -1054,14 +1182,14 @@ public class BinaryTree {
 //		tree.postOrderWithoutRecurssion(tree.root);
 //		System.out.println();
 //		System.out.println("Level Order traversal of tree is");
-//		tree.printLevelOrder(tree.root);
+//		tree.printLevelOrder(tree.root,false,true);
 //		System.out.println();
 //		System.out.println("Level Order traversal of tree without recurssion is");
 //		tree.levelOrderWithoutRecurssion(tree.root);
 //		System.out.println();
-		System.out.println("Boundary traversal of tree is");
-		tree.boundaryTravaersal(tree.root);
-		System.out.println();
+//		System.out.println("Boundary traversal of tree is");
+//		tree.boundaryTravaersal(tree.root);
+//		System.out.println();
 //		System.out.println("Vertical order traversal of tree is");
 //		tree.verticalOrderTraversal(tree.root);
 //		System.out.println();
@@ -1092,6 +1220,11 @@ public class BinaryTree {
 //		}
 //		System.out.println();
 //		
+//		HashMap<Integer,Integer> m = new HashMap<Integer,Integer>();
+//		System.out.println("Max distinct path nodes is "+noOfMaxDistinctNodesPath(tree.root,m));
+//		
+//		System.out.println("Triplets with given sum are ");
+//		tree.tripletsWithGivenSum(tree.root, null, 34);
 //		/*******************  Finding Predeccessor and Successor in all traversals       *******************/
 //		tree.nthNodeInInorder(tree.root, 4);
 //		tree.inOrderSuccessor(tree.root, 20);
@@ -1112,8 +1245,21 @@ public class BinaryTree {
 //		System.out.println("Top view of tree is");
 //		tree.topViewOfTree(tree.root);
 //		System.out.println();
+//		System.out.println("Diagonal view of tree is");
+//		tree.diagonalView(tree.root);
+//		System.out.println();
 //
-//		
+//		Node root7=new Node(20);
+//		root7.left=new Node(8);
+//		root7.right=new Node(22);
+//		root7.left.left=new Node(4);
+//		root7.left.right=new Node(12);
+//		root7.left.right.left=new Node(10);
+//		root7.left.right.right=new Node(14);
+//		Node target=root7.left.right.right;
+//		System.out.println("Nodes at particular distance from target node are ");
+//		tree.NodesAtParticularDistanceFromGivenNode(root7, target, 3);
+		System.out.println();
 //		System.out.println("Nodes at particular distance from root is");
 //		tree.NodesAtParticulardistanceFromrRoot(tree.root, 2);
 //		System.out.println();
@@ -1166,13 +1312,13 @@ public class BinaryTree {
 //		System.out.println("Max sum path between two leafs is "+tree.maxPathSumBetweenTwoLeafs(tree.root));
 //		System.out.println("Two trees are mirror "+tree.areMirror(tree.root, tree.root1));
 //		System.out.println();
-		System.out.print("Lowest Common Ancestor of two nodes ");
-		int LCA = tree.lowestCommonAncestor(tree.root, 5,6);
-		if(LCA==-1) {
-			System.out.println("doesn't exist");
-		}else {
-			System.out.println(LCA);
-		}
+//		System.out.print("Lowest Common Ancestor of two nodes ");
+//		int LCA = tree.lowestCommonAncestor(tree.root, 5,6);
+//		if(LCA==-1) {
+//			System.out.println("doesn't exist");
+//		}else {
+//			System.out.println(LCA);
+//		}
 //		
 //		System.out.print("Common Ancestors of two nodes ");
 //		boolean commonAncestorsExist = tree.commonAncestorsofGivenTwoNodes(tree.root, 5,6);
@@ -1204,12 +1350,17 @@ public class BinaryTree {
 //		
 //		root5=mergeTwoTrees(root5,root6);
 //		System.out.println("Level Order traversal of merged tree is");
-//		tree.printLevelOrder(root5);
+//		tree.printLevelOrder(root5,true,false);
 //		System.out.println();
 //		
 //		System.out.println("Given two trees are identical "+twoTreesAreIdentical(root5,root6));
 //		
 //		System.out.println("Given tree satisfies childsum property "+isChildrenSumProperty(root5));
+		
+		System.out.println("Binary Tree to DLL");
+		tree.convertTreeToDLL(tree.root);
+		tree.printNodesInTreeConvertedDLL(tree.head);
+		System.out.println();
 		
 	}
 }

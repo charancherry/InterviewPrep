@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class BinarySearchTree {
 	Node root;
+	static Node head=null;
 	static int pre_index=0;
 	static int nodeCount=0;
 	static int max=Integer.MIN_VALUE;
@@ -350,7 +350,66 @@ public class BinarySearchTree {
 		Node lca=LCA(root,n1,n2);
 		findMaxonPath(lca,n1,n2);
 	}
-
+	
+	public static class count{
+		int c;
+		public count() {
+			c=0;
+		}
+	}
+	
+	/******************    https://www.geeksforgeeks.org/second-largest-element-in-binary-search-tree-bst/   *****************/
+	public void kthLargestNode(Node root,int k,count c) {
+		if(root==null)
+			return;
+		kthLargestNode(root.right,k,c);
+		c.c++;
+		if(c.c==k) {
+			System.out.println("Kth largest node is "+root.data);
+		}
+		kthLargestNode(root.left,k,c);
+		
+	}
+	
+	
+	/*******************   https://www.geeksforgeeks.org/convert-given-binary-tree-doubly-linked-list-set-3/    *******************/
+	public void convertTreeToDLL(Node root) {
+		if(root==null) {
+			return;
+		}
+		convertTreeToDLL(root.left);
+		if(prev==null) {
+			head=root;
+		}else {
+			root.left=prev;
+			prev.right=root;
+		}
+		prev=root;
+		convertTreeToDLL(root.right);
+	}
+	
+	public void printNodesInTreeConvertedDLL(Node head) {
+		if(head==null) {
+			return;
+		}
+		while(head!=null) {
+			System.out.print(head.data+" ");
+			head=head.right;
+		}
+	}
+	
+	
+	/*********************   https://www.geeksforgeeks.org/sorted-array-to-balanced-bst/  ************/
+	public Node convertSortedArrayToBST(int[] arr,int l,int r) {
+		if(l>r) {
+			return null;
+		}
+		int mid=(l+r);
+		Node node=new Node(arr[mid]);
+		node.left=convertSortedArrayToBST(arr,l,mid-1);
+		node.right=convertSortedArrayToBST(arr,mid+1,r);
+		return node;
+	}
 
 	public static void main(String[] args) {
 		BinarySearchTree tree = new BinarySearchTree();
@@ -366,11 +425,11 @@ public class BinarySearchTree {
 //		System.out.println();
 //		tree.root=tree.delete(tree.root, in.nextInt());
 //		tree.inorder(tree.root);
-		int[] preOrder= {10,5,1,7,40,50};
-		Node root1=tree.buildTreeFromPreOrder(preOrder, 0, preOrder.length-1);
-		System.out.println("InOrder of Given preorder sequence is");
-		tree.inorder(root1);
-		System.out.println();
+//		int[] preOrder= {10,5,1,7,40,50};
+//		Node root1=tree.buildTreeFromPreOrder(preOrder, 0, preOrder.length-1);
+//		System.out.println("InOrder of Given preorder sequence is");
+//		tree.inorder(root1);
+//		System.out.println();
 //		tree.pre_index=0;
 //		Node root2=new Node(10);
 //		root2.left=new Node(2);
@@ -421,6 +480,17 @@ public class BinarySearchTree {
 //		}
 //		tree.maximumBetweenTwonodes(tree.root, 1, 10);
 //		System.out.println("Max between given two nodes is "+tree.max);
+//		
+//		count c=new count();
+//		tree.kthLargestNode(tree.root,2,c);
+//		
+//		System.out.println("BST to DLL");
+//		tree.convertTreeToDLL(tree.root);
+//		tree.printNodesInTreeConvertedDLL(tree.head);
+		
+		int[] arr = {1,2,3,4,5,6,7};
+		Node head=tree.convertSortedArrayToBST(arr, 0, arr.length-1);
+		tree.inorder(head);
 	}
 
 }

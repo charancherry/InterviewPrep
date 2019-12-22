@@ -119,6 +119,7 @@ public class Queues {
 		
 		/************** Implementation of Stack Using Queue **********/
 		Queue q1 = new LinkedList(),q2 = new LinkedList();
+		Queue q=new LinkedList();
 		for(int i=0;i<5;i++) {
 			push(q1,q2,i);
 		}

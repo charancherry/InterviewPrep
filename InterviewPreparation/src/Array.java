@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -214,6 +216,10 @@ public class Array {
 //	    
 //		int[] largestNumber = JavaUtil.createArray();
 //		largestNumber(largestNumber);
+		
+//		medianOfContinuousStream();
+		
+		swapEveryTwoBits(4);
 
 		
 	}
@@ -1144,6 +1150,113 @@ public class Array {
 	            res += Integer.toString(arr[ind]);
 	        }
 	        System.out.println(res);
+	    }
+	    
+	    public static void maxheapify(int[] arr,int n,int i) {
+	    	int max=i;
+	    	int l = 2*i+1;
+	    	int r=2*i+2;
+	    	if(l<n && arr[l]>arr[i]) {
+	    		max=l;
+	    	}
+	    	if(r<n && arr[r]>arr[i]) {
+	    		max=r;
+	    	}
+	    	if(max!=i) {
+	    		JavaUtil.swap(arr, max, i);
+	    		maxheapify(arr,n,max);
+	    	}
+	    }
+	    
+	    public static void minheapify(int[] arr,int n,int i) {
+	    	int min=i;
+	    	int l = 2*i+1;
+	    	int r=2*i+2;
+	    	if(l<n && arr[l]<arr[i]) {
+	    		min=l;
+	    	}
+	    	if(r<n && arr[r]<arr[i]) {
+	    		min=r;
+	    	}
+	    	if(min!=i) {
+	    		JavaUtil.swap(arr, min, i);
+	    		minheapify(arr,n,min);
+	    	}
+	    }
+	    
+	    public static void buildMaxHeap(int[] arr,int l) {
+	    	for(int i=l/2-1;i>=0;i--) {
+	    		maxheapify(arr,l,i);
+	    	}
+	    }
+	    
+	    
+	    public static void buildMinHeap(int[] arr,int l) {
+	    	for(int i=l/2-1;i>=0;i--) {
+	    		minheapify(arr,l,i);
+	    	}
+	    }
+	    
+	    /**************************   https://medium.com/@eranda/running-median-with-heaps-829522330e8a  **************/
+	    public static void medianOfContinuousStream() {
+	    	Scanner in=new Scanner(System.in);
+	    	int n=in.nextInt();
+	    	int[] a=new int[n];
+	    	int[] max_heap = new int[n];
+	    	int[] min_heap=new int[n];
+	    	int maxHeapSize=0;
+	    	int minHeapSize=0;
+	    	float cur_median=0;
+	    	for(int i=0;i<n;i++) {
+	    		a[i]=in.nextInt();
+	    		if(a[i]<cur_median) {
+	    			max_heap[maxHeapSize++]=a[i];
+	    			if(max_heap[0]<max_heap[maxHeapSize-1]) {
+	    				JavaUtil.swap(max_heap, 0, maxHeapSize-1);
+	    			}
+	    		}else {
+	    			min_heap[minHeapSize++]=a[i];
+	    			if(min_heap[0]>min_heap[minHeapSize-1]) {
+	    				JavaUtil.swap(min_heap, 0, minHeapSize-1);
+	    			}
+	    		}
+	    		if(Math.abs(maxHeapSize-minHeapSize)>1) {
+	    			if(maxHeapSize>minHeapSize) {
+	    				JavaUtil.swap(max_heap, 0, maxHeapSize-1);
+	    				min_heap[minHeapSize++]=max_heap[maxHeapSize-1];
+	    				JavaUtil.swap(min_heap, 0, minHeapSize-1);
+	    				maxHeapSize--;
+	    				buildMaxHeap(max_heap,maxHeapSize);
+	    			}else {
+	    				JavaUtil.swap(min_heap, 0, minHeapSize-1);
+	    				max_heap[maxHeapSize++]=min_heap[minHeapSize-1];
+	    				JavaUtil.swap(max_heap, 0, maxHeapSize-1);
+	    				maxHeapSize--;
+	    				buildMinHeap(min_heap,minHeapSize);
+	    			}
+	    		}
+	    		
+	    		if(minHeapSize==maxHeapSize) {
+	    			cur_median=(max_heap[0]+min_heap[0])/2f;
+	    		}else if(minHeapSize>maxHeapSize) {
+	    			cur_median=min_heap[0];
+	    		}else {
+	    			cur_median=max_heap[0];
+	    		}
+	    		System.out.println("Median is "+cur_median);
+	    	}
+	    }
+	    
+	    public static void swapEveryTwoBits(int n) {
+	    	List<Integer> testList = new ArrayList<Integer>();
+	        testList.add(1);
+	        testList.add(5);
+	        testList.add(4);
+	        testList.add(2);
+	        Collections.sort(testList);
+	    	
+//	    	int swapNum= (((n&0b10101010)>>1) |((n&0b01010101)<<1)); 
+//	    	System.out.println("Number after swapping every two bits is "+swapNum);
 	    }
 	
 }
