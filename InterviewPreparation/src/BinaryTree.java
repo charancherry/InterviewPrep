@@ -6,6 +6,7 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.TreeMap;
+import java.util.Vector;
 
 public class BinaryTree {
 	
@@ -462,6 +463,8 @@ public class BinaryTree {
 		if(temp!=null) {
 			if(root.right==temp) {
 				System.out.println("Inorder predeccessor of "+x+" is "+root.data);
+			}else {
+				temp=root;
 			}
 		}
 	}
@@ -510,11 +513,11 @@ public class BinaryTree {
 		}
 		if(root.left!=null) {
 			System.out.print(root.data+" ");
-			printRightSideNodes(root.left);
+			printLeftSideNodes(root.left);
 		}
 		else if(root.right!=null) {
 			System.out.print(root.data+" ");
-			printRightSideNodes(root.right);
+			printLeftSideNodes(root.right);
 		}
 	}
 	
@@ -782,9 +785,6 @@ public class BinaryTree {
 		}
 		Node current=root;
 		int  ldist=0,rdist=0;
-		if(current==null) {
-			return 0;
-		}
 		if(current.data==x) {
 			return 1;
 		}else {
@@ -1133,6 +1133,27 @@ public class BinaryTree {
 		}
 	}
 	
+	public Vector<Node> constructAllPossibleTrees(int[] arr,int start,int end){
+		Vector<Node> trees=new Vector<Node>();
+		if(start>end) {
+			trees.add(null);
+			return trees;
+		}
+		for(int i=start;i<=end;i++) {
+			Vector<Node> ltrees= constructAllPossibleTrees(arr,start,i-1);
+			Vector<Node> rtrees= constructAllPossibleTrees(arr,i+1,end);
+			for(int j=0;j<ltrees.size();j++) {
+				for(int k=0;k<rtrees.size();k++) {
+					Node node=new Node(arr[i]);
+					node.left=ltrees.get(j);
+					node.right=rtrees.get(k);
+					trees.add(node);
+				}
+			}
+		}
+		return trees;
+	}
+	
 	public static void main(String[] args) {
 		BinaryTree tree=new BinaryTree();
 		Scanner in=new Scanner(System.in);
@@ -1187,9 +1208,9 @@ public class BinaryTree {
 //		System.out.println("Level Order traversal of tree without recurssion is");
 //		tree.levelOrderWithoutRecurssion(tree.root);
 //		System.out.println();
-//		System.out.println("Boundary traversal of tree is");
-//		tree.boundaryTravaersal(tree.root);
-//		System.out.println();
+		System.out.println("Boundary traversal of tree is");
+		tree.boundaryTravaersal(tree.root);
+		System.out.println();
 //		System.out.println("Vertical order traversal of tree is");
 //		tree.verticalOrderTraversal(tree.root);
 //		System.out.println();
@@ -1356,11 +1377,18 @@ public class BinaryTree {
 //		System.out.println("Given two trees are identical "+twoTreesAreIdentical(root5,root6));
 //		
 //		System.out.println("Given tree satisfies childsum property "+isChildrenSumProperty(root5));
-		
-		System.out.println("Binary Tree to DLL");
-		tree.convertTreeToDLL(tree.root);
-		tree.printNodesInTreeConvertedDLL(tree.head);
-		System.out.println();
-		
+//		
+//		System.out.println("Binary Tree to DLL");
+//		tree.convertTreeToDLL(tree.root);
+//		tree.printNodesInTreeConvertedDLL(tree.head);
+//		System.out.println();
+//		
+//		System.out.println("possible binary trees are ");
+//		int[] arr = {4,5,7};
+//		Vector<Node> Nodes=tree.constructAllPossibleTrees(arr, 0, arr.length-1);
+//		for(int i=0;i<Nodes.size();i++) {
+//			tree.preOrder(Nodes.get(i));
+//			System.out.println();
+//		}
 	}
 }

@@ -172,9 +172,25 @@ public class Graphs {
 			}
 		}
 		while(!s.empty()) {
-			System.out.print(s.pop()+" ");
+			System.out.print((char)('a'+(int) s.pop())+" ");
 		}
 		
+	}
+	
+	
+	public static void alienDictionary(String[] words,int k,int n) {
+		Graph g=new Graph(n);
+		for(int i=0;i<k-1;i++) {
+			char[] w1=words[i].toCharArray();
+			char[] w2=words[i+1].toCharArray();
+			for(int j=0;j<Math.min(w1.length, w2.length);j++) {
+				if(w1[j]!=w2[j]) {
+					g.adjList[w1[j]-'a'].add(w2[j]-'a');
+					break;
+				}
+			}
+		}
+		topologicalSort(g);
 	}
 	
 	public static void isPathExistUtil(Graph g, int s,int d,boolean[] visited,Stack S) {
@@ -252,25 +268,48 @@ public class Graphs {
 	
 	
 	public static void minimumSpanningTree(int[][] g) {
-		int[] key = new int[g.length];
+		int[] dist = new int[g.length];
 		int[] parent = new int[g.length];
 		boolean[] mst = new boolean[g.length];
 		for(int i=1;i<g.length;i++) {
-			key[i]=Integer.MAX_VALUE;
+			dist[i]=Integer.MAX_VALUE;
 		}
-		key[0]=0;
+		dist[0]=0;
 		parent[0]=-1;
 		for(int i=0;i<g.length;i++) {
-			int min=minKeyNode(mst,key);
+			int min=minKeyNode(mst,dist);
 			mst[min]=true;
 			for(int v=0;v<g.length;v++) {
-				if(g[min][v]>0 && mst[v]==false && g[min][v]<key[v]) {
-					key[v]=g[min][v];
+				if(g[min][v]>0 && mst[v]==false && g[min][v]<dist[v]) {
+					dist[v]=g[min][v];
 					parent[v]=min;
 				}
 			}
 		}
-		printMinSpanTree(parent,key);
+		printMinSpanTree(parent,dist);
+	}
+	
+	
+	public static void dijkstra(int[][] g) {
+		int[] dist=new int[g.length];
+		int[] parent=new int[g.length];
+		boolean[] spt =new boolean[g.length];
+		for(int i=1;i<g.length;i++) {
+			dist[i]=Integer.MAX_VALUE;
+		}
+		dist[0]=0;
+		parent[0]=-1;
+		for(int i=0;i<g.length;i++) {
+			int min=minKeyNode(spt,dist);
+			spt[min]=true;
+			for(int v=0;v<g.length;v++) {
+				if(spt[v]==false && g[min][v]>0 && dist[min]+g[min][v]<dist[v]) {
+					dist[v]=dist[min]+g[min][v];
+					parent[v]=min;
+				}
+			}
+		}
+		printMinSpanTree(parent,dist);
 	}
 	
 	public static void main(String[] args) {
@@ -324,13 +363,15 @@ public class Graphs {
 //		addDirectedEdge(g4,2,3);
 //		addDirectedEdge(g4,3,3);
 //		isPathExist(g4,0,1);
-		
-		int graph[][] = { { 0, 2, 0, 6, 0 },  
-                { 2, 0, 3, 8, 5 },  
-                { 0, 3, 0, 0, 7 },  
-                { 6, 8, 0, 0, 9 },  
-                { 0, 5, 7, 9, 0 } };  
-		minimumSpanningTree(graph);
+//		
+//		int graph[][] = { { 0, 2, 0, 6, 0 },  
+//                { 2, 0, 3, 8, 5 },  
+//                { 0, 3, 0, 0, 7 },  
+//                { 6, 8, 0, 0, 9 },  
+//                { 0, 5, 7, 9, 0 } };  
+//		minimumSpanningTree(graph);
+//		System.out.println();
+//		dijkstra(graph);
 //        
 //		Graph g5 =new Graph(9);
 //		addEdge(g5, 0,1,4);
@@ -348,6 +389,12 @@ public class Graphs {
 //		addEdge(g5, 6,8,6);
 //		addEdge(g5, 7,8,7);
 //		isPathWithMoreThanKExist(g5,58);
+		
+		
+		String[] words= {"baa","abcd","abca","cab","cad"};
+		//String[] words= {"caa","aaa","aab"};
+		alienDictionary(words,5,4);
+		
 	}
 
 }

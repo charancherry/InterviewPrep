@@ -24,3 +24,8 @@ Important point to note here is that monitor is assigned to an object not to a p
 What is race condition??
 Race condition in Java occurs in a multi-threaded environment when more than one thread try to access a shared resource (modify, write) at the same time. 
 Since multiple threads try to race each other to finish executing a method thus the name race condition.
+
+ Your application/API is responding slow what are all the reason ??
+A. Database Level - More Joins,Caching
+B. Server Side - nested loops, complex logic
+C. Client Side - getting lot of data in response bcoz of which browser is taking lot of time to download

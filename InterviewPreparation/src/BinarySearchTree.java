@@ -404,7 +404,7 @@ public class BinarySearchTree {
 		if(l>r) {
 			return null;
 		}
-		int mid=(l+r);
+		int mid=(l+r)/2;
 		Node node=new Node(arr[mid]);
 		node.left=convertSortedArrayToBST(arr,l,mid-1);
 		node.right=convertSortedArrayToBST(arr,mid+1,r);

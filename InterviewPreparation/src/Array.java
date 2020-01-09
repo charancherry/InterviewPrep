@@ -219,8 +219,18 @@ public class Array {
 		
 //		medianOfContinuousStream();
 		
-		swapEveryTwoBits(4);
+//		swapEveryTwoBits(4);
+//		
+//		int[] arr1= {1,5,9,10,15,20};
+//		int[] arr2= {2,3,8,13};
+//		mergeTwoArrays(arr1,arr2);
 
+		int[][] m= {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+		rotateMatrixAntiClockWise90(m);
+		System.out.println();
+		rotateMatrixClockWise90(m);
+		System.out.println();
+		rotateMatrixClockWise180(m);
 		
 	}
 	
@@ -1248,15 +1258,90 @@ public class Array {
 	    }
 	    
 	    public static void swapEveryTwoBits(int n) {
-	    	List<Integer> testList = new ArrayList<Integer>();
-	        testList.add(1);
-	        testList.add(5);
-	        testList.add(4);
-	        testList.add(2);
-	        Collections.sort(testList);
-	    	
-//	    	int swapNum= (((n&0b10101010)>>1) |((n&0b01010101)<<1)); 
-//	    	System.out.println("Number after swapping every two bits is "+swapNum);
+	    	int swapNum= (((n&0b10101010)>>1) |((n&0b01010101)<<1)); 
+	    	System.out.println("Number after swapping every two bits is "+swapNum);
+	    }
+	    
+	    
+	    /*******************   https://www.geeksforgeeks.org/merge-two-sorted-arrays-o1-extra-space/   **********/
+	    public static void mergeTwoArrays(int[] a1,int[] a2){
+	        for(int i=a2.length-1;i>=0;i--){
+	            if(a1[a1.length-1]>a2[i]){
+	                int j=a1.length-2,temp=a2[i];
+	                a2[i]=a1[a1.length-1];
+	                while(j>=0&&a1[j]>temp){
+	                    a1[j+1]=a1[j];
+	                    j--;
+	                }
+	                a1[j+1]=temp;
+	            }
+	        }
+	        for(int i=0;i<a1.length;i++){
+	            System.out.print(a1[i]+" ");
+	        }
+	        for(int i=0;i<a2.length;i++){
+	            System.out.print(a2[i]+" ");
+	        }
+	    }
+	    
+	    
+	    public static void rotateMatrixAntiClockWise90(int[][] m) {
+	    	int n=m.length;
+	    	for(int x=0;x<n/2;x++) {
+	    		for(int y=x;y<n-1-x;y++) {
+	    			int temp=m[x][y];
+	    			m[x][y]=m[y][n-1-x];
+	    			m[y][n-1-x]=m[n-1-x][n-1-y];
+	    			m[n-1-x][n-1-y]=m[n-1-y][x];
+	    			m[n-1-y][x]=temp;
+	    		}
+	    	}
+	    	for(int i=0;i<n;i++) {
+	    		for(int j=0;j<n;j++) {
+	    			System.out.print(m[i][j]+" ");
+	    		}
+	    		System.out.println();
+	    	}
+	    }
+	    
+	    public static void rotateMatrixClockWise90(int[][] m) {
+	    	int n=m.length;
+	    	for(int x=0;x<n/2;x++) {
+	    		for(int y=x;y<n-1-x;y++) {
+	    			int temp=m[x][y];
+	    			m[x][y]=m[n-1-y][x];
+	    			m[n-1-y][x]=m[n-1-x][n-1-y];
+	    			m[n-1-x][n-1-y]=m[y][n-1-x];
+	    			m[y][n-1-x]=temp;
+	    		}
+	    	}
+	    	for(int i=0;i<n;i++) {
+	    		for(int j=0;j<n;j++) {
+	    			System.out.print(m[i][j]+" ");
+	    		}
+	    		System.out.println();
+	    	}
+	    }
+	    
+	    public static void rotateMatrixClockWise180(int[][] m) {
+	    	int n=m.length;
+	    	int temp=0;
+	    	for(int x=0;x<n/2;x++) {
+	    		for(int y=x;y<n-1-x;y++) {
+	    			temp=m[x][y];
+	    			m[x][y]=m[n-1-x][n-1-y];
+	    			m[n-1-x][n-1-y]=temp;
+	    			temp=m[y][n-1-x];
+	    			m[y][n-1-x]=m[n-1-y][x];
+	    			m[n-1-y][x]=temp;
+	    		}
+	    	}
+	    	for(int i=0;i<n;i++) {
+	    		for(int j=0;j<n;j++) {
+	    			System.out.print(m[i][j]+" ");
+	    		}
+	    		System.out.println();
+	    	}
 	    }
 	
 }

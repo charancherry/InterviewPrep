@@ -584,6 +584,19 @@ public class Strings {
 	
 	
 	/***  https://www.geeksforgeeks.org/print-a-number-as-string-of-a-and-b-in-lexicographic-order ***/
+	
+	/**************     // Since k length string can  
+        // represent at most pow(2, k+1)-2  
+        // that is if k = 4, it can  
+        // represent at most pow(2, 4+1)-2 = 30  
+        // so we have to calculate the  
+        // length of the corresponding string  
+        if ((int)Math.pow(2, k + 1) - 2 < M)  
+            k++;  
+        else
+            break;  
+    }     *****************/
+	
 	public static void numberAsStringAANDB(int n) {
 		int temp=n,noOfDigits=1,noOfWords=2;
 		StringBuilder str=new StringBuilder();
