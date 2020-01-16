@@ -1241,7 +1241,7 @@ public class Array {
 	    				JavaUtil.swap(min_heap, 0, minHeapSize-1);
 	    				max_heap[maxHeapSize++]=min_heap[minHeapSize-1];
 	    				JavaUtil.swap(max_heap, 0, maxHeapSize-1);
-	    				maxHeapSize--;
+	    				minHeapSize--;
 	    				buildMinHeap(min_heap,minHeapSize);
 	    			}
 	    		}
