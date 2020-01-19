@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -224,13 +225,20 @@ public class Array {
 //		int[] arr1= {1,5,9,10,15,20};
 //		int[] arr2= {2,3,8,13};
 //		mergeTwoArrays(arr1,arr2);
+//
+//		int[][] m= {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+//		rotateMatrixAntiClockWise90(m);
+//		System.out.println();
+//		rotateMatrixClockWise90(m);
+//		System.out.println();
+//		rotateMatrixClockWise180(m);
+//		
+//		int[] findElementWithGivenCriteria = JavaUtil.createArray();
+//		findElementWithGivenCriteria(findElementWithGivenCriteria);
 
-		int[][] m= {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-		rotateMatrixAntiClockWise90(m);
-		System.out.println();
-		rotateMatrixClockWise90(m);
-		System.out.println();
-		rotateMatrixClockWise180(m);
+		int[] minArrayLengthToMakeArraySorted = JavaUtil.createArray();
+		minArrayLengthToMakeArraySorted(minArrayLengthToMakeArraySorted);
+		
 		
 	}
 	
@@ -588,7 +596,7 @@ public class Array {
 				end=i;
 			}
 			if(cur_sum<0) {
-				s++;
+				s=i+1;
 				cur_sum=0;
 			}
 		}
@@ -1342,6 +1350,71 @@ public class Array {
 	    		}
 	    		System.out.println();
 	    	}
+	    }
+	    
+	    
+	    /*********************   https://www.geeksforgeeks.org/find-the-element-before-which-all-the-elements-are-smaller-than-it-and-after-which-all-are-greater-than-it/   *********/
+	    public static void findElementWithGivenCriteria (int[] arr) {
+	    	int n=arr.length;
+	    	int[] leftmax=new int[n];
+	    	int[] rightmin=new int[n];
+	    	leftmax[0]=Integer.MIN_VALUE;
+	    	for(int i=1;i<n;i++) {
+	    		leftmax[i]=Math.max(leftmax[i-1], arr[i-1]);
+	    	}
+	    	rightmin[n-1]=Integer.MAX_VALUE;
+	    	for(int i=n-2;i>=0;i--) {
+	    		rightmin[i]=Math.min(rightmin[i+1], arr[i+1]);
+	    	}
+	    	for(int i=0;i<n;i++) {
+	    		if(arr[i]>leftmax[i]&&arr[i]<rightmin[i]) {
+	    			System.out.println("Required element is "+arr[i]);
+	    		}
+	    	}
+	    }
+	    
+	    
+	    /*******************************   https://github.com/SaiKanth007/MyJavaRepo/blob/master/my.java.collection/src/MyArray.java  **************/
+	    public static void minArrayLengthToMakeArraySorted(int[] arr) {
+	    	int s=0,e=0;
+	    	int n=arr.length;
+	    	for(int i=1;i<n;i++) {
+	    		if(arr[i]<arr[i-1]) {
+	    			s=i;
+	    			break;
+	    		}
+	    	}
+	    	if(s==n-1) {
+	    		System.out.println("Array is already sorted");
+	    		return;
+	    	}
+	    	for(int i=n-1;i>0;i--) {
+	    		if(arr[i]<arr[i-1]) {
+	    			e=i;
+	    			break;
+	    		}
+	    	}
+	    	int max=arr[s],min=arr[s];
+	    	for(int i=s;i<=e;i++) {
+	    		if(arr[i]<min) {
+	    			min=arr[i];
+	    		}else if(arr[i]>max) {
+	    			max=arr[i];
+	    		}
+	    	}
+	    	for(int i=0;i<s;i++) {
+	    		if(arr[i]>min) {
+	    			s=i;
+	    			break;
+	    		}
+	    	}
+	    	for(int i=n-1;i>e;i--) {
+	    		if(arr[i]<max) {
+	    			e=i;
+	    			break;
+	    		}
+	    	}
+	    	System.out.println("sub array between "+s+" and "+e+" to be sorted");
 	    }
 	
 }

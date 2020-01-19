@@ -75,6 +75,16 @@ public class Strings {
 //		}
 //		sortWords(strings);
 //		
+//		System.out.println("Enter No of strings");
+//		int n= in.nextInt();
+//		System.out.println("Enter the strings");
+//		ArrayList<String> strings=new ArrayList<String>();
+//		for(int i=0;i<n;i++) {
+//			String str=in.next();
+//			strings.add(str);
+//		}
+//		lexographicalOrderOfGivenWords(strings);
+//		
 //		System.out.println("Enter the string");
 //		String str=in.next();
 //		sortStringFollowedByIntegerSum(str.toCharArray());
@@ -100,9 +110,38 @@ public class Strings {
 //		int n=in.nextInt();
 //	    convertToWords(n);
 //		
-		System.out.println("Enter the n value");
-		int n=in.nextInt();
-		decodeAndFind(n);
+//		System.out.println("Enter the n value");
+//		int n=in.nextInt();
+//		decodeAndFind(n);
+//		
+//		System.out.println("Enter strings");
+//		String str1=in.next();
+//		printCombinationsRecursive(str1.toCharArray(),0,"");
+//		
+//		System.out.println("Enter strings");
+//		String longestUniqueSubString=in.next();
+//		longestUniqueSubString(longestUniqueSubString);
+//		
+//		System.out.println("Enter strings");
+//		String nextGretestNumber=in.next();
+//		nextGretestNumber(nextGretestNumber.toCharArray());
+//		
+//		System.out.println("Enter strings");
+//		String lexographicallyFirstPalyndrome=in.next();
+//		lexographicallyFirstPalyndrome(lexographicallyFirstPalyndrome);
+//		
+//		System.out.println("Enter string and pattern");
+//		String str=in.nextLine();
+//		String p=in.nextLine();
+//		minWindow(str,p);
+//		
+//		System.out.println("Enter strings");
+//		String largestLexographicSubsequence=in.next();
+//		largestLexographicSubsequence(largestLexographicSubsequence);
+		
+		System.out.println("Enter strings");
+		String lexogrpahicallyLargestPalyndromicSubSequence=in.next();
+		lexogrpahicallyLargestPalyndromicSubSequence(lexogrpahicallyLargestPalyndromicSubSequence);
 	}
 	
 	
@@ -423,6 +462,16 @@ public class Strings {
 		}
 	}
 	
+	public static void printCombinationsRecursive(char[] array, int index, String result) {
+		// Print current subset
+		if (index >= array.length) {
+			System.out.println(result + " ");
+			return;
+		}
+		printCombinationsRecursive(array, index + 1, result + array[index]);
+		printCombinationsRecursive(array, index + 1, result);
+	}
+	
 	public static void maxNumberFromGivenNum(long num) {
 		int digit;
 		int count=0;
@@ -556,6 +605,27 @@ public class Strings {
 		}
 	}
 	
+	public static void lexographicalOrderOfGivenWords(ArrayList<String> str) {
+		Collections.sort(str, new Comparator<String>(){
+			public int compare(String s1,String s2) {
+				char[] c1=s1.toCharArray();
+				char[] c2=s2.toCharArray();
+				int len=c1.length<c2.length?c1.length:c2.length;
+				for(int i=0;i<len;i++) {
+					if(c1[i]<c2[i]) {
+						return -1;
+					}else {
+						return 1;
+					}
+				}
+				return c1.length<c2.length?-1:1;
+			}
+		});
+		for(int i=0;i<str.size();i++) {
+			System.out.println(str.get(i));
+		}
+	}
+	
 	
 	/**** https://www.geeksforgeeks.org/rearrange-a-string-in-sorted-order-followed-by-the-integer-sum/  **/
 	public static void sortStringFollowedByIntegerSum(char[] arr) {
@@ -685,6 +755,204 @@ public class Strings {
             res = res+ones[units-1];
         }
         System.out.println(res);
+    }
+	
+	/*****************   https://www.geeksforgeeks.org/print-longest-substring-without-repeating-characters/   ************/
+	public static void longestUniqueSubString(String str) {
+		HashMap<Character,Integer> m = new HashMap<Character,Integer>();
+		int cur_len=1;
+		int max_len=1,start=0,s=0;
+		m.put(str.charAt(0), 0);
+		for(int i=1;i<str.length();i++) {
+			if(!m.containsKey(str.charAt(i))) {
+				m.put(str.charAt(i), i);
+			}else {
+				if(m.get(str.charAt(i))>=s) {
+					cur_len=i-s;
+					if(cur_len>max_len) {
+						max_len=cur_len;
+						start=s;
+					}
+					s=m.get(str.charAt(i))+1;
+				}
+				m.put(str.charAt(i), i);
+			}
+		}
+		if(max_len<str.length()-s) {
+			max_len=str.length()-s;
+			start=s;
+		}
+		System.out.println("Length of longest unique substring is "+max_len);
+		System.out.println("Longest unique substring is "+str.substring(start,max_len));
+	}
+	
+
+    /******************    https://www.geeksforgeeks.org/find-next-greater-number-set-digits/  *********/
+    public static void nextGretestNumber(char[] c) {
+    	int min=-1;
+    	for(int i=c.length-1;i>=0;i--) {
+    		if(c[i]>c[i-1]) {
+    			min=i-1;
+    			break;
+    		}
+    	}
+    	if(min==-1) {
+    		System.out.println("Given number is max possible number");
+    	}
+    	int next_min=min+1;
+    	for(int j=min+1;j<c.length;j++) {
+    		if(c[j]>c[min] && c[j]<c[next_min]) {
+    			next_min=j;
+    		}
+    	}
+    		JavaUtil.charSwap(c, min, next_min);
+    		Arrays.sort(c, min+1, c.length);
+    		 for (int i = 0; i < c.length; i++) 
+                 System.out.print(c[i]); 
+    }
+    
+    public static boolean isPalyndromePossible(String str,TreeMap<Character,Integer> m) {
+    	for(int i=0;i<str.length();i++) {
+    		if(!m.containsKey(str.charAt(i))) {
+    			m.put(str.charAt(i),1);
+    		}else {
+    			int count=m.get(str.charAt(i));
+    			count++;
+    			m.put(str.charAt(i),count);
+    		}
+    	}
+    	int oddCount=0;
+    	for(Character c : m.keySet()) {
+    		if(m.get(c)%2!=0) {
+    			oddCount++;
+    		}
+    	}
+    	if(str.length()%2==0) {
+    		if(oddCount>0) {
+    			return false;
+    		}
+    		return true;
+    	}else {
+    		if(oddCount!=1) {
+    			return false;
+    		}
+    		return true;
+    	}
+    }
+    
+    public static String getOddString(TreeMap<Character,Integer> m) {
+    	for(Character c : m.keySet()) {
+    		if(m.get(c)%2!=0) {
+    			return Character.toString(c);
+    		}
+    	}
+    	return null;
+    }
+    
+    /***************    https://www.geeksforgeeks.org/lexicographically-first-palindromic-string/ ************/
+    public static void lexographicallyFirstPalyndrome(String str) {
+    	TreeMap<Character,Integer> m=new TreeMap<Character,Integer>();
+    	if(!isPalyndromePossible(str,m)) {
+    		System.out.println("Palyndrome is not possible");
+    		return;
+    	}else {
+    		String odd=getOddString(m);
+    		String front="";
+    		String rear="";
+    		for(Character c : m.keySet()) {
+    			if(m.get(c)%2==0) {
+    				for(int i=0;i<m.get(c)/2;i++) {
+    					front=front+Character.toString(c);
+    					rear=Character.toString(c)+rear;
+    				}
+    			}
+    		}
+    		String pal=front+odd+rear;
+    		System.out.println("Lexographically first palyndrome string is "+pal);
+    		
+    	}
+    }
+    
+    /**************   https://www.geeksforgeeks.org/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/   ***************/
+    /**************   https://www.geeksforgeeks.org/smallest-window-contains-characters-string/   ***********************/
+    public static void minWindow(String str,String p) {
+    	int[] hash_pat=new int[256];
+    	int[] hash_str=new int[256];
+    	int l1=str.length();
+    	int l2=p.length();
+    	if(l1<l2) {
+    		System.out.println("Given pattern cannot be found");
+    		return;
+    	}
+    	for(int i=0;i<p.length();i++) {
+    		hash_pat[p.charAt(i)]++;
+    	}
+    	int count=0,start=0,min_len=Integer.MAX_VALUE,s=-1;
+    	for(int i=0;i<str.length();i++) {
+    		hash_str[str.charAt(i)]++;
+    		if(hash_pat[str.charAt(i)]>0&&hash_pat[str.charAt(i)]>=hash_str[str.charAt(i)]) {
+    			count++;
+    		}
+    		if(count==l2) {
+    			while(hash_str[str.charAt(start)]>hash_pat[str.charAt(start)]||hash_pat[str.charAt(start)]==0) {
+    				if(hash_str[str.charAt(start)]>hash_pat[str.charAt(start)]) {
+    					hash_str[str.charAt(start)]--;
+    				}
+    				start++;
+    			}
+    			int len=i-start+1;
+    			if(min_len>len){
+    				min_len=len;
+    				s=start;
+    			}
+    		}
+    	}
+    	if(s==-1) {
+    		System.out.println("pattern cannot be found in given string");
+    		return;
+    	}
+    	System.out.println("Minimum window in which given pattern is found is "+str.substring(s,s+min_len));
+    }
+    
+    /****************   https://www.geeksforgeeks.org/lexicographically-largest-sub-sequence-of-the-given-string/  ***********/
+    public static void largestLexographicSubsequence(String str) {
+    	int index=0;
+    	char c=str.charAt(0);
+    	StringBuilder s=new StringBuilder();
+    	while(index<str.length()) {
+    		c=str.charAt(index);
+    		for(int i=index+1;i<str.length();i++) {
+    			if(str.charAt(i)>c) {
+    				c=str.charAt(i);
+    			}
+    		}
+    		for(int i=index;i<str.length();i++) {
+    			if(str.charAt(i)==c) {
+    				s.append(str.charAt(i));
+    				index=i;
+    			}
+    		}
+    		index=index+1;
+    	}
+    	System.out.println("Lexographically largest sequence is "+s.toString());
+    }
+    
+    
+    /*******************   https://www.geeksforgeeks.org/find-the-lexicographically-largest-palindromic-subsequence-of-a-string/   *********/
+    public static void lexogrpahicallyLargestPalyndromicSubSequence(String str) {
+    	char c=str.charAt(0);
+    	for(int i=1;i<str.length();i++) {
+    		if(str.charAt(i)>c) {
+    			c=str.charAt(i);
+    		}
+    	}
+    	StringBuilder s=new StringBuilder();
+    	for(int i=0;i<str.length();i++) {
+    		if(str.charAt(i)==c) {
+    			s.append(c);
+    		}
+    	}
+    	System.out.println("Lexographically largest palyndromic subsequence is "+s.toString());
     }
 
 
