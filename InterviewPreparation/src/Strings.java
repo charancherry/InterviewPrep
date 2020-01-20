@@ -952,7 +952,7 @@ public class Strings {
     			s.append(c);
     		}
     	}
-    	System.out.println("Lexographically largest palyndromic subsequence is "+s.toString());
+    	System.out.println("Lexographically largest palyndromic subsequence is  "+s.toString());
     }
 
 
