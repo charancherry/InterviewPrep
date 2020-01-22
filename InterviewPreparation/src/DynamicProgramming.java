@@ -85,10 +85,10 @@ public class DynamicProgramming {
 //		int[] maxProductSubArray = JavaUtil.createArray();
 //		maxProductSubArray(maxProductSubArray);
 //
-//		int[] givenSumSubArrays = JavaUtil.createArray();
-//		System.out.println("Enter the required sum");
-//		int sum=in.nextInt();
-//		givenSumSubArrays(givenSumSubArrays,sum);
+		int[] givenSumSubArrays = JavaUtil.createArray();
+		System.out.println("Enter the required sum");
+		int sum=in.nextInt();
+		givenSumSubArrays(givenSumSubArrays,sum);
 //		
 //		int[] dividArrayWithEqualSum = JavaUtil.createArray();
 //		dividArrayWithEqualSum(dividArrayWithEqualSum);
@@ -121,10 +121,10 @@ public class DynamicProgramming {
 //		System.out.println("Please Enter pattern");
 //		String pattern = in.next();
 //		isPatternMatching(str,pattern);
-		
-		int[] s = {1,2,3};
-		int n=5;
-		coinChange(s,s.length,n);
+//		
+//		int[] s = {1,2,3};
+//		int n=5;
+//		coinChange(s,s.length,n);
 	}
 	
 	public static void insertAtBottom(int x) {
@@ -496,6 +496,9 @@ public class DynamicProgramming {
 		int sum=0;
 		HashMap<Integer,ArrayList<Integer>> map=new HashMap<Integer,ArrayList<Integer>>();
 		ArrayList<int[]> res=new ArrayList<int[]>();
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = arr[i] == 0 ? -1 : 1;
+		}
 		for(int i=0;i<arr.length;i++) {
 			sum=sum+arr[i];
 			if(sum==reqSum) {

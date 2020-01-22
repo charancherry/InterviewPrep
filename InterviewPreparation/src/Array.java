@@ -235,11 +235,15 @@ public class Array {
 //		
 //		int[] findElementWithGivenCriteria = JavaUtil.createArray();
 //		findElementWithGivenCriteria(findElementWithGivenCriteria);
-
-		int[] minArrayLengthToMakeArraySorted = JavaUtil.createArray();
-		minArrayLengthToMakeArraySorted(minArrayLengthToMakeArraySorted);
+//
+//		int[] minArrayLengthToMakeArraySorted = JavaUtil.createArray();
+//		minArrayLengthToMakeArraySorted(minArrayLengthToMakeArraySorted);
+//		
 		
-		
+		int mat1[][] = { { 2, 4 }, { 3, 4 } }; 
+	    int mat2[][] = { { 1, 2 }, { 1, 3 } }; 
+	    int m1 = 2, m2 = 2, n1 = 2, n2 = 2; 
+	    matrixMultiplication(m1,m2,mat1,n1,n2,mat2);
 	}
 	
 	/*******************  https://leetcode.com/problems/flipping-an-image/     *****************/
@@ -360,23 +364,6 @@ public class Array {
 	}
 	
 	/*********   https://www.geeksforgeeks.org/shuffle-2n-integers-format-a1-b1-a2-b2-a3-b3-bn-without-using-extra-space/  ***********/
-	public static void reArrange(int[] arr) {
-		int l=arr.length;
-		int j,skip=1;
-		for(int i=l/2;i<l;i++) {
-			int temp=arr[i];
-			for(j=i;j>i-l/2+skip;j--) {
-				arr[j]=arr[j-1];
-			}
-			skip++;
-			arr[j]=temp;
-		}
-		for(int i=0;i<l;i++) {
-			System.out.println(arr[i]+" ");
-		}
-	}
-	
-	
 	public static void shuffleArray(int[] arr,int l,int r) {
 		if(l<r) {
 			if(l-r==1) {
@@ -498,6 +485,51 @@ public class Array {
 			merge(arr,l,mid,r);
 		}
 	}
+	
+	static void mergeSortInPlace(int[] arr, int beg, int mid, int end, int maxele) {
+		int i = beg;
+		int j = mid + 1;
+		int k = beg;
+		while (i <= mid && j <= end) {
+			if (arr[i] % maxele <= arr[j] % maxele) {
+				arr[k] = arr[k] + (arr[i] % maxele) * maxele;
+				k++;
+				i++;
+			} else {
+				arr[k] = arr[k] + (arr[j] % maxele) * maxele;
+				k++;
+				j++;
+			}
+		}
+		while (i <= mid) {
+			arr[k] = arr[k] + (arr[i] % maxele) * maxele;
+			k++;
+			i++;
+		}
+		while (j <= end) {
+			arr[k] = arr[k] + (arr[j] % maxele) * maxele;
+			k++;
+			j++;
+		}
+
+		// Obtaining actual values
+		for (i = beg; i <= end; i++) {
+			arr[i] = arr[i] / maxele;
+		}
+	}
+
+	// Recursive merge sort
+	// with extra parameter, naxele
+	// https://www.geeksforgeeks.org/merge-sort-with-o1-extra-space-merge-and-on-lg-n-time/
+	/// V V Imp maxele=Max(arr)+1
+	static void mergeSortInPlace(int[] arr, int beg, int end, int maxele) {
+		if (beg < end) {
+			int mid = (beg + end) / 2;
+			mergeSortInPlace(arr, beg, mid, maxele);
+			mergeSortInPlace(arr, mid + 1, end, maxele);
+			mergeSortInPlace(arr, beg, mid, end, maxele);
+		}
+	}
 
 	public static int partition(int[] arr,int l,int r) {
 		int pivotVal=arr[r];
@@ -520,20 +552,6 @@ public class Array {
 		}
 	}
 
-	public static int modifiedQuickSort(int[] arr,int l,int r,int k) {
-		if(k>0)  {
-			int pivot=partition(arr,l,r);
-			if(pivot == k-1) {
-				return arr[pivot];
-			}
-			if(pivot>k-1) {
-				return modifiedQuickSort(arr,l,pivot-1,k);
-			}else {
-				return modifiedQuickSort(arr,pivot+1,r,k);
-			}
-		}
-		return Integer.MAX_VALUE;
-	}
 
 	public static void heapify(int[] arr,int n,int i) {
 		int max=i;
@@ -563,10 +581,22 @@ public class Array {
 	}
 
 	/*****************************    https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/       ****************/
-	public static int kthSmallestElement(int[] arr,int k) {
-		int len=arr.length;
-		int smallestVal = modifiedQuickSort(arr,0,len-1,k);
-		return smallestVal;
+	public static int kthSmallestElement(int[] array,int kthSmallest) {
+		
+		final int length = array.length;
+		int lowerIndex = 0;
+		int upperIndex = length - 1;
+		while (lowerIndex <= upperIndex) {
+			final int pivot = partition(array, lowerIndex, upperIndex);
+			if (pivot + 1 == kthSmallest) {
+				return array[pivot];
+			} else if (kthSmallest > pivot) {
+				lowerIndex = pivot + 1;
+			} else {
+				upperIndex = pivot - 1;
+			}
+		}
+		return -1;
 	}
 
 	public static void findSubArrayWithGivenSum(int[]arr,int sum) {
@@ -601,6 +631,66 @@ public class Array {
 			}
 		}
 		System.out.println("Max sum is"+max_sum +"and start index="+start+"end index="+end);
+	}
+	
+	public static int minNumberOfPlatforms(int[] arrivalTimes, int[] deptTimes) {
+		Arrays.sort(arrivalTimes);
+		Arrays.sort(deptTimes);
+		int noOfPlatforms = 1;
+		int totalNumberOfPlatforms = 0;
+		final int length = arrivalTimes.length;
+		int j = 0, i = 1;
+		while (i < length && j < length) {
+			if (arrivalTimes[i] <= deptTimes[j]) {
+				noOfPlatforms = noOfPlatforms + 1;
+				if (noOfPlatforms > totalNumberOfPlatforms) {
+					totalNumberOfPlatforms = noOfPlatforms;
+				}
+				i++;
+			} else {
+				noOfPlatforms--;
+				j++;
+			}
+		} // plat_needed indicates number of platforms
+		return totalNumberOfPlatforms;
+
+	}
+	
+	public static Integer findLargetSumContiguousIncreasingArray(int[] array) {
+		int localSumStartIndex = 0;
+		int globalSumStartIndex = 0;
+		int gloablSumEndIndex = 0;
+		int localSum = array[0];
+		int globalSum = 0;
+		for (int i = 1; i < array.length; i++) {
+			if (array[i] < array[i - 1]) {
+				if (localSum > globalSum) {
+					globalSum = localSum;
+					globalSumStartIndex = localSumStartIndex;
+					gloablSumEndIndex = i - 1;
+				}
+				localSumStartIndex = i;
+				localSum = array[i];
+			} else {
+				localSum = localSum + array[i];
+			}
+
+			if (localSum < 0) {
+				localSum = 0;
+				localSumStartIndex++;
+			}
+		}
+
+		if (localSum > globalSum) {
+			globalSum = localSum;
+			globalSumStartIndex = localSumStartIndex;
+			gloablSumEndIndex = array.length - 1;
+		}
+
+		for (int i = globalSumStartIndex; i <= gloablSumEndIndex; i++) {
+			System.out.print(array[i] + " ");
+		}
+		return globalSum;
 	}
 
 	public static void findMinSubArray(int[] arr) {
@@ -643,62 +733,31 @@ public class Array {
 			System.out.println("max sub array is of size"+max);
 		}
 	}
-
-	public static void findNOOfPairsWithGivenSum(int[] arr,int sum) {
-		int noOfPairs=0;
-		for(int i=0;i<arr.length-1;i++) {
-			for(int j=i;j<arr.length;j++) {
-				if(arr[i]+arr[j]==sum) {
-					noOfPairs++;
-				}
-			}
-		}
-		System.out.println("No of Pairs are"+noOfPairs);
-	}
-
 	
-	/********************  https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/     **************/
-	public static void maxOfEachSubArrayOfSizeK(int[] arr,int k) {
-		int max=Integer.MIN_VALUE;
-		for(int i=0;i<k;i++) {
-			if(arr[i]>max) {
-				max=arr[i];
-			}
-		}
-		System.out.print(max );
-		for(int i=k;i<arr.length;i++) {
-			if(arr[i]>=max) {
-				max=arr[i];
-				System.out.print(max );
-			}else {
-				for(int j=i-k+1;j<=k;j++) {
-					if(arr[j]>max) {
-						max=arr[j];
-					}
-				}
-				System.out.print(max );
-			}
-		}
-	}
+	// rain water problem
+	// https://www.geeksforgeeks.org/trapping-rain-water/
+	// in two dimension - https://leetcode.com/problems/trapping-rain-water-ii/
+	public static int trapCount(int[] array) {
+		final int length = array.length;
+		final int[] leftMax = new int[length];
+		final int[] rightMax = new int[length];
 
-	/*************************  https://www.geeksforgeeks.org/trapping-rain-water/  *************************/
-	public static void trapCount(int[] arr) {
-		int max=JavaUtil.getMaxEle(arr);
-		int count=0,start;
-		for(int i=1;i<=max;i++) {
-			start=-1;
-			for(int j=0;j<arr.length;j++) {
-				if(arr[j]>=i) {
-					if(start<0) {
-						start=j;
-					}else {
-						count += j-start-1;
-						start=j;
-					}
-				}
-			}
+		leftMax[0] = array[0];
+		for (int i = 1; i < length; i++) {
+			leftMax[i] = Math.max(leftMax[i - 1], array[i]);
 		}
-		System.out.println("Trapped water is "+count);
+
+		rightMax[length - 1] = array[length - 1];
+		for (int i = length - 2; i >= 0; i--) {
+			rightMax[i] = Math.max(rightMax[i + 1], array[i]);
+		}
+
+		int water = 0;
+		for (int i = 1; i < length; i++) {
+			water = water + Math.min(leftMax[i], rightMax[i]) - array[i];
+		}
+		return water;
+
 	}
 
 	/*************  https://leetcode.com/problems/first-missing-positive/   ***********/
@@ -767,95 +826,7 @@ public class Array {
 		}
 		System.out.println("Median is "+(m1+m2)/2);
 	}
-	
-	/****************  https://www.geeksforgeeks.org/insert-in-sorted-and-non-overlapping-interval-array/      **************/
-	public static void insertNewInterval() {
-		Scanner in = new Scanner(System.in);
-		int start=-1,end=-1;
-		System.out.println("Enter no of intervals");
-		int noOfIntervals=in.nextInt();
-		int[][] input = new int[noOfIntervals][2];
-		for(int i=0;i<noOfIntervals;i++) {
-			for(int j=0;j<2;j++) {
-				input[i][j]=in.nextInt();
-			}
-		}
-		int[] newInterval=new int[2];
-		System.out.println("Enter new interval");
-		newInterval[0]=in.nextInt();
-		newInterval[1]=in.nextInt();
-		for(int i=0;i<noOfIntervals;i++) {
-				if(input[i][0]<=newInterval[0]&&newInterval[0]<=input[i][1]) {
-					start=i;
-				}
-				if(input[i][0]<=newInterval[1]&&newInterval[1]<=input[i][1]) {
-					end=i;
-				}
-		}
-		if(end==-1) {
-			input[start][1]=newInterval[1];
-			for(int i=0;i<noOfIntervals;i++) {
-				System.out.println("["+input[i][0]+","+input[i][1]+"]");
-			}
-		}else if(end !=-1 && end != start) {
-			input[start][1] = input[end][1];
-			for(int i=0;i<noOfIntervals;i++) {
-				if(i<=start || i>end)
-				System.out.println("["+input[i][0]+","+input[i][1]+"]");
-			}
-		}else if(start==-1 && end==-1) {
-			if(newInterval[0]<input[0][0]) {
-				System.out.println("["+newInterval[0]+","+newInterval[1]+"] ");
-				for(int i=0;i<noOfIntervals;i++) {
-					System.out.println("["+input[i][0]+","+input[i][1]+"]");
-				}
-			}else if(newInterval[1]>input[noOfIntervals][1]) {
-				for(int i=0;i<noOfIntervals;i++) {
-					System.out.println("["+input[i][0]+","+input[i][1]+"]");
-				}
-				System.out.println("["+newInterval[0]+","+newInterval[1]+"] ");
-			}
-		}
-	}
-	
-	
-	/*************  https://www.geeksforgeeks.org/stock-buy-sell/     ****************/
-	public static void bestTimeToBuyAndSellStocks(int[] arr) {
-		ArrayList<int[]> input = new ArrayList<int[]>();
-		int profit=0,max_profit=0,ind_max_profit=0;
-		for(int i=0;i<arr.length-1;i++) {
-			max_profit=0;
-			for(int j=i+1;j<arr.length;j++) {
-				profit=arr[j]-arr[i];
-				if(max_profit<profit) {
-					max_profit=profit;
-					int arr1[]= {i,j,profit};
-					input.add(arr1);
-					if(ind_max_profit<profit) {
-						ind_max_profit=profit;
-					}
-				}
-			}
-		}
-		max_profit=0;
-		for(int i=0;i<input.size();i++) {
-			for(int j=i+1;j<input.size();j++) {
-				int end=input.get(i)[1];
-				int start = input.get(j)[0];
-				if(Integer.valueOf(input.get(i)[1])<Integer.valueOf(input.get(j)[0])) {
-					profit = input.get(i)[2]+input.get(j)[2];
-					if(max_profit<profit) {
-						max_profit=profit;
-					}
-				}
-			}
-		}
-		if(max_profit<ind_max_profit) {
-			max_profit=ind_max_profit;
-		}
-		System.out.println("Maximum profir is"+max_profit);
-	}
-	
+		
 	public static int binarySearch(int[] arr,int l,int r,int k) {
 		if(l<=r) {
 			int mid=(l+r)/2;
@@ -872,6 +843,33 @@ public class Array {
 		return -1;
 	}
 	
+	public static int binarySearchToFindNearestElementLowerThanOrEqualToKey(int[] inputArray, int lowerIndex,
+			int upperIndex, int searchKey) {
+		if (lowerIndex <= upperIndex) {
+			if (searchKey >= inputArray[upperIndex])
+				return upperIndex;
+			else if (searchKey <= inputArray[lowerIndex])
+				return lowerIndex;
+			final int midIndex = (lowerIndex + upperIndex) / 2;
+			if (inputArray[midIndex] == searchKey) {
+				return midIndex;
+			} else if (midIndex > lowerIndex && inputArray[midIndex] > searchKey
+					&& inputArray[midIndex - 1] < searchKey) {
+				// instead of returning this, we have to find out which one to return
+				return midIndex - 1;
+			} else if (midIndex < upperIndex && inputArray[midIndex] < searchKey
+					&& inputArray[midIndex + 1] > searchKey) {
+				return midIndex + 1;
+			}
+			if (searchKey < inputArray[midIndex])
+				return binarySearchToFindNearestElementLowerThanOrEqualToKey(inputArray, lowerIndex, midIndex - 1,
+						searchKey);
+			else
+				return binarySearchToFindNearestElementLowerThanOrEqualToKey(inputArray, midIndex + 1, upperIndex,
+						searchKey);
+		}
+		return -1;
+	}
 	
 	//****  https://www.geeksforgeeks.org/find-minimum-element-in-a-sorted-and-rotated-array/ ***************/
 	public static int minimumInRotatedArray(int[] arr,int l,int r) {
@@ -1373,8 +1371,26 @@ public class Array {
 	    	}
 	    }
 	    
+	    public static void matrixMultiplication(int m1,int m2,int[][] mat1,int n1,int n2,int[][] mat2) {
+	    	int[][] res=new int[m1][n2];
+	    	for(int i=0;i<m1;i++) {
+	    		for(int j=0;j<n2;j++) {
+	    			res[i][j]=0;
+	    			for(int k=0;k<m2;k++) {
+	    				res[i][j]=res[i][j]+mat1[i][k]+mat2[k][j];
+	    			}
+	    		}
+	    	}
+	    	for(int i=0;i<m1;i++) {
+	    		for(int j=0;j<n2;j++) {
+	    			System.out.print(res[i][j]+" ");
+	    		}
+	    		System.out.println();
+	    	}
+	    }
 	    
-	    /*******************************   https://github.com/SaiKanth007/MyJavaRepo/blob/master/my.java.collection/src/MyArray.java  **************/
+	    
+	    /*******************************   https://www.geeksforgeeks.org/minimum-length-unsorted-subarray-sorting-which-makes-the-complete-array-sorted/  **************/
 	    public static void minArrayLengthToMakeArraySorted(int[] arr) {
 	    	int s=0,e=0;
 	    	int n=arr.length;
@@ -1416,5 +1432,7 @@ public class Array {
 	    	}
 	    	System.out.println("sub array between "+s+" and "+e+" to be sorted");
 	    }
+	    
+	    
 	
 }

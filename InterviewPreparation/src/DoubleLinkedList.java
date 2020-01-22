@@ -171,17 +171,12 @@ public class DoubleLinkedList {
 			}
 			Node last=start;
 			start=temp.next;
-			int headData=temp.data;
-			int startData=start.data;
-			int lastdata=last.data;
 			while(start!=last) {
 				if((temp.data+start.data+last.data)==sum) {
 					count++;
 					System.out.println("Triplet is "+temp.data+" and "+start.data+" and "+last.data);
 					start=start.next;
 					last=last.prev;
-					 startData=start.data;
-					 lastdata=last.data;
 					 continue;
 				}
 				if((start.data+last.data+temp.data)>sum) {
