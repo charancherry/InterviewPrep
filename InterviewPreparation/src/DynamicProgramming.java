@@ -496,9 +496,9 @@ public class DynamicProgramming {
 		int sum=0;
 		HashMap<Integer,ArrayList<Integer>> map=new HashMap<Integer,ArrayList<Integer>>();
 		ArrayList<int[]> res=new ArrayList<int[]>();
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = arr[i] == 0 ? -1 : 1;
-		}
+//		for (int i = 0; i < arr.length; i++) {
+//			arr[i] = arr[i] == 0 ? -1 : 1;
+//		}
 		for(int i=0;i<arr.length;i++) {
 			sum=sum+arr[i];
 			if(sum==reqSum) {

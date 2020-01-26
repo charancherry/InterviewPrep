@@ -203,17 +203,6 @@ public class Array {
 //		String s=in.nextLine();
 //		int n=in.nextInt();
 //		checkDivisibility(s,n);
-//		
-//	    int r=in.nextInt();
-//	    int c=in.nextInt();
-//	    int[][] inputMatrix = new int[r][c];
-//	    for(int i=0;i<r;i++){
-//	      for(int j=0;j<c;j++)
-//	      {
-//	        inputMatrix[i][j]=in.nextInt();
-//	      }   
-//	    }
-//	    spiralCopy(inputMatrix);
 //	    
 //		int[] largestNumber = JavaUtil.createArray();
 //		largestNumber(largestNumber);
@@ -225,25 +214,12 @@ public class Array {
 //		int[] arr1= {1,5,9,10,15,20};
 //		int[] arr2= {2,3,8,13};
 //		mergeTwoArrays(arr1,arr2);
-//
-//		int[][] m= {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-//		rotateMatrixAntiClockWise90(m);
-//		System.out.println();
-//		rotateMatrixClockWise90(m);
-//		System.out.println();
-//		rotateMatrixClockWise180(m);
 //		
 //		int[] findElementWithGivenCriteria = JavaUtil.createArray();
 //		findElementWithGivenCriteria(findElementWithGivenCriteria);
 //
 //		int[] minArrayLengthToMakeArraySorted = JavaUtil.createArray();
 //		minArrayLengthToMakeArraySorted(minArrayLengthToMakeArraySorted);
-//		
-		
-		int mat1[][] = { { 2, 4 }, { 3, 4 } }; 
-	    int mat2[][] = { { 1, 2 }, { 1, 3 } }; 
-	    int m1 = 2, m2 = 2, n1 = 2, n2 = 2; 
-	    matrixMultiplication(m1,m2,mat1,n1,n2,mat2);
 	}
 	
 	/*******************  https://leetcode.com/problems/flipping-an-image/     *****************/
@@ -1111,35 +1087,6 @@ public class Array {
 		    System.out.println(res);
 		}
 	   
-	   static int[] spiralCopy(int[][] inputMatrix) {
-		    int row=inputMatrix.length;
-		    int col=inputMatrix[0].length;
-		    int[] spiralCopy= new int[row*col];
-		    int count=0;
-		    for(int i=0;i<(row+1)/2;i++){
-		      for(int j=i;j<col-i-1;j++){
-		        spiralCopy[count]=inputMatrix[i][j];
-		        count++;
-		      }
-		      for(int j=i;j<row-i;j++){
-		        spiralCopy[count]=inputMatrix[j][col-i-1];
-		        count++;
-		      }
-		      for(int j=col-i-2;j>i;j--){
-		        spiralCopy[count]=inputMatrix[row-i-1][j];
-		        count++;
-		      }
-		      for(int j=row-i-1;j>i;j--){
-		        spiralCopy[count]=inputMatrix[j][i];
-		        count++;
-		      }
-		    }
-		    for(int i=0;i<count;i++) {
-		    	System.out.print(spiralCopy[i]+" ");
-		    }
-		    return spiralCopy;
-		  }
-	   
 	    public static boolean isGreater(int num1,int num2){
 	        String str1=Integer.toString(num1)+Integer.toString(num2);
 	        String str2=Integer.toString(num2)+Integer.toString(num1);
@@ -1290,67 +1237,6 @@ public class Array {
 	        }
 	    }
 	    
-	    
-	    public static void rotateMatrixAntiClockWise90(int[][] m) {
-	    	int n=m.length;
-	    	for(int x=0;x<n/2;x++) {
-	    		for(int y=x;y<n-1-x;y++) {
-	    			int temp=m[x][y];
-	    			m[x][y]=m[y][n-1-x];
-	    			m[y][n-1-x]=m[n-1-x][n-1-y];
-	    			m[n-1-x][n-1-y]=m[n-1-y][x];
-	    			m[n-1-y][x]=temp;
-	    		}
-	    	}
-	    	for(int i=0;i<n;i++) {
-	    		for(int j=0;j<n;j++) {
-	    			System.out.print(m[i][j]+" ");
-	    		}
-	    		System.out.println();
-	    	}
-	    }
-	    
-	    public static void rotateMatrixClockWise90(int[][] m) {
-	    	int n=m.length;
-	    	for(int x=0;x<n/2;x++) {
-	    		for(int y=x;y<n-1-x;y++) {
-	    			int temp=m[x][y];
-	    			m[x][y]=m[n-1-y][x];
-	    			m[n-1-y][x]=m[n-1-x][n-1-y];
-	    			m[n-1-x][n-1-y]=m[y][n-1-x];
-	    			m[y][n-1-x]=temp;
-	    		}
-	    	}
-	    	for(int i=0;i<n;i++) {
-	    		for(int j=0;j<n;j++) {
-	    			System.out.print(m[i][j]+" ");
-	    		}
-	    		System.out.println();
-	    	}
-	    }
-	    
-	    public static void rotateMatrixClockWise180(int[][] m) {
-	    	int n=m.length;
-	    	int temp=0;
-	    	for(int x=0;x<n/2;x++) {
-	    		for(int y=x;y<n-1-x;y++) {
-	    			temp=m[x][y];
-	    			m[x][y]=m[n-1-x][n-1-y];
-	    			m[n-1-x][n-1-y]=temp;
-	    			temp=m[y][n-1-x];
-	    			m[y][n-1-x]=m[n-1-y][x];
-	    			m[n-1-y][x]=temp;
-	    		}
-	    	}
-	    	for(int i=0;i<n;i++) {
-	    		for(int j=0;j<n;j++) {
-	    			System.out.print(m[i][j]+" ");
-	    		}
-	    		System.out.println();
-	    	}
-	    }
-	    
-	    
 	    /*********************   https://www.geeksforgeeks.org/find-the-element-before-which-all-the-elements-are-smaller-than-it-and-after-which-all-are-greater-than-it/   *********/
 	    public static void findElementWithGivenCriteria (int[] arr) {
 	    	int n=arr.length;
@@ -1370,25 +1256,6 @@ public class Array {
 	    		}
 	    	}
 	    }
-	    
-	    public static void matrixMultiplication(int m1,int m2,int[][] mat1,int n1,int n2,int[][] mat2) {
-	    	int[][] res=new int[m1][n2];
-	    	for(int i=0;i<m1;i++) {
-	    		for(int j=0;j<n2;j++) {
-	    			res[i][j]=0;
-	    			for(int k=0;k<m2;k++) {
-	    				res[i][j]=res[i][j]+mat1[i][k]+mat2[k][j];
-	    			}
-	    		}
-	    	}
-	    	for(int i=0;i<m1;i++) {
-	    		for(int j=0;j<n2;j++) {
-	    			System.out.print(res[i][j]+" ");
-	    		}
-	    		System.out.println();
-	    	}
-	    }
-	    
 	    
 	    /*******************************   https://www.geeksforgeeks.org/minimum-length-unsorted-subarray-sorting-which-makes-the-complete-array-sorted/  **************/
 	    public static void minArrayLengthToMakeArraySorted(int[] arr) {
