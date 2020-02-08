@@ -220,143 +220,12 @@ public class Array {
 //
 //		int[] minArrayLengthToMakeArraySorted = JavaUtil.createArray();
 //		minArrayLengthToMakeArraySorted(minArrayLengthToMakeArraySorted);
+		
+		int a=Integer.MAX_VALUE,b=Integer.MAX_VALUE;
+		System.out.println(compute_avg(a,b));
+		
 	}
-	
-	/*******************  https://leetcode.com/problems/flipping-an-image/     *****************/
-    public static int[][] flipAndInvertImage(int[][] A) {
-        int r=A.length;
-        int c=A[0].length;
-        for(int i=0;i<r;i++){
-            for(int j=0;j<(c+1)/2;j++){
-                int temp=(A[i][j]^1);
-                A[i][j]=(A[i][c-1-j]^1);
-                A[i][c-1-j]=temp;
-            }
-        }
-        return A;
-    }
-	
-	//************************ https://www.geeksforgeeks.org/find-smallest-subarray-contains-elements-order/  ************/
-	public static void minimumSubArray(int[] arr1,int[] arr2) {
-		int l=0,min_so_far=Integer.MAX_VALUE,start=-1,end=-1;
-		for(int i=0;i<=arr1.length-arr2.length;i++) {
-			int k=0;
-			for(int j=i;j<arr1.length;j++) {
-				if(k==0) {
-					if(arr1[j]!=arr2[k]) {
-						break;
-					}
-				}
-				if(k<=arr2.length && arr1[j]==arr2[k]) {
-					k++;
-				}
-				if(k==arr2.length) {
-					l=j-i;
-					if(l<=min_so_far) {
-						min_so_far=l;
-						start=i;
-						end=j;
-					}
-					break;
-				}
-			}
-		}
-		if(start==-1) {
-			System.out.println("Sub array is not found");
-		}else {
-			System.out.println("Length of min sub array is "+min_so_far);
-			for(int i=start;i<=end;i++) {
-				System.out.print(arr1[i]+" ");
-			}
-		}
-	}
-	/***********************  https://www.geeksforgeeks.org/k-smallest-elements-order-using-o1-extra-space/     *************************/
-	public static void kSmallestInSameOrder(int[] arr,int k) {
-		int max=Integer.MIN_VALUE,max_so_far=Integer.MAX_VALUE;
-		for(int i=0;i<arr.length-k;i++) {
-			for(int j=0;j<arr.length;j++) {
-				if(arr[j]>max && arr[j]<max_so_far) {
-					max=arr[j];
-				}
-			}
-			max_so_far=max;
-			max=Integer.MIN_VALUE;
-		}
-		for(int i=0;i<arr.length;i++)
-		{
-			if(arr[i]<max_so_far) {
-				System.out.print(arr[i]+" ");
-			}
-		}
-	}
-	
-	/*************   https://www.geeksforgeeks.org/sort-an-array-of-0s-1s-and-2s/    ********************/
-	public static void seperate012(int[] arr) {
-		int start=0;
-		int end=arr.length-1;
-		for(int i=0;i<arr.length;i++) {
-			if(arr[i]==0) {
-				if(start<i) {
-					JavaUtil.swap(arr, start, i);
-					start++;
-					i--;
-				}
-			}else if(arr[i]==2) {
-				if(end>i) {
-					JavaUtil.swap(arr, end, i);
-					end--;
-					i--;
-				}
-			}
-		}
-		for(int i=0;i<arr.length;i++) {
-			System.out.print(arr[i]);
-		}
-	}
-	
-	/**************  https://www.geeksforgeeks.org/k-th-missing-element-in-an-unsorted-array/  **************/
-	public static void kthMissingElement(int[] arr,int k) {
-		int min=JavaUtil.getMinEle(arr);
-		int max=JavaUtil.getMaxEle(arr);
-		HashSet<Integer> arrSet = new HashSet<Integer>();
-		for(int i=0;i<arr.length;i++) {
-			arrSet.add(arr[i]);
-		}
-		int missedSoFar=0;
-		int missedElementsCount = max-min+1-arr.length;
-		if(k>missedElementsCount) {
-			System.out.println("-1");
-			return;
-		}
-		for(int i=min;i<max;i++) {
-			if(!arrSet.contains(i)) {
-				missedSoFar++;
-				if(missedSoFar==k) {
-					System.out.println(i);
-					return;
-				}
-			}
-		}
-	}
-	
-	/*********   https://www.geeksforgeeks.org/shuffle-2n-integers-format-a1-b1-a2-b2-a3-b3-bn-without-using-extra-space/  ***********/
-	public static void shuffleArray(int[] arr,int l,int r) {
-		if(l<r) {
-			if(l-r==1) {
-				return;
-			}
-			int mid=(l+r)/2;
-			int temp=mid+1;
-			int fmid = (l+mid)/2;
-			for(int i=fmid+1;i<=mid;i++) {
-				JavaUtil.swap(arr, i, temp);
-				temp++;
-			}
-			shuffleArray(arr,l,mid);
-			shuffleArray(arr,mid+1,r);
-		}
-	}
-	
+			
 	public static void bubbleSort(int[] arr) {
 		int l=arr.length;
 		for(int i=0;i<l-1;i++) {
@@ -462,7 +331,7 @@ public class Array {
 		}
 	}
 	
-	static void mergeSortInPlace(int[] arr, int beg, int mid, int end, int maxele) {
+	static void mergeInPlace(int[] arr, int beg, int mid, int end, int maxele) {
 		int i = beg;
 		int j = mid + 1;
 		int k = beg;
@@ -503,7 +372,7 @@ public class Array {
 			int mid = (beg + end) / 2;
 			mergeSortInPlace(arr, beg, mid, maxele);
 			mergeSortInPlace(arr, mid + 1, end, maxele);
-			mergeSortInPlace(arr, beg, mid, end, maxele);
+			mergeInPlace(arr, beg, mid, end, maxele);
 		}
 	}
 
@@ -679,7 +548,7 @@ public class Array {
 				end=i;
 			}
 			if(cur_sum>0) {
-				s++;
+				s=i+1;
 				cur_sum=0;
 			}
 		}
@@ -867,6 +736,73 @@ public class Array {
 			}
 		}
 		return -1;
+	}
+	
+	/*************   https://www.geeksforgeeks.org/sort-an-array-of-0s-1s-and-2s/    ********************/
+	public static void seperate012(int[] arr) {
+		int start=0;
+		int end=arr.length-1;
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]==0) {
+				if(start<i) {
+					JavaUtil.swap(arr, start, i);
+					start++;
+					i--;
+				}
+			}else if(arr[i]==2) {
+				if(end>i) {
+					JavaUtil.swap(arr, end, i);
+					end--;
+					i--;
+				}
+			}
+		}
+		for(int i=0;i<arr.length;i++) {
+			System.out.print(arr[i]);
+		}
+	}
+	
+	/**************  https://www.geeksforgeeks.org/k-th-missing-element-in-an-unsorted-array/  **************/
+	public static void kthMissingElement(int[] arr,int k) {
+		int min=JavaUtil.getMinEle(arr);
+		int max=JavaUtil.getMaxEle(arr);
+		HashSet<Integer> arrSet = new HashSet<Integer>();
+		for(int i=0;i<arr.length;i++) {
+			arrSet.add(arr[i]);
+		}
+		int missedSoFar=0;
+		int missedElementsCount = max-min+1-arr.length;
+		if(k>missedElementsCount) {
+			System.out.println("-1");
+			return;
+		}
+		for(int i=min;i<max;i++) {
+			if(!arrSet.contains(i)) {
+				missedSoFar++;
+				if(missedSoFar==k) {
+					System.out.println(i);
+					return;
+				}
+			}
+		}
+	}
+	
+	/*********   https://www.geeksforgeeks.org/shuffle-2n-integers-format-a1-b1-a2-b2-a3-b3-bn-without-using-extra-space/  ***********/
+	public static void shuffleArray(int[] arr,int l,int r) {
+		if(l<r) {
+			if(l-r==1) {
+				return;
+			}
+			int mid=(l+r)/2;
+			int temp=mid+1;
+			int fmid = (l+mid)/2;
+			for(int i=fmid+1;i<=mid;i++) {
+				JavaUtil.swap(arr, i, temp);
+				temp++;
+			}
+			shuffleArray(arr,l,mid);
+			shuffleArray(arr,mid+1,r);
+		}
 	}
 	
 	/******* https://www.geeksforgeeks.org/given-an-array-a-and-a-number-x-check-for-pair-in-a-with-sum-as-x/  **********/
@@ -1299,6 +1235,82 @@ public class Array {
 	    	}
 	    	System.out.println("sub array between "+s+" and "+e+" to be sorted");
 	    }
+	    
+		/*******************  https://leetcode.com/problems/flipping-an-image/     *****************/
+	    public static int[][] flipAndInvertImage(int[][] A) {
+	        int r=A.length;
+	        int c=A[0].length;
+	        for(int i=0;i<r;i++){
+	            for(int j=0;j<(c+1)/2;j++){
+	                int temp=(A[i][j]^1);
+	                A[i][j]=(A[i][c-1-j]^1);
+	                A[i][c-1-j]=temp;
+	            }
+	        }
+	        return A;
+	    }
+		
+		//************************ https://www.geeksforgeeks.org/find-smallest-subarray-contains-elements-order/  ************/
+		public static void minimumSubArray(int[] arr1,int[] arr2) {
+			int l=0,min_so_far=Integer.MAX_VALUE,start=-1,end=-1;
+			for(int i=0;i<=arr1.length-arr2.length;i++) {
+				int k=0;
+				for(int j=i;j<arr1.length;j++) {
+					if(k==0) {
+						if(arr1[j]!=arr2[k]) {
+							break;
+						}
+					}
+					if(k<=arr2.length && arr1[j]==arr2[k]) {
+						k++;
+					}
+					if(k==arr2.length) {
+						l=j-i;
+						if(l<=min_so_far) {
+							min_so_far=l;
+							start=i;
+							end=j;
+						}
+						break;
+					}
+				}
+			}
+			if(start==-1) {
+				System.out.println("Sub array is not found");
+			}else {
+				System.out.println("Length of min sub array is "+min_so_far);
+				for(int i=start;i<=end;i++) {
+					System.out.print(arr1[i]+" ");
+				}
+			}
+		}
+		/***********************  https://www.geeksforgeeks.org/k-smallest-elements-order-using-o1-extra-space/     *************************/
+		public static void kSmallestInSameOrder(int[] arr,int k) {
+			int max=Integer.MIN_VALUE,max_so_far=Integer.MAX_VALUE;
+			for(int i=0;i<arr.length-k;i++) {
+				for(int j=0;j<arr.length;j++) {
+					if(arr[j]>max && arr[j]<max_so_far) {
+						max=arr[j];
+					}
+				}
+				max_so_far=max;
+				max=Integer.MIN_VALUE;
+			}
+			for(int i=0;i<arr.length;i++)
+			{
+				if(arr[i]<max_so_far) {
+					System.out.print(arr[i]+" ");
+				}
+			}
+		}
+		
+		/**********************   https://www.geeksforgeeks.org/compute-average-two-numbers-without-overflow/     *****************/
+		public static int compute_avg(int a,int b) {
+			if(a==b) {
+				return a;
+			}
+			return (a+b)/2;
+		}
 	    
 	    
 	

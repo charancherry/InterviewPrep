@@ -138,10 +138,14 @@ public class Strings {
 //		System.out.println("Enter strings");
 //		String largestLexographicSubsequence=in.next();
 //		largestLexographicSubsequence(largestLexographicSubsequence);
+//		
+//		System.out.println("Enter strings");
+//		String lexogrpahicallyLargestPalyndromicSubSequence=in.next();
+//		lexogrpahicallyLargestPalyndromicSubSequence(lexogrpahicallyLargestPalyndromicSubSequence);
 		
-		System.out.println("Enter strings");
-		String lexogrpahicallyLargestPalyndromicSubSequence=in.next();
-		lexogrpahicallyLargestPalyndromicSubSequence(lexogrpahicallyLargestPalyndromicSubSequence);
+		System.out.println("Enter string and pattern");
+		String str=in.nextLine();
+		decodeString(str);
 	}
 	
 	
@@ -461,6 +465,52 @@ public class Strings {
 			}
 		}
 	}
+	
+	// doesn't scale for large strings
+		// https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
+		// also think of printing it in alphabetical order
+		// https://www.geeksforgeeks.org/distinct-permutations-string-set-2/
+		public static void printPermutationsWithoutDuplicates(char[] inputArray, int lowerIndex, int upperIndex,
+				Set<String> stringStore) {
+			if (lowerIndex <= upperIndex) {
+				if (lowerIndex == upperIndex) {
+					stringStore.add(String.valueOf(inputArray));
+				}
+				for (int i = lowerIndex; i <= upperIndex; i++) {
+					JavaUtil.charSwap(inputArray, lowerIndex, i);
+					printPermutationsWithoutDuplicates(inputArray, lowerIndex + 1, upperIndex, stringStore);
+					JavaUtil.charSwap(inputArray, lowerIndex, i);
+				}
+			}
+
+		}
+		
+		// doesn't scale for large strings
+		// https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
+		// http://blog.gainlo.co/index.php/2017/01/05/uber-interview-questions-permutations-array-arrays/
+		public static void printPermutations(char[] inputArray, int lowerIndex, int upperIndex) {
+			if (lowerIndex == upperIndex) {
+				System.out.println(String.valueOf(inputArray));
+			}
+			for (int i = lowerIndex; i <= upperIndex; i++) {
+				if (shouldSwap(inputArray, lowerIndex, i)) {
+					JavaUtil.charSwap(inputArray, lowerIndex, i);
+					printPermutations(inputArray, lowerIndex + 1, upperIndex);
+					JavaUtil.charSwap(inputArray, lowerIndex, i);
+				}
+			}
+
+		}
+
+		// working fine
+		static boolean shouldSwap(char str[], int lowerIndex, int upperIndex) {
+			for (int i = lowerIndex; i < upperIndex; i++) {
+				if (str[i] == str[upperIndex]) {
+					return false;
+				}
+			}
+			return true;
+		}
 	
 	public static void printCombinationsRecursive(char[] array, int index, String result) {
 		// Print current subset
@@ -953,6 +1003,36 @@ public class Strings {
     		}
     	}
     	System.out.println("Lexographically largest palyndromic subsequence is  "+s.toString());
+    }
+    
+    /********************  https://www.geeksforgeeks.org/decode-string-recursively-encoded-count-followed-substring/    **********/
+    public static void decodeString(String str) {
+    	StringBuilder temp=new StringBuilder();
+    	int f=0;
+    	for(int i=str.length()-1;i>=0;i--) {
+    		f=0;
+    		StringBuilder result=new StringBuilder();
+    		while(i>=0 && str.charAt(i)==']') {
+    			i--;
+    		}
+    		while(i>=0 && str.charAt(i)>='a' && str.charAt(i)<='z') {
+    			temp.append(str.charAt(i));
+    			i--;
+    		}
+    		while(i>=0 && str.charAt(i)=='[') {
+    			i--;
+    		}
+    		while(i>=0 && str.charAt(i)>='1'&&str.charAt(i)<='9') {
+    			f=(f*10)+(str.charAt(i)-'0');
+    			i--;
+    		}
+    		for(int j=0;j<f;j++) {
+    			result=result.append(temp);
+    		}
+    		i++;
+    		temp=result;
+    	}
+		System.out.print(temp.reverse());
     }
 
 

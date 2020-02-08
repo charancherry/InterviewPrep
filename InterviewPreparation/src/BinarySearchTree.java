@@ -316,7 +316,7 @@ public class BinarySearchTree {
 					return false;
 				}
 			}
-			return givenPreOrderCanRepresentBSTOrNot(pre,l+1,index-1) && givenPreOrderCanRepresentBSTOrNot(pre,index+1,r);
+			return givenPreOrderCanRepresentBSTOrNot(pre,l+1,index-1) && givenPreOrderCanRepresentBSTOrNot(pre,index,r);
 		}
 		return true;
 	}
