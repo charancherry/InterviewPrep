@@ -221,8 +221,14 @@ public class Array {
 //		int[] minArrayLengthToMakeArraySorted = JavaUtil.createArray();
 //		minArrayLengthToMakeArraySorted(minArrayLengthToMakeArraySorted);
 		
-		int a=Integer.MAX_VALUE,b=Integer.MAX_VALUE;
-		System.out.println(compute_avg(a,b));
+//		int a=Integer.MAX_VALUE,b=Integer.MAX_VALUE;
+//		System.out.println(compute_avg(a,b));
+		
+		System.out.println("Enter numerator");
+		int num=in.nextInt();
+		System.out.println("Enter denominator");
+		int den=in.nextInt();
+		findRecurrenceDigits(num,den);
 		
 	}
 			
@@ -853,7 +859,7 @@ public class Array {
 			System.out.println("No such pairs found");
 		}
 	}
-	
+		
 	public static void leastCommonMultiple(int[] arr) {
 		int max=JavaUtil.getMaxEle(arr);
 		int res=1,fac=2;
@@ -1310,6 +1316,25 @@ public class Array {
 				return a;
 			}
 			return (a+b)/2;
+		}
+		
+		/*********************** https://www.geeksforgeeks.org/find-recurring-sequence-fraction/ *******************/
+		public static void findRecurrenceDigits(int num,int den) {
+			String res="";
+			int rem=num%den;
+			Map<Integer,Integer> map=new HashMap<Integer,Integer>();
+			while(rem!=0 && !map.containsKey(rem)) {
+				map.put(rem, res.length());
+				rem=rem*10;
+				int res_part=rem/den;
+				res += String.valueOf(res_part);
+				rem = rem%den;
+			}
+			if(rem==0) {
+				System.out.println("No recurring part");
+			}else {
+				System.out.println("Recurring part is "+res.substring(map.get(rem)));
+			}
 		}
 	    
 	    

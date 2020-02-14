@@ -40,8 +40,14 @@ public class mattrix {
 //		findRectangleInMatrix(matrixForRectangle);
 		
 
-		int[][] matrixForMaxOnes = { { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, { 0, 0, 0, 0 }, { 0, 1, 1, 1 } };
-		maxOneInEachRow(matrixForMaxOnes);
+//		int[][] matrixForMaxOnes = { { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, { 0, 0, 0, 0 }, { 0, 1, 1, 1 } };
+//		maxOneInEachRow(matrixForMaxOnes);
+		
+		  int mat[][] = { { 10, 20, 30, 40 }, 
+                  { 15, 25, 35, 45 }, 
+                  { 27, 29, 37, 48 }, 
+                  { 32, 33, 39, 50 } }; 
+		  findElementInRowAndColumnSortedMatrix(mat,29);
 
 	}
 	
@@ -241,6 +247,24 @@ public class mattrix {
 	    	}
 	    	System.out.println("Row with max 1's is "+row);
 	    	System.out.println("Number of 1's are "+(mat[0].length-j-1));
+	    }
+	    
+	    
+	    /*****************************   https://www.geeksforgeeks.org/search-in-row-wise-and-column-wise-sorted-matrix/       *******************/
+	    public static void findElementInRowAndColumnSortedMatrix(int[][] mat,int x) {
+	    	int n=mat.length;
+	    	int i=0,j=n-1;
+	    	while(i<n&&j>=0) {
+	    		if(mat[i][j]==x) {
+	    			System.out.println("Element found at position ["+i+","+j+"]");
+	    			return;
+	    		}else if(x>mat[i][j]) {
+	    			i++;
+	    		}else {
+	    			j--;
+	    		}
+	    	}
+	    	System.out.println("Element not present in given matrix");
 	    }
     
 
