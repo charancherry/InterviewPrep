@@ -133,7 +133,7 @@ public class mattrix {
 		    return spiralCopy;
 		  }
 	   
-	    
+	    /************** https://www.geeksforgeeks.org/inplace-rotate-square-matrix-by-90-degrees/     ***************/
 	    public static void rotateMatrixAntiClockWise90(int[][] m) {
 	    	int n=m.length;
 	    	for(int x=0;x<n/2;x++) {
@@ -206,7 +206,7 @@ public class mattrix {
 	    						System.out.println("Rectangle Exist");
 	    						return;
 	    					}
-	    					if(map.containsKey(k) && map.get(j).contains(j)) {
+	    					if(map.containsKey(k) && map.get(k).contains(j)) {
 	    						System.out.println("Rectangle Exist");
 	    						return;
 	    					}
