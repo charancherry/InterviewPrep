@@ -223,12 +223,18 @@ public class Array {
 		
 //		int a=Integer.MAX_VALUE,b=Integer.MAX_VALUE;
 //		System.out.println(compute_avg(a,b));
+//		
+//		System.out.println("Enter numerator");
+//		int num=in.nextInt();
+//		System.out.println("Enter denominator");
+//		int den=in.nextInt();
+//		findRecurrenceDigits(num,den);
 		
-		System.out.println("Enter numerator");
-		int num=in.nextInt();
-		System.out.println("Enter denominator");
-		int den=in.nextInt();
-		findRecurrenceDigits(num,den);
+		int[] subArrayWithGivenSum = JavaUtil.createArray();
+		System.out.println("Enter required sum");
+		int n=in.nextInt();
+		subArrayWithGivenSum(subArrayWithGivenSum,n);
+		
 		
 	}
 			
@@ -450,27 +456,11 @@ public class Array {
 		return -1;
 	}
 
-	public static void findSubArrayWithGivenSum(int[]arr,int sum) {
-		int cur_sum=Integer.MIN_VALUE,start_ind=0;
-		for(int i=0;i<arr.length;i++) {
-			while(cur_sum>sum && start_ind<i-1) {
-				cur_sum=cur_sum-arr[start_ind];
-				start_ind++;
-			}
-			if(cur_sum==sum) {
-				System.out.println("Sub arry is found start Index is "+start_ind+ "and end index is " + (i-1));
-				return;
-			}
-			cur_sum=cur_sum+arr[i];
-		}
-		System.out.println("No Sub array found");
-	}
-
 	/******************   https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/    ***************/
 	public static void findMaxSubArray(int[] arr) {
 		int max_sum=Integer.MIN_VALUE,cur_sum=0,start=0,end=0,s=0;
 		for(int i=0;i<arr.length;i++) {
-			cur_sum=cur_sum+arr[i];
+			cur_sum=Math.max(arr[i],cur_sum+arr[i]);
 			if(cur_sum>max_sum) {
 				max_sum=cur_sum;
 				start=s;
@@ -1336,7 +1326,20 @@ public class Array {
 				System.out.println("Recurring part is "+res.substring(map.get(rem)));
 			}
 		}
-	    
-	    
+		
+		/*********************   https://www.geeksforgeeks.org/find-subarray-with-given-sum/  ***********/
+		public static void subArrayWithGivenSum(int[] arr,int reqSum) {
+			int cur_sum=arr[0],start=0;
+			for(int i=1;i<arr.length;i++) {
+				while(cur_sum>reqSum&&start<i-1) {
+					cur_sum=cur_sum-arr[start];
+					start++;
+				}
+				if(cur_sum==reqSum) {
+					System.out.println("Sub array from "+start+" to "+(i-1)+"give required sum");
+				}
+				cur_sum=cur_sum+arr[i];
+			}
+		}
 	
 }

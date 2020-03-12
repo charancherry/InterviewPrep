@@ -840,7 +840,7 @@ public class Strings {
     /******************    https://www.geeksforgeeks.org/find-next-greater-number-set-digits/  *********/
     public static void nextGretestNumber(char[] c) {
     	int min=-1;
-    	for(int i=c.length-1;i>=0;i--) {
+    	for(int i=c.length-1;i>0;i--) {
     		if(c[i]>c[i-1]) {
     			min=i-1;
     			break;

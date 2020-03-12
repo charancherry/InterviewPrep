@@ -91,6 +91,7 @@ public class LinkedList {
 		Node next;
 		if(head==null) {
 			System.out.println("Linked List is empty");
+			return null;
 		}
 		if(head.next==null) {
 			return null;

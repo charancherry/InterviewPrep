@@ -29,3 +29,41 @@ Since multiple threads try to race each other to finish executing a method thus 
 A. Database Level - More Joins,Caching
 B. Server Side - nested loops, complex logic
 C. Client Side - getting lot of data in response bcoz of which browser is taking lot of time to download
+
+
+Difference between new(),newInstance(),Class.forname();
+
+The new operator creates a new object of a type that's known statically (at compile-time) and can call any constructor on the object you're trying to create. It's the preferred way of creating an object - it's fast and the JVM does lots of aggressive optimizations on it.
+
+Class.forName().newInstance() is a dynamic construct that looks up a class with a specific name. It's slower than using new because the type of object can't be hardcoded into the bytecode, and because the JVM might have to do permissions checking to ensure that you have the authority to create an object. It's also partially unsafe because it always uses a zero-argument constructor, and if the object you're trying to create doesn't have a nullary constructor it throws an exception.
+
+In short, use new if you know at compile-time what the type of the object is that you want to create. Use Class.forName().newInstance() if you don't know what type of object you'll be making.
+
+https://narayanatutorial.com/interview-questions/java-basics/difference-class-forname-newinstance-java
+
+https://stackoverflow.com/questions/14997202/creating-object-with-reference-to-interface
+
+Which data structure you prefer to store passwords
+
+https://www.techiedelight.com/why-character-array-preferred-over-string-storing-passwords/
+
+Streams or for loop which is fast
+
+Initiated one object with null, then what can be accessed using this object without getting null pointer exception 
+Static blocks and methods can be accessed without null point exception.
+
+
+Best way to create singleton
+https://medium.com/@kevalpatel2106/how-to-make-the-perfect-singleton-de6b951dfdb0
+https://stackoverflow.com/questions/11639746/what-is-the-point-of-making-the-singleton-instance-volatile-while-using-double-l
+
+Clean way to avoid null pointer exception
+Abstract class Vs Interface
+Encapsulation vs Abstarction
+
+Stateful and stateless class
+
+Stateless object is an instance of a class without instance fields (instance variables). The class may have fields, but they are compile-time constants (static final).
+A very much related term is immutable. Immutable objects may have state, but it does not change when a method is invoked (method invocations do not assign new values to fields). These objects are also thread-safe.
+
+https://stackoverflow.com/questions/9735601/what-is-stateless-object-in-java

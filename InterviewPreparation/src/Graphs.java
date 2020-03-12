@@ -137,7 +137,7 @@ public class Graphs {
 		return false;
 	}
 	
-	
+	/************************************    https://www.geeksforgeeks.org/detect-cycle-undirected-graph/       ***************/
 	public static boolean isCyclic(Graph g) {
 		boolean[] visited = new boolean[g.v];
 		for(int i=0;i<g.v;i++) {
