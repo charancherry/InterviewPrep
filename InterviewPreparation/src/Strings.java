@@ -10,10 +10,10 @@ public class Strings {
 	public static void main(String[] args) throws JSONException {
 		Scanner in = new Scanner(System.in);
 		
-//		System.out.println("Enter String to be reversed");
-//		String str= in.nextLine();
-//		str = reverseString(str);
-//		System.out.println("Reversed String is "+str);
+		System.out.println("Enter String to be reversed");
+		String str= in.nextLine();
+		str = reverseString(str);
+		System.out.println("Reversed String is "+str);
 //		
 //		System.out.println("Enter the strings to be added");
 //		String str1 = in.nextLine();
@@ -143,9 +143,9 @@ public class Strings {
 //		String lexogrpahicallyLargestPalyndromicSubSequence=in.next();
 //		lexogrpahicallyLargestPalyndromicSubSequence(lexogrpahicallyLargestPalyndromicSubSequence);
 		
-		System.out.println("Enter string and pattern");
-		String str=in.nextLine();
-		decodeString(str);
+//		System.out.println("Enter string and pattern");
+//		String str=in.nextLine();
+//		decodeString(str);
 	}
 	
 	
@@ -256,9 +256,9 @@ public class Strings {
 	public static String reverseString(String str) {
 		char[] charArray = str.toCharArray();
 		int l= charArray.length-1;
-		for(int i=0;i<=charArray.length/2;i++) {
+		for(int i=0;i<charArray.length/2;i++) {
+			System.out.println(i);
 			JavaUtil.charSwap(charArray, i, l-i);
-			
 		}
 		return new String(charArray);
 	}
