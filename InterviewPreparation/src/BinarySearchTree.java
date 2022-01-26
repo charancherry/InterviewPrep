@@ -158,7 +158,7 @@ public class BinarySearchTree {
 	/********************   https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/  **********************/
 	public boolean isBST(Node root) {
 		if(root==null) {
-			return false;
+			return true;
 		}
 		if(root.left!=null && root.data<maxNode(root.left)) {
 			return false;
@@ -166,11 +166,7 @@ public class BinarySearchTree {
 		if(root.right!=null && root.data>minNode(root.right)) {
 			return false;
 		}
-		else {
-			isBST(root.left);
-			isBST(root.right);
-		}
-		return true;
+		return (isBST(root.left) || isBST(root.right));
 	}
 	
 	public void kthSmallestNode(Node root,int k) {
@@ -291,15 +287,13 @@ public class BinarySearchTree {
 	public Node LCA(Node root,int n1,int n2) {
 		if(root==null)
 			return null;
-		if(n1<=root.data && root.data<=n2) {
-			return root;
-		}
 		if(n1<root.data && n2<root.data) {
 			return LCA(root.left,n1,n2);
 		}
-		else {
+		if(n1>root.data && n2>root.data) {
 			return LCA(root.right,n1,n2);
 		}
+		return root;
 	}
 	
 	
@@ -414,12 +408,12 @@ public class BinarySearchTree {
 	public static void main(String[] args) {
 		BinarySearchTree tree = new BinarySearchTree();
 		Scanner in = new Scanner(System.in);
-//		System.out.println("Enter no of nodes in tree");
-//		int n=in.nextInt();
-//		for(int i=0;i<n;i++) {
-//			int d=in.nextInt();
-//			tree.root=tree.insertNode(tree.root, d);
-//		}
+		System.out.println("Enter no of nodes in tree");
+		int n=in.nextInt();
+		for(int i=0;i<n;i++) {
+			int d=in.nextInt();
+			tree.root=tree.insertNode(tree.root, d);
+		}
 //		System.out.println("Inorder traversal of given tree");
 //		tree.inorder(tree.root);
 //		System.out.println();
@@ -444,11 +438,11 @@ public class BinarySearchTree {
 //		tree.inorder(root2);
 //		System.out.println();
 //		
-//		Node root3=new Node(10);
+//		Node root3=new Node(8);
 //		root3.left=new Node(5);
-//		root3.right=new Node(8);
+//		root3.right=new Node(10);
 //		root3.left.left=new Node(2);
-//		root3.left.right=new Node(20);
+//		root3.left.right=new Node(7);
 //		tree.inorder(root3);
 //				
 //		System.out.println("Given tree is BST "+tree.isBST(root3));
@@ -469,8 +463,8 @@ public class BinarySearchTree {
 //		}else {
 //			System.out.println("Given sub sequence does not exist");
 //		}
-//		Node lsa=tree.LCA(tree.root, 1, 10);
-//		System.out.println("LCA of given nodes is "+lsa.data);
+		Node lsa=tree.LCA(tree.root, 22, 10);
+		System.out.println("LCA of given nodes is "+lsa.data);
 //		int[] pre= {2,4,1};
 //		boolean isBSTPossible = tree.givenPreOrderCanRepresentBSTOrNot(pre, 0, pre.length-1);
 //		if(isBSTPossible) {
@@ -487,10 +481,10 @@ public class BinarySearchTree {
 //		System.out.println("BST to DLL");
 //		tree.convertTreeToDLL(tree.root);
 //		tree.printNodesInTreeConvertedDLL(tree.head);
-		
-		int[] arr = {1,2,3,4,5,6,7};
-		Node head=tree.convertSortedArrayToBST(arr, 0, arr.length-1);
-		tree.inorder(head);
+//		
+//		int[] arr = {1,2,3,4,5,6,7};
+//		Node head=tree.convertSortedArrayToBST(arr, 0, arr.length-1);
+//		tree.inorder(head);
 	}
 
 }

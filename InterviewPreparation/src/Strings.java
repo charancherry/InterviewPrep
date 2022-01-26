@@ -10,10 +10,10 @@ public class Strings {
 	public static void main(String[] args) throws JSONException {
 		Scanner in = new Scanner(System.in);
 		
-		System.out.println("Enter String to be reversed");
-		String str= in.nextLine();
-		str = reverseString(str);
-		System.out.println("Reversed String is "+str);
+//		System.out.println("Enter String to be reversed");
+//		String str= in.nextLine();
+//		str = reverseString(str);
+//		System.out.println("Reversed String is "+str);
 //		
 //		System.out.println("Enter the strings to be added");
 //		String str1 = in.nextLine();
@@ -53,9 +53,9 @@ public class Strings {
 //		int num=in.nextInt();
 //		findnearestPalyndrome(num);
 //		
-//		System.out.println("Enter the strings");
-//		String str = in.nextLine();
-//		reverseWordsInStrinf(str.toCharArray());
+		System.out.println("Enter the strings");
+		String str = in.nextLine();
+		reverseWordsInStrinf(str.toCharArray());
 //		
 //		System.out.println("Enter the string");
 //		String str=in.next();
@@ -75,6 +75,7 @@ public class Strings {
 //		}
 //		sortWords(strings);
 //		
+/***************** Not Checked**************/
 //		System.out.println("Enter No of strings");
 //		int n= in.nextInt();
 //		System.out.println("Enter the strings");
@@ -84,7 +85,17 @@ public class Strings {
 //			strings.add(str);
 //		}
 //		lexographicalOrderOfGivenWords(strings);
+		
+//		System.out.println("Enter string");
+//		String str=in.next();
+//		recurssivelyRemoveAdjDuplicates(str);
 //		
+//		System.out.println("Enter strings");
+//		String str1=in.next();
+//		String str2=in.next();
+//		String result = abbreviation(str1,str2);
+//		System.out.println(result);
+/**************** ***************************/
 //		System.out.println("Enter the string");
 //		String str=in.next();
 //		sortStringFollowedByIntegerSum(str.toCharArray());
@@ -97,15 +108,6 @@ public class Strings {
 //		List<String> str = commonChars(a);
 //		System.out.println(str);
 //
-//		System.out.println("Enter string");
-//		String str=in.next();
-//		recurssivelyRemoveAdjDuplicates(str);
-//		
-//		System.out.println("Enter strings");
-//		String str1=in.next();
-//		String str2=in.next();
-//		String result = abbreviation(str1,str2);
-//		System.out.println(result);
 //		
 //		int n=in.nextInt();
 //	    convertToWords(n);
@@ -142,7 +144,7 @@ public class Strings {
 //		System.out.println("Enter strings");
 //		String lexogrpahicallyLargestPalyndromicSubSequence=in.next();
 //		lexogrpahicallyLargestPalyndromicSubSequence(lexogrpahicallyLargestPalyndromicSubSequence);
-		
+//		
 //		System.out.println("Enter string and pattern");
 //		String str=in.nextLine();
 //		decodeString(str);
@@ -580,7 +582,7 @@ public class Strings {
 				start_ind=i+1;
 			}
 		}
-		System.out.print("Nearest Palyndrome is"+new String(arr));
+		System.out.print("String after reversing words is "+new String(arr));
 	}
 	
 	public static void toUppercase(char[] arr) {
@@ -774,6 +776,7 @@ public class Strings {
 		System.out.println(temp);
 	}
 	
+	/********** https://www.geeksforgeeks.org/convert-number-to-words/  *********************/
 	public static void convertToWords(int n){
         String[] tens = {"ten","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"};
         String[] ones ={"one","two","three","four","five","six","seven","eight","nine"};

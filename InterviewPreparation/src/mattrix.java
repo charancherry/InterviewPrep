@@ -2,10 +2,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.*;
 
 public class mattrix {
 
 	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
 //		
 //		int mat1[][] = { { 2, 4 }, { 3, 5 } }; 
 //	    int mat2[][] = { { 1, 2 ,3}, { 4, 5 ,6} }; 
@@ -26,8 +29,8 @@ public class mattrix {
 //	    }
 //	    spiralCopy(inputMatrix);
 //
-//		int[][] m= {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-//		rotateMatrixAntiClockWise90(m);
+		int[][] m= {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+		rotateMatrixAntiClockWise90(m);
 //		System.out.println();
 //		rotateMatrixClockWise90(m);
 //		System.out.println();
@@ -42,12 +45,12 @@ public class mattrix {
 
 //		int[][] matrixForMaxOnes = { { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, { 0, 0, 0, 0 }, { 0, 1, 1, 1 } };
 //		maxOneInEachRow(matrixForMaxOnes);
-		
-		  int mat[][] = { { 10, 20, 30, 40 }, 
-                  { 15, 25, 35, 45 }, 
-                  { 27, 29, 37, 48 }, 
-                  { 32, 33, 39, 50 } }; 
-		  findElementInRowAndColumnSortedMatrix(mat,29);
+//		
+//		  int mat[][] = { { 10, 20, 30, 40 }, 
+//                  { 15, 25, 35, 45 }, 
+//                  { 27, 29, 37, 48 }, 
+//                  { 32, 33, 39, 50 } }; 
+//		  findElementInRowAndColumnSortedMatrix(mat,29);
 
 	}
 	
@@ -102,36 +105,43 @@ public class mattrix {
     	for(String key:set) {
     		System.out.println(key);
     	}
-    }
+    } 
+    
+    /***********************  https://www.geeksforgeeks.org/print-a-given-matrix-in-spiral-form/   *********************/
     
 	   static int[] spiralCopy(int[][] inputMatrix) {
-		    int row=inputMatrix.length;
-		    int col=inputMatrix[0].length;
-		    int[] spiralCopy= new int[row*col];
-		    int count=0;
-		    for(int i=0;i<(row+1)/2;i++){
-		      for(int j=i;j<col-i-1;j++){
-		        spiralCopy[count]=inputMatrix[i][j];
-		        count++;
-		      }
-		      for(int j=i;j<row-i;j++){
-		        spiralCopy[count]=inputMatrix[j][col-i-1];
-		        count++;
-		      }
-		      for(int j=col-i-2;j>i;j--){
-		        spiralCopy[count]=inputMatrix[row-i-1][j];
-		        count++;
-		      }
-		      for(int j=row-i-1;j>i;j--){
-		        spiralCopy[count]=inputMatrix[j][i];
-		        count++;
-		      }
+		   int m=inputMatrix.length;
+		   int n=inputMatrix[0].length;
+		   int k=0,l=0,i=0;
+		   int[] spiral=new int[m*n];
+		   int j=0;
+		   while(k<m && l<n) {
+			   for(i=l;i<n;i++) {
+				   spiral[j++]=inputMatrix[k][i];
+			   }
+			   k++;
+			   for(i=k;i<m;i++) {
+				   spiral[j++]=inputMatrix[i][n-1]; 
+			   }
+			   n--;
+			   if(k<m) {
+				   for(i=n-1;i>=l;i--) {
+					   spiral[j++]=inputMatrix[m-1][i]; 
+				   }
+				   m--;
+			   }
+			   if(l<n) {
+				   for(i=m-1;i>=k;i--) {
+					   spiral[j++]=inputMatrix[i][l];
+				   }
+				   l++;
+			   }
+		   }
+		   for(i=0;i<j;i++) {
+		    	System.out.print(spiral[i]+" ");
 		    }
-		    for(int i=0;i<count;i++) {
-		    	System.out.print(spiralCopy[i]+" ");
-		    }
-		    return spiralCopy;
-		  }
+		   return spiral;
+	   }
 	   
 	    /************** https://www.geeksforgeeks.org/inplace-rotate-square-matrix-by-90-degrees/     ***************/
 	    public static void rotateMatrixAntiClockWise90(int[][] m) {

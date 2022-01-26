@@ -72,10 +72,10 @@ public class Trie {
 		TrieNode tNode=root;
 		for(int i=0;i<key.length();i++) {
 			index=key.charAt(i)-'a';
-			if(tNode.children[i]==null) {
+			if(tNode.children[index]==null) {
 				return 0;
 			}
-			tNode=tNode.children[i];
+			tNode=tNode.children[index];
 		}
 		boolean isWord=tNode.isEnd;
 		boolean isLast=isLast(tNode);
@@ -84,7 +84,7 @@ public class Trie {
 			return -1;
 		}
 		if(!isLast) {
-			
+			display(tNode,key);
 		}
 		return 0;
 	}
@@ -120,8 +120,10 @@ public class Trie {
 			System.out.println("thaw --- " + output[1]); 
 		else System.out.println("thaw --- " + output[0]); 
 		
-		System.out.println("The contents of Trie are");
-		display(root,"");
+		//System.out.println("The contents of Trie are");
+		//display(root,"");
+		
+		autoSuggestions("their");
 
 	}
 

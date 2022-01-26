@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.Vector;
+import java.util.*;
 
 public class BinaryTree {
 	
@@ -49,7 +50,7 @@ public class BinaryTree {
 		if(root==null) {
 			return;
 		}
-		Stack s=new Stack();
+		Stack<Node> s=new Stack<Node>();
 		while(root!=null ||!s.isEmpty()) {
 			while(root!=null) {
 				s.push(root);
@@ -100,8 +101,8 @@ public class BinaryTree {
 	public void postOrderWithoutRecurssion(Node root) {
 		if(root==null)
 			return;
-		Stack s1=new Stack();
-		Stack s2=new Stack();
+		Stack<Node> s1=new Stack<Node>();
+		Stack<Node> s2=new Stack<Node>();
 		s1.push(root);
 		while(!s1.empty()) {
 			Node temp=(Node)s1.pop();
@@ -128,10 +129,10 @@ public class BinaryTree {
 	
 	public void preOrderWithoutRecurssion(Node root) {
 		Node current=root;
-		Stack s =new Stack();
+		Stack<Node> s =new Stack<Node>();
 		s.push(root);
 		while(!s.isEmpty()) {
-			current=(Node)s.pop();
+			current= s.pop();
 			System.out.print(current.data+" ");
 			if(current.right!=null) {
 				s.push(current.right);
@@ -208,7 +209,7 @@ public class BinaryTree {
 			if(root==null) {
 				return;
 			}
-			Queue q = new LinkedList();
+			Queue<Node> q = new LinkedList<Node>();
 			q.add(root);
 			while(!q.isEmpty()) {
 				Node temp=(Node) q.peek();
@@ -222,6 +223,43 @@ public class BinaryTree {
 				}
 			}
 		}
+		
+		public void levelOrderSpiralWithoutRecurssion(Node root,boolean isSpiral,boolean isLeftToRght) {
+			if(root==null) {
+				return;
+			}
+			//Queue<Node> q = new LinkedList<Node>();
+			Deque<Node> q = new LinkedList<Node>();
+			q.add(root);
+			while(!q.isEmpty()) {
+				int count=q.size();
+				for(int i=0;i<count;i++) {
+					if(isLeftToRght) {
+						Node temp=q.getFirst();
+						q.pollFirst();
+						System.out.print(temp.data+"");
+						if(temp.left!=null) {
+							q.addLast(temp.left);
+						}
+						if(temp.right!=null) {
+							q.addLast(temp.right);
+						}
+					}else {
+						Node temp=q.getLast();
+						q.pollLast();
+						System.out.print(temp.data+"");
+						if(temp.right!=null) {
+							q.addFirst(temp.right);
+						}
+						if(temp.left!=null) {
+							q.addFirst(temp.left);
+						}
+					}
+				}
+				isLeftToRght=isSpiral=true?!isLeftToRght:isLeftToRght;
+			}
+		}
+		
 	
 	public Node levelOrderInsert(Node root,int d) {
 		Node newNode=new Node(d);
@@ -229,7 +267,7 @@ public class BinaryTree {
 			root=newNode;
 			return root;
 		}
-		Queue q=new LinkedList();
+		Queue<Node> q=new LinkedList<Node>();
 		q.add(root);
 		while(!q.isEmpty()) {
 			Node temp=(Node) q.peek();
@@ -583,7 +621,7 @@ public class BinaryTree {
 		if(root==null) {
 			return;
 		}
-		Queue q=new LinkedList();
+		Queue<Node> q=new LinkedList<Node>();
 		Map<Integer,Integer> m=new TreeMap<Integer,Integer>();
 		root.hd=0;
 		q.add(root);
@@ -611,7 +649,7 @@ public class BinaryTree {
 		if(root==null) {
 			return;
 		}
-		Queue q=new LinkedList();
+		Queue<Node> q=new LinkedList<Node>();
 		Map<Integer,Integer> m=new TreeMap<Integer,Integer>();
 		root.hd=0;
 		q.add(root);
@@ -694,7 +732,7 @@ public class BinaryTree {
 		return (lFound||rFound);
 	}
 	
-	public boolean findPathForLCA(Node root,int x,ArrayList path) {
+	public boolean findPathForLCA(Node root,int x,ArrayList<Integer> path) {
 		Node current=root;
 		boolean lFound,rFound;
 		if(current==null) {
@@ -719,8 +757,8 @@ public class BinaryTree {
 		if(root==null) {
 			return -1;
 		}
-		ArrayList path1=new ArrayList();
-		ArrayList path2=new ArrayList();
+		ArrayList<Integer> path1=new ArrayList<Integer>();
+		ArrayList<Integer> path2=new ArrayList<Integer>();
 		if(!findPathForLCA(root,x1,path1) || !findPathForLCA(root,x2,path2)) {
 			return -1;
 		}
@@ -748,8 +786,8 @@ public class BinaryTree {
 		if(root==null) {
 			return false;
 		}
-		ArrayList path1=new ArrayList();
-		ArrayList path2=new ArrayList();
+		ArrayList<Integer> path1=new ArrayList<Integer>();
+		ArrayList<Integer> path2=new ArrayList<Integer>();
 		if(!findPathForLCA(root,x1,path1) || !findPathForLCA(root,x2,path2)) {
 			return false;
 		}
@@ -835,7 +873,7 @@ public class BinaryTree {
 	public void findMaxAtEachLevel(Node root) {
 		if(root==null)
 			return;
-		Queue q=new LinkedList();
+		Queue<Node> q=new LinkedList<Node>();
 		q.add(root);
 		int nodeCount=q.size();
 		while(!q.isEmpty()) {
@@ -1166,6 +1204,7 @@ public class BinaryTree {
 		tree.root.right.right=new Node(27);
 		tree.root.right.left.left=new Node(5);
 		tree.root.right.left.right=new Node(6);
+		tree.levelOrderSpiralWithoutRecurssion(tree.root,true,true);
 //		
 //		tree.root1=new Node(20);
 //		tree.root1.left=new Node(26);
@@ -1208,9 +1247,9 @@ public class BinaryTree {
 //		System.out.println("Level Order traversal of tree without recurssion is");
 //		tree.levelOrderWithoutRecurssion(tree.root);
 //		System.out.println();
-		System.out.println("Boundary traversal of tree is");
-		tree.boundaryTravaersal(tree.root);
-		System.out.println();
+//		System.out.println("Boundary traversal of tree is");
+//		tree.boundaryTravaersal(tree.root);
+//		System.out.println();
 //		System.out.println("Vertical order traversal of tree is");
 //		tree.verticalOrderTraversal(tree.root);
 //		System.out.println();
@@ -1280,7 +1319,7 @@ public class BinaryTree {
 //		Node target=root7.left.right.right;
 //		System.out.println("Nodes at particular distance from target node are ");
 //		tree.NodesAtParticularDistanceFromGivenNode(root7, target, 3);
-		System.out.println();
+//		System.out.println();
 //		System.out.println("Nodes at particular distance from root is");
 //		tree.NodesAtParticulardistanceFromrRoot(tree.root, 2);
 //		System.out.println();

@@ -27,8 +27,8 @@ public class DynamicProgramming {
 //		int[] longestIncreasingSubsequence=JavaUtil.createArray();
 //		longestIncreasingSubSequence(longestIncreasingSubsequence);
 //		
-//		int[] matrixChainMultiplication = JavaUtil.createArray();
-//		matrixChainMultiplication(matrixChainMultiplication);
+		int[] matrixChainMultiplication = JavaUtil.createArray();
+		matrixChainMultiplication(matrixChainMultiplication);
 //		
 //		ArrayList<int[]> arr= new ArrayList<int[]>();
 //		int n;
@@ -85,10 +85,10 @@ public class DynamicProgramming {
 //		int[] maxProductSubArray = JavaUtil.createArray();
 //		maxProductSubArray(maxProductSubArray);
 //
-		int[] givenSumSubArrays = JavaUtil.createArray();
-		System.out.println("Enter the required sum");
-		int sum=in.nextInt();
-		givenSumSubArrays(givenSumSubArrays,sum);
+//		int[] givenSumSubArrays = JavaUtil.createArray();
+//		System.out.println("Enter the required sum");
+//		int sum=in.nextInt();
+//		givenSumSubArrays(givenSumSubArrays,sum);
 //		
 //		int[] dividArrayWithEqualSum = JavaUtil.createArray();
 //		dividArrayWithEqualSum(dividArrayWithEqualSum);
@@ -259,7 +259,7 @@ public class DynamicProgramming {
 		boolean isFirst=true;
 		for(int i=0;i<pattern.length;i++) {
 			if(pattern[i]=='*') {
-				if(isFirst) {
+				if(isFirst) { 
 					pattern[index++]=pattern[i];
 					isFirst=false;
 				}
@@ -607,6 +607,19 @@ public class DynamicProgramming {
 					}
 				}
 			}
+		}
+		for(i=0;i<n;i++) {
+			for(j=0;j<n;j++) {
+				System.out.print(m[i][j]+" ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+		for(i=0;i<n;i++) {
+			for(j=0;j<n;j++) {
+				System.out.print(s[i][j]+" ");
+			}
+			System.out.println();
 		}
 		System.out.println("Minimum no of scalar multiplications required is "+m[1][n-1]);
 		printParenthesis(1,n-1,s);

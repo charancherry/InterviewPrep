@@ -87,8 +87,8 @@ public class Array {
 //		int[]  findMaxSubArray=JavaUtil.createArray();
 //		findMaxSubArray(findMaxSubArray);
 //
-//		int[]  findMinSubArray=JavaUtil.createArray();
-//		findMinSubArray(findMinSubArray);
+		int[]  findMinSubArray=JavaUtil.createArray();
+		findMinSubArray(findMinSubArray);
 //
 //		int[]  findMaxProductSubArray=JavaUtil.createArray();
 //		findMaxProductSubArray(findMaxProductSubArray);
@@ -233,10 +233,10 @@ public class Array {
 //		int den=in.nextInt();
 //		findRecurrenceDigits(num,den);
 		
-		int[] subArrayWithGivenSum = JavaUtil.createArray();
-		System.out.println("Enter required sum");
-		int n=in.nextInt();
-		subArrayWithGivenSum(subArrayWithGivenSum,n);
+//		int[] subArrayWithGivenSum = JavaUtil.createArray();
+//		System.out.println("Enter required sum");
+//		int n=in.nextInt();
+//		subArrayWithGivenSum(subArrayWithGivenSum,n);
 		
 		
 	}
@@ -275,7 +275,7 @@ public class Array {
 				}
 			}
 			JavaUtil.swap(arr,i,min_index);
-			JavaUtil.print(arr);
+			//JavaUtil.print(arr);
 		}
 	}
 
@@ -495,7 +495,7 @@ public class Array {
 				noOfPlatforms--;
 				j++;
 			}
-		} // plat_needed indicates number of platforms
+		}
 		return totalNumberOfPlatforms;
 
 	}
@@ -556,7 +556,7 @@ public class Array {
 
 	/****************************   https://www.geeksforgeeks.org/largest-subarray-with-equal-number-of-0s-and-1s/    ***************/	
 	public static void MaxSubArrayWithEqualNumberOfOneAndZero(int[] arr) {
-		int sum=arr[0],max=Integer.MIN_VALUE,start=-1;
+		int sum=arr[0],max=-1,start=-1;
 		for(int i=0;i<arr.length;i++) {
 			sum = arr[i]==0?-1:1;
 			for(int j=i+1;j<arr.length;j++) {
@@ -571,7 +571,7 @@ public class Array {
 				}
 			}
 		}
-		if(sum==-1) {
+		if(max==-1) {
 			System.out.println("Sub-array does not exist");
 		}else {
 			System.out.println("max sub array is of size"+max);
@@ -789,7 +789,7 @@ public class Array {
 	/*********   https://www.geeksforgeeks.org/shuffle-2n-integers-format-a1-b1-a2-b2-a3-b3-bn-without-using-extra-space/  ***********/
 	public static void shuffleArray(int[] arr,int l,int r) {
 		if(l<r) {
-			if(l-r==1) {
+			if(r-l==1) {
 				return;
 			}
 			int mid=(l+r)/2;
@@ -969,7 +969,7 @@ public class Array {
 			}
 		}
 		ArrayList a = map.get(max_key);
-		int rand=(int)Math.random()%max_key;
+		int rand=(int)Math.random()%max;
 			System.out.print(a.get(rand));
 	}
 	

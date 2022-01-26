@@ -235,7 +235,7 @@ public class LinkedList {
 		if(head==null || head.next==null) {
 			return;
 		}
-		while(temp!=null) {
+		while(temp.next!=null) {
 			next=temp.next;
 			temp.next=next.next;
 			next.next=temp;
@@ -474,8 +474,8 @@ public class LinkedList {
 //		list.print(head2);
 
 		list.print(list.head);
-		list.head=list.pairswapNode(list.head,2);
-		list.print(list.head);
+//		list.head=list.pairswapNode(list.head,2);
+//		list.print(list.head);
 //		list.head=list.reverse(list.head);
 //		list.delete(0);
 //		list.head=list.reverse(list.head);
@@ -488,7 +488,8 @@ public class LinkedList {
 //		list.swapNodes(0, 5);
 //		list.deleteDuplicatesInSortedLinkedList();
 //		list.moveLastNodeToFirst();
-//		list.pairWiseSwapNodes();
+		list.pairWiseSwapNodes();
+		list.print(list.head);
 //		list.isPalyndrome();
 //		list.intersectionOfTwoNodes(list.head, head2);
 //		list.segregateOddAndEven();

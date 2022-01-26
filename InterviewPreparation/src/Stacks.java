@@ -258,6 +258,8 @@ public class Stacks {
 		System.out.println("Balanced");
 	}
 	
+	
+	/********************** https://www.geeksforgeeks.org/the-stock-span-problem/     ********************/
 	public static void stockSpanProb(int[] prices) {
 		Stack s=new Stack();
 		int[] span=new int[prices.length];
